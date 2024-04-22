@@ -1,7 +1,9 @@
 function Btn_Edit(Button, Userinformations, Form) {
+    
     const buttonElement = document.getElementById(Button);
     if (buttonElement.classList.contains("MyUncollapse")) {
         buttonElement.style.display = "none";
+        
         document.getElementById(Userinformations).classList.replace("MyUncollapse", "MyCollapse");
         document.getElementById(Form).classList.replace("MyCollapse", "MyUncollapse");
     }

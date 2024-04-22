@@ -5,6 +5,6 @@
         }
         protected function Index(){
             $this->returnView('index');
-        }
+        } 
     } 
 ?>
