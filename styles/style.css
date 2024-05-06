@@ -10,7 +10,7 @@
     margin-bottom: 10px;
 }
 .MyCollapse {
-    display: none;
+    display:none;
   }
 .MyUncollapse{
     display: block;

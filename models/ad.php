@@ -7,22 +7,50 @@
         }
         public function add(){
             // Sanitize POST
-            $post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-            if($post['submit']){
-                if($post['title'] == '' || $post['content'] == ''){
-                Messages::setMsg('Proszę wypełnić wszystkie pola', 'error');
-                return;
-                }
-                $this->query('INSERT INTO ads (title, content, user_id) VALUES(:title, :content, :user_id)');
-                $this->bind(':title', $post['title']);
-                $this->bind(':content', $post['content']);
-                $this->bind(':user_id', $_SESSION['user_data']['id']);
-                $this->execute();
-                if($this->lastInsertId()){
-                    return true;
+            return false;
+        }
+        public function Add_PositionNameView(){
+            $companyName = "";
+            if(isset($_SESSION['user_data']))
+            {
+                $this->query('SELECT name from company where user_id = :user_id');
+                $this->bind(':user_id',$_SESSION['user_data']['id']);
+                $row =   $this->single();
+                if(isset($row['name']))
+                {
+                    $companyName = $row['name'];
+                }else
+                {
+                    $companyName = "Nie znaleziono nazwy firmy"; 
                 }
             }
-            return false;
+            ob_start();
+            ?>
+            <div class="container ">
+                <div class="row">
+                    <h1 id="Add_PositionName" class="col MyCollapse col">
+                        <input type="TEXT" name='input_PositionName' class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0" value="Name"> 
+                    </h1>
+                </div>
+                <div class="row">
+                    <div class="col MyUncollapse" id = "PositionName_View"> 
+                        <h1 name = "PositionName">Name</h1>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h2 class="fs-5"><?php echo $companyName;?> <a href="" class="text-decoration-none ml-2" title="Dowiedz się więcej o danej firmie"> O firmie</a></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="  align-items-top justify-content-end">
+                <button id="btn_changePositionName" type="button" class="btn btn-outline-secondary m-1" onclick="RepeatText('input_PositionName','PositionName'),CollapseUncollapseForm('PositionName_View','Add_PositionName'),changeImage('changeposition_image','<?php echo ROOT_IMG ?>/checked.png','<?php echo ROOT_IMG ?>/edit.png')"><img id="changeposition_image" src="<?php echo ROOT_IMG ?>/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
+            </div>
+            <?php
+            $content = ob_get_contents();
+            ob_end_clean();
+            return $content;
         }
         public function remove($id) {
             if(intval($id) > 0) {

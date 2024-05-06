@@ -10,10 +10,11 @@
                     return;
                 }
                 // Insert into MySQL
-                $this->query('INSERT INTO user (login, password, role_id) VALUES(:login, :password,:user_type)');
+                $this->query("INSERT INTO `user`(`login`, `password`, `role_id`) VALUES (:login,:password,:user_type)");
                 $this->bind(':login', $post['login']);
                 $this->bind(':password', $password);
                 $this->bind(':user_type', 1);
+                
                 $this->execute();
                 $createAccount = $this->lastInsertId();
                 
@@ -29,8 +30,7 @@
             $password = sha1($post['password']);
             if($post['submit']){
                 // Compare Login
-                $this->query('SELECT * FROM user WHERE
-                login = :login AND password = :password');
+                $this->query('SELECT * FROM user WHERE login = :login AND password = :password');
                 $this->bind(':login', $post['login']);
                 $this->bind(':password', $password);
                 

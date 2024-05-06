@@ -24,9 +24,21 @@
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="<?php echo ROOT_URL; ?>home/test">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="<?php echo ROOT_URL; ?>admin/Index">Home</a>
-                    </li>
+
+                    <?php   
+                        if (isset($_SESSION['is_logged_in'])) 
+                        {
+                            if($_SESSION['user_data']['type'] == 3)
+                            {
+                                ?>
+                                <li class="nav-item">
+                                    <a class="nav-link" aria-current="page" href="<?php echo ROOT_URL; ?>company/Index">Home</a>
+                                </li>
+                                <?php
+                            }
+                        }
+                    ?>
+                    
                     <!-- <li class="nav-item">
                         <a class="nav-link" href="#">Link</a>
                     </li> -->
