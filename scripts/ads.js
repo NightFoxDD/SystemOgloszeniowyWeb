@@ -181,11 +181,13 @@ function showDuties(){
     const container = document.getElementById('containerDuties');
     var body = "";
     container.innerHTML="";
+    document.getElementsByName('InputDuties')[0].value = "";
     duties.forEach(dutie => {
+        document.getElementsByName('InputDuties')[0].value += dutie + ";";
         var svg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dodgerblue" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
         </svg>`;
-        body += `<li class="list-group-item border-0"> ${svg} ${dutie} <input type = "text" name='dutie_${duties.indexOf(dutie)}' value = '${dutie}'><button type='button' onclick = 'deleteDutie(${duties.indexOf(dutie)})'>remove</button></li>`;
+        body += `<li class="list-group-item border-0"> ${svg} ${dutie}<button type='button' onclick = 'deleteDutie(${duties.indexOf(dutie)})'>remove</button></li>`;
     });
 
     container.innerHTML = body;
@@ -207,13 +209,14 @@ function showRequirements(){
     const container = document.getElementById('containerRequirements');
     var body = "";
     container.innerHTML="";
+    document.getElementsByName('InputRequirements')[0].value = "";
     requirements.forEach(requirement => {
+        document.getElementsByName('InputRequirements')[0].value += requirement + ";";
         var svg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dodgerblue" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
         </svg>`;
-        body += `<li class="list-group-item border-0"> ${svg} ${requirement} <input type = "text" name='requirement_${requirements.indexOf(requirement)}' value = '${requirement}'><button type='button' onclick = 'deleteRequirement(${requirements.indexOf(requirement)})'>remove</button></li>`;
+        body += `<li class="list-group-item border-0"> ${svg} ${requirement} <button type='button' onclick = 'deleteRequirement(${requirements.indexOf(requirement)})'>remove</button></li>`;
     });
-
     container.innerHTML = body;
 }
 function addRequirements(){
@@ -237,9 +240,12 @@ function showWelcome(){
         var svg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gray" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
         </svg>`;
-        body += `<li class="list-group-item border-0"> ${svg} ${welcomeItem} <input type = "text" name='welcome_${welcome.indexOf(welcomeItem)}' value = '${welcomeItem}'><button type='button' onclick = 'deleteWelcome(${welcome.indexOf(welcomeItem)})'>remove</button></li>`;
+        body += `<li class="list-group-item border-0"> ${svg} ${welcomeItem} <button type='button' onclick = 'deleteWelcome(${welcome.indexOf(welcomeItem)})'>remove</button></li>`;
     });
-
+    document.getElementsByName('InputWelcome')[0].value = "";
+    welcome.forEach(element => {
+        document.getElementsByName('InputWelcome')[0].value += element + ";";
+    });
     container.innerHTML = body;
 }
 function addWelcome(){
@@ -269,13 +275,16 @@ function showBenefits(){
                             ${svg}
                         </div>
                         <div class="d-flex justify-content-center align-items-center">
-                            <p class="text-center">${benefit}<input type = "text" name='benefit_${benefits.indexOf(benefit)}' value = '${benefit}'></p>
+                            <p class="text-center">${benefit}</p>
                         </div>
                         <button type='button' onclick = 'deleteBenefit(${benefits.indexOf(benefit)})'>remove</button>
                     </div>
                 </div> `;
     });
-
+    document.getElementsByName('InputBenefits')[0].value = "";
+    benefits.forEach(element => {
+        document.getElementsByName('InputBenefits')[0].value += element + ";";
+    });
     container.innerHTML = body;
 }
 function addBenefit(){
@@ -283,6 +292,7 @@ function addBenefit(){
     benefits.push(value);
     document.getElementsByName('InputBenefit')[0].value = "";
     showBenefits();
+    
 }
 function deleteBenefit(element){
     benefits.splice(element, 1);
@@ -299,11 +309,13 @@ function showDescriptions(){
         
         body += ` <div class="col-12 mt-5 border rounded-3 shadow-sm p-4">
                     ${descriptionItem}
-                    <input type='text' name="description_${descriptions.indexOf(descriptionItem)}" value = '${descriptionItem}'>
                         <button type='button' onclick = 'deleteDescription(${descriptions.indexOf(descriptionItem)})'>remove</button>
                 </div> `;
     });
-
+    document.getElementsByName('InputDescriptions')[0].value = "";
+    descriptions.forEach(element => {
+        document.getElementsByName('InputDescriptions')[0].value += element + ";";
+    });
     container.innerHTML = body;
 }
 function addDescription(){
@@ -311,6 +323,7 @@ function addDescription(){
     descriptions.push(value);
     document.getElementsByName('TextAreaDescription')[0].value = "";
     showDescriptions();
+
 }
 function deleteDescription(element){
     descriptions.splice(element, 1);

@@ -87,6 +87,7 @@
             <textarea name = "inputDutie"></textarea>
         </li>
         <button type="button" onclick="addDutes()">Dodaj obowiazek</button>
+        <input type="text" name="InputDuties">
         <h1 class="fs-3">Twój zakres obowiązków</h1>
         <ul class="list-group list-group-flush" id="containerDuties">
           
@@ -101,6 +102,7 @@
             </svg>
             <textarea name = "Textarea_requirements"></textarea>
             <button type="button" onclick="addRequirements()">dodaj</button>
+            <input type="text" name="InputRequirements">
         </li>
         <h1 class="fs-3">Nasze wymagania</h1>
         <ul class="list-group list-group-flush" id = "containerRequirements">
@@ -112,6 +114,7 @@
             </svg>
             <textarea name = "Textarea_welcome"></textarea>
             <button type="button" onclick="addWelcome()">dodaj</button>
+            <input type="text" name="InputWelcome">
         </li>
         <h1 class="fs-3">Mile widziane</h1>
         <ul class="list-group list-group-flush" id = "containerWelcome">
@@ -132,6 +135,7 @@
                     <p class="text-center"><input type="text" name="InputBenefit"></p>
                 </div>
                 <button type="button" onclick="addBenefit()">dodaj benefit</button>
+                <input type="text" name = "InputBenefits"> 
             </div>
         </div>
         <h2 class="fs-4">Benefity</h2>
@@ -146,6 +150,7 @@
         <div class="col-12 mt-5 border rounded-3 shadow-sm p-4">
            <textarea name="TextAreaDescription"></textarea>
            <button type="button" onclick="addDescription()">Add</button>
+           <input name="InputDescriptions">
         </div>
         <div id = "ContainerDescription"></div>
     </div>
