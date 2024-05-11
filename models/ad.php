@@ -7,6 +7,15 @@
         }
         public function add(){
             // Sanitize POST
+            echo"<pre>";
+            print_r(($_POST));
+            echo "</pre>";
+            echo $_SESSION['user_data']['id'];
+            if($_POST("add"))
+            {
+                
+            }
+            die();
             return false;
         }
         public function Add_PositionNameView(){
