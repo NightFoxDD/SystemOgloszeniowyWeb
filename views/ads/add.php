@@ -17,14 +17,13 @@
                      <div class="col justify-content-center align-items-center" >
                         <input type="color" id="TMP_Color" value="#0099E6" onchange="ChangeTmpImageColor()">
                         <select id="Subject_BasicInfromations" onchange="ChangeTmpImage()" onload="ChangeTmpImage()">
-                            <option>0</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option></option>
+                            <option value="0">lokalizacja</option>
+                            <option value="2">Typ umowy</option>
+                            <option value="4">Stanowisko</option>
+                            <option value="1">Czas oczekiwania na pracę</option>
+                            <option value="3">Termin</option>
+                            <option value="5">Rodzaj pracy (zdalna/stacjonarna/hybrydowa)</option>
+                            <option value="6">Typ zatrudnienia</option>
                         </select>   
                             <div class="float-start rounded-2 d-flex justify-content-center align-items-center" id = "tmp_image">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="dodgerblue" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
@@ -56,12 +55,10 @@
                                 </div>
                                 
                             </div>
-                        <button type="button" onclick="adsssd()" class="button" id="AddBasicInformaiton">Add</button>
+                        <button type="button" onclick="addBasicInformations()" class="button" id="AddBasicInformaiton">Add</button>
                     </div>
                 </div>
                 <div class="row" id="BasicInformations">
-                   
-                    
                 </div>
                 
             </div>
@@ -70,14 +67,21 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-12 mt-5">
-        <iframe class="rounded-4" src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d657940.051106515!2d20.090383960156245!3d49.8973328250177!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sgoogle%20map%20html!5e0!3m2!1spl!2spl!4v1701428323050!5m2!1spl!2spl" width="100%" height="350em" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div id = "addMapPoint">
+            <input type="text" name = "inputMapPoint">
+            <button type="button" onclick="addMapPoint()">ADD</button>
+        </div>
+        <div id = "deleteMapPoint" style="visibility:hidden;">
+            <button type="button" onclick="removeMapPoint()">remove</button>
+        </div>
+        <div class="col-12 mt-5" id = "Container_AddMapPoint">
+           
         </div>
     </div>
     <div class="row">
         <div class="col mt-5 rounded-3 shadow-sm border p-3">
         <h1 class="fs-3">Twój zakres obowiązków</h1>
-        <ul class="list-group list-group-flush">
+        <ul class="list-group list-group-flush" id="containerDuties">
             <li class="list-group-item border-0">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dodgerblue" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
