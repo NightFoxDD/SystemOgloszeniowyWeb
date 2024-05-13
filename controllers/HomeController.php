@@ -4,7 +4,11 @@ class HomeController extends Controller{
         return 'home';
     }
     protected function Index(){
-        $this->returnView('index');
+        $homeModel = new Home();
+        $model = [
+            "lastAds"=>$homeModel->getLastAdsArray(),
+        ];
+        $this->returnView('index',$model);
     }
     public function test(){
         $this->returnView('home');

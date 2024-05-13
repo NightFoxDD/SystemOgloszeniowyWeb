@@ -5,6 +5,7 @@
             $model = [
                  
             ];
+            
             $this->returnView('index', $model);
         }
         protected function getName() {

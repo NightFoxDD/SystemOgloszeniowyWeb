@@ -8,7 +8,7 @@
             <div class="container">
               <div class="row">
                 <div class="col">
-                  <h1>zawod</h1>
+                  <h1>zawod </h1>
                 </div>
               </div>
               <div class="row">

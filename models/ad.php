@@ -11,12 +11,31 @@
             print_r(($_POST));
             echo "</pre>";
             echo $_SESSION['user_data']['id'];
-            if($_POST("add"))
-            {
-                
-            }
-            die();
-            return false;
+            $Localization = $_POST['InputTitle_0'] . ";" . $_POST['InputDescription_0'];
+            $TimeRemaining = $_POST['InputTitle_1'] . ";" . $_POST['InputDescription_1'];
+            $ContractType = $_POST['InputTitle_2'] . ";" . $_POST['InputTitle_2'];
+            $ExpireDate = $_POST['InputTitle_3'] . ";" . $_POST['InputDescription_3'];
+            $PositionLevel = $_POST['InputTitle_4'] . ";" . $_POST['InputDescription_4'];
+            $WorkType = $_POST['InputTitle_5'] . ";" . $_POST['InputDescription_5'];
+            $TypeOfEmployment = $_POST['InputTitle_6'] . ";" . $_POST['InputDescription_6'];
+            $this->query("INSERT INTO `announcement`(`company_id`,`position_name`,`localization`, `position_level`, `contract_type`, `working_time`, `work_type`, `expire_date`, `typeOfEmployment`,`duties`,`requirements`,`benefits`,`Map`,`descriptions`) VALUES (:company_id,:positionName,:localization,:positionLevel,:contractType,:timeRemaining,:workType,:expireDate,:typeOfEmployment,:duties,:requirements,:benefits,:map,:description)");
+            $this->bind(':company_id', $_SESSION['user_data']['id']);
+            $this->bind(':positionName', $_POST['input_PositionName']);
+            $this->bind(':localization', $Localization);
+            $this->bind(':timeRemaining', $TimeRemaining);
+            $this->bind(':contractType', $ContractType);
+            $this->bind(':expireDate', $ExpireDate);
+            $this->bind(':positionLevel', $PositionLevel);
+            $this->bind(':workType', $WorkType);
+            $this->bind(':typeOfEmployment', $TypeOfEmployment);
+            $this->bind(':duties', $_POST['InputDuties']);
+            $this->bind(':requirements', $_POST['InputRequirements'] . "_" . $_POST['InputWelcome']);
+            $this->bind(':description', $_POST['InputDescriptions']);
+            $this->bind(':map', $_POST['InputMapPoint']);
+            $this->bind(':benefits', $_POST['InputBenefits']);
+            $this->execute();
+
+            return true;
         }
         public function Add_PositionNameView(){
             $companyName = "";

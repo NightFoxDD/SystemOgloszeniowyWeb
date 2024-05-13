@@ -21,6 +21,7 @@ var defaultColor = "#0099E6";
 ChangeTmpImageColor();
 updateSelectOptions();
 
+
 //BASIC FUNCTIONS
 function CollapseUncollapseForm(Userinformations, Form){
 
@@ -70,7 +71,7 @@ function addBasicInformations(){
     <div class="p-4">
         <h2 class="fs-4">
             <p id="PositionName_1">${content.value}</p>
-            <input type='text' name='InputTitle_${type}' value='${content.value}'>
+            <input type='text' name='InputTitle_${type}' value='${content.value}_${color}'>
         </h2>
         <p class="fs-6 text-gray">
             ${description.value}
