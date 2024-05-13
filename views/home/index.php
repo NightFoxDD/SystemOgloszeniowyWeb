@@ -191,7 +191,7 @@
         <div class="col">
             <div id="m" class="carousel mt-5">
                 <div class="container">
-                    <div class="row d-flex justify-content-center">
+                    <div class="row d-flex justify-content-center mb-3">
                         <button type="button" class="col-3 active button text-primary bg-transparent border-0 m-1 p-1 border-bottom border-primary" data-bs-target="#m" data-bs-slide-to="0" aria-current="true" aria-label="Slide 1">Ostatio oglądane</button>
                         <button type="button" class="col-3 button text-primary bg-transparent border-0 m-1 p-1 border-bottom border-primary" data-bs-target="#m" data-bs-slide-to="1" aria-label="Slide 2">Najnowsze oferty</button>
                         <button type="button" class="col-3 button text-primary bg-transparent border-0 m-1 p-1 border-bottom border-primary" data-bs-target="#m" data-bs-slide-to="2" aria-label="Slide 3">Super oferty</button>
@@ -203,10 +203,11 @@
                             <div class="container">
                                 <div class="row d-flex justify-content-start">
                                 <?php 
-                                        foreach ($model['lastAds'] as $content ) {
-                                            echo $content;
-                                        }
-                                    ?>
+                                    foreach ($model['lastAds'] as $content ) {
+                                        echo $content;
+                                    }
+                                ?>
+                                
                                 </div>
                                 <div class="row">
                                     <div class="col-12 d-flex justify-content-center">

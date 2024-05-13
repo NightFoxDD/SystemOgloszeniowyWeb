@@ -1,6 +1,7 @@
 <?php
     class AdsController extends Controller{
         protected function Index(){
+            
             $adsModel = new Ad();
             $model = [
                  
