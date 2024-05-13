@@ -12,8 +12,5 @@ class HomeController extends Controller{
         ];
         $this->returnView('index',$model);
     }
-    public function test(){
-        $this->returnView('home');
-    }
 }
 ?>

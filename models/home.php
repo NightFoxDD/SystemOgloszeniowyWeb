@@ -1,7 +1,7 @@
 <?php
     class Home extends Model{
         public function getLastAdsView($item){
-            $this->query("SELECT * FROM `company` WHERE user_id = :company_id");
+            $this->query("SELECT * FROM `company` WHERE company_id = :company_id");
             $this->bind(':company_id',$item['company_id']);
             $company = $this->single();
             ob_start();

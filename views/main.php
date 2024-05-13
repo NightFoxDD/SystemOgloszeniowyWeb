@@ -22,7 +22,7 @@
                 
                 <ul class="navbar-nav me-auto d-lg-flex d-none">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="<?php echo ROOT_URL; ?>home/test">Home</a>
+                        <a class="nav-link" aria-current="page" href="<?php echo ROOT_URL; ?>home/index">Home</a>
                     </li>
 
                     <?php   

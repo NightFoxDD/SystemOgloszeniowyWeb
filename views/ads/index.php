@@ -4,18 +4,9 @@
       <ul class="list-group list-group-flush">
         <li class="list-group-item">
           <div class="d-flex justify-content-start align-items-top">
-            <img src="<?php echo ROOT_IMG ?>Swiftlly_transparent_Logo.png" height="128" alt="Zdjęcie profilowe firmy">
+              <?php echo $model['CompanyImage']; ?>
             <div class="container">
-              <div class="row">
-                <div class="col">
-                  <h1>zawod </h1>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <h2 class="fs-5">firma <a href="" class="text-decoration-none ml-2" title="Dowiedz się więcej o danej firmie"> O firmie</a></h2>
-                </div>
-              </div>
+              <?php echo $model['PositionName'];?>
             </div>
           </div>
         </li>

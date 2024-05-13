@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 02, 2024 at 09:52 PM
+-- Generation Time: Maj 13, 2024 at 10:36 PM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -29,20 +29,32 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `announcement` (
   `announcement_id` int(10) UNSIGNED NOT NULL,
-  `company_id` int(10) UNSIGNED NOT NULL,
-  `category_id` int(10) UNSIGNED NOT NULL,
+  `company_id` int(10) UNSIGNED DEFAULT NULL,
+  `category_id` int(10) UNSIGNED DEFAULT NULL,
   `subcategory_id` int(10) UNSIGNED DEFAULT NULL,
-  `position_name` varchar(75) NOT NULL,
-  `position_level` enum('Praktykant / StaÄąÄ˝ysta','Asystent','MÄąâ€šodszy specjalista (Junior)','Specjalista (Mid/Regular)','Starszy Specjalista (Senior)','Ekspert','Kierownik / koordynator','MenedÄąÄ˝er','Dyrektor','Prezes','Pracownik fizyczny') NOT NULL,
-  `contract_type` enum('Umowa o pracĂ„â„˘','Umowa o dzieÄąâ€šo','Umowa zlecenie','Kontrakt B2B','Umowa na zastĂ„â„˘pstwo','Umowa agencyjna','Umowa o pracĂ„â„˘ tymczasowĂ„â€¦','Umowa o staÄąÄ˝ / praktyki') NOT NULL,
-  `working_time` enum('CzĂ„â„˘Äąâ€şĂ„â€ˇ etatu','Dodatkowa / tymczasowa','PeÄąâ€šny etat','') NOT NULL,
-  `work_type` enum('Praca stacjonarna','Praca hybrydowa','Praca zdalna','Praca mobilna') NOT NULL,
-  `working_hours` varchar(11) NOT NULL,
-  `expire_date` date NOT NULL,
+  `localization` text NOT NULL,
+  `Map` text NOT NULL,
+  `position_name` text NOT NULL,
+  `position_level` text NOT NULL,
+  `contract_type` text NOT NULL,
+  `working_time` text NOT NULL,
+  `work_type` text NOT NULL,
+  `expire_date` text NOT NULL,
+  `typeOfEmployment` text NOT NULL,
   `duties` text NOT NULL,
   `requirements` text NOT NULL,
-  `benefits` text NOT NULL
+  `benefits` text NOT NULL,
+  `descriptions` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+--
+-- Dumping data for table `announcement`
+--
+
+INSERT INTO `announcement` (`announcement_id`, `company_id`, `category_id`, `subcategory_id`, `localization`, `Map`, `position_name`, `position_level`, `contract_type`, `working_time`, `work_type`, `expire_date`, `typeOfEmployment`, `duties`, `requirements`, `benefits`, `descriptions`) VALUES
+(19, 1, NULL, NULL, 'Default title;Default description', 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d41307.89305404976!2d20.3778259!3d49.6779736!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471604ac3d8d1f55%3A0xd36b3f6f6c764ae0!2zS2_Fm2Npw7PFgiDFm3cuIEFuZHJ6ZWphIEFwb3N0b8WCYSB3IFPFgm9wbmljYWNoIERvbG55Y2g!5e0!3m2!1spl!2spl!4v1715593993405!5m2!1spl!2spl}', 'Name', 'Default title;Default description', 'Default title;Default title', 'Default title;Default description', 'Default title;Default description', 'Default title;Default description', 'Default title;Default description', 'asf;Twój zakres obowiązków;', 'Twój zakres obowiązków;Twój zakres obowiązkówTwój zakres obowiązków;_', 'Twój zakres obowiązków;Twój zakres obowiązkówTwój zakres obowiązków;', 'Twój zakres obowiązków;'),
+(20, 1, NULL, NULL, 'Default title_#0099e6;Default description', 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d41307.89305404976!2d20.3778259!3d49.6779736!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471604ac3d8d1f55%3A0xd36b3f6f6c764ae0!2zS2_Fm2Npw7PFgiDFm3cuIEFuZHJ6ZWphIEFwb3N0b8WCYSB3IFPFgm9wbmljYWNoIERvbG55Y2g!5e0!3m2!1spl!2spl!4v1715594367043!5m2!1spl!2spl}', 'Name', 'Default title_#3da986;Default description', 'Default title_#3da986;Default title_#3da986', 'Default title_#3da986;Default description', 'Default title_#4fa73f;Default description', 'Default title_#3da986;Default description', 'Default title_#4fa73f;Default description', 'Twój zakres obowiązków;Twój zakres obowiązkówTwój zakres obowiązków;', 'Twój zakres obowiązków;_', 'Twój zakres obowiązków;', 'Twój zakres obowiązkówTwój zakres obowiązków;'),
+(21, 1, NULL, NULL, 'Default title_#0099e6;Default description', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d41307.893011576605!2d20.377825899999998!3d49.67797365!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471603a1039ab82b%3A0xc5a222b74977509e!2sDomki%20Zagroda!5e0!3m2!1spl!2spl!4v1715615510550!5m2!1spl!2spl}', 'Name', 'Default title_#0099e6;Default description', 'Default title_#0099e6;Default title_#0099e6', 'Default title_#0099e6;Default description', 'Default title_#0099e6;Default description', 'Default title_#0099e6;Default description', 'Default title_#0099e6;Default description', 'Twój zakres obowiązków;', 'Twój zakres obowiązków;_', 'Twój zakres obowiązków;', 'Twój zakres obowiązków;');
 
 -- --------------------------------------------------------
 
@@ -93,11 +105,20 @@ CREATE TABLE `announcement_working_days` (
 
 CREATE TABLE `company` (
   `company_id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
   `name` varchar(50) NOT NULL,
   `adress` varchar(75) NOT NULL,
   `localization_link` text NOT NULL,
+  `imageLink` text NOT NULL,
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+--
+-- Dumping data for table `company`
+--
+
+INSERT INTO `company` (`company_id`, `user_id`, `name`, `adress`, `localization_link`, `imageLink`, `description`) VALUES
+(1, 15, 'PracujPL', 'asdf', '', 'imagecompany.png', '');
 
 -- --------------------------------------------------------
 
@@ -117,7 +138,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `login`, `password`, `role_id`) VALUES
-(12, '123', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 1);
+(12, '123', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 1),
+(14, 'aaa', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 2),
+(15, 'company', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 3);
 
 --
 -- Wyzwalacze `user`
@@ -181,7 +204,9 @@ CREATE TABLE `user_data` (
 --
 
 INSERT INTO `user_data` (`user_data_id`, `user_id`, `name`, `surname`, `birth_date`, `email`, `telephone_number`, `pfp`, `city`, `currnent_occupation`, `nationality`) VALUES
-(0, 12, 'as', 'dfasdf', '0000-00-00', '', 0, '', 'asdf', 'asdf', '...');
+(1, 12, 'as', 'dfasdf', '0000-00-00', '', 0, '', 'asdf', 'asdf', '...'),
+(2, 14, '', '', '0000-00-00', '', 0, '', '', '', ''),
+(3, 15, '', '', '0000-00-00', '', 0, '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -199,6 +224,13 @@ CREATE TABLE `user_education` (
   `period_start` date NOT NULL,
   `period_end` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+--
+-- Dumping data for table `user_education`
+--
+
+INSERT INTO `user_education` (`education_id`, `user_id`, `school_name`, `city`, `level`, `specialization`, `period_start`, `period_end`) VALUES
+(4, 12, 'jmk,', 'k,', 'podstawowe', 'mk,', '2024-03-13', '2024-03-30');
 
 -- --------------------------------------------------------
 
@@ -222,8 +254,8 @@ CREATE TABLE `user_experience` (
 --
 
 INSERT INTO `user_experience` (`experience_id`, `user_id`, `position`, `company`, `localization`, `period_start`, `period_end`, `duties`) VALUES
-(10, 12, 'ki', 'ik', 'ki', '2024-03-06', '2024-03-16', 'jik'),
-(11, 12, 'as', '2024-03-15', 'asdf', '2024-03-28', '2024-03-28', 'asdf');
+(22, 12, 'aaaaaaaaaaaaaaaa', 'aaaaaaaaaaaaaaaa', 'aaaaaaaaaaaaaaaa', '2024-02-26', '2024-03-30', 'aaaaaaaaaaaaaaaaaaaaaaaa'),
+(23, 12, 'k', 'k', 'k', '2024-03-26', '2024-04-13', 'jh');
 
 -- --------------------------------------------------------
 
@@ -237,6 +269,15 @@ CREATE TABLE `user_language` (
   `level` enum('podstawowy',' Äąâ€şrednio-zaawansowany','zaawansowany','') NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+--
+-- Dumping data for table `user_language`
+--
+
+INSERT INTO `user_language` (`language_id`, `language`, `level`, `user_id`) VALUES
+(2, 'polski', 'podstawowy', 12),
+(3, 'angielski', 'podstawowy', 12),
+(4, 'polski', 'podstawowy', 12);
 
 -- --------------------------------------------------------
 
@@ -267,7 +308,8 @@ CREATE TABLE `user_role` (
 
 INSERT INTO `user_role` (`role_id`, `name`) VALUES
 (1, 'user'),
-(2, 'admin');
+(2, 'admin'),
+(3, 'company');
 
 -- --------------------------------------------------------
 
@@ -330,7 +372,8 @@ ALTER TABLE `announcement_working_days`
 -- Indeksy dla tabeli `company`
 --
 ALTER TABLE `company`
-  ADD PRIMARY KEY (`company_id`);
+  ADD PRIMARY KEY (`company_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indeksy dla tabeli `user`
@@ -379,6 +422,7 @@ ALTER TABLE `user_experience`
 -- Indeksy dla tabeli `user_language`
 --
 ALTER TABLE `user_language`
+  ADD PRIMARY KEY (`language_id`),
   ADD KEY `user_id` (`user_id`);
 
 --
@@ -417,7 +461,7 @@ ALTER TABLE `user_skill`
 -- AUTO_INCREMENT for table `announcement`
 --
 ALTER TABLE `announcement`
-  MODIFY `announcement_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `announcement_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `announcement_category`
@@ -441,13 +485,13 @@ ALTER TABLE `announcement_working_days`
 -- AUTO_INCREMENT for table `company`
 --
 ALTER TABLE `company`
-  MODIFY `company_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `company_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `user_application`
@@ -462,16 +506,28 @@ ALTER TABLE `user_course`
   MODIFY `course_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `user_data`
+--
+ALTER TABLE `user_data`
+  MODIFY `user_data_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `user_education`
 --
 ALTER TABLE `user_education`
-  MODIFY `education_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `education_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user_experience`
 --
 ALTER TABLE `user_experience`
-  MODIFY `experience_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `experience_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT for table `user_language`
+--
+ALTER TABLE `user_language`
+  MODIFY `language_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user_link`
@@ -483,7 +539,7 @@ ALTER TABLE `user_link`
 -- AUTO_INCREMENT for table `user_role`
 --
 ALTER TABLE `user_role`
-  MODIFY `role_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `role_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `user_saved`
@@ -505,9 +561,7 @@ ALTER TABLE `user_skill`
 -- Constraints for table `announcement`
 --
 ALTER TABLE `announcement`
-  ADD CONSTRAINT `announcement_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `company` (`company_id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `announcement_ibfk_2` FOREIGN KEY (`subcategory_id`) REFERENCES `announcement_subcategory` (`subcategory_id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `announcement_ibfk_3` FOREIGN KEY (`category_id`) REFERENCES `announcement_category` (`category_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `announcement_ibfk_1` FOREIGN KEY (`subcategory_id`) REFERENCES `announcement_subcategory` (`subcategory_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `announcement_subcategory`
@@ -516,10 +570,10 @@ ALTER TABLE `announcement_subcategory`
   ADD CONSTRAINT `announcement_subcategory_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `announcement_category` (`category_id`) ON UPDATE CASCADE;
 
 --
--- Constraints for table `announcement_working_days`
+-- Constraints for table `company`
 --
-ALTER TABLE `announcement_working_days`
-  ADD CONSTRAINT `announcement_working_days_ibfk_1` FOREIGN KEY (`announcement_id`) REFERENCES `announcement` (`announcement_id`) ON UPDATE CASCADE;
+ALTER TABLE `company`
+  ADD CONSTRAINT `company_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `user`
@@ -531,7 +585,6 @@ ALTER TABLE `user`
 -- Constraints for table `user_application`
 --
 ALTER TABLE `user_application`
-  ADD CONSTRAINT `user_application_ibfk_2` FOREIGN KEY (`announcement_id`) REFERENCES `announcement` (`announcement_id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `user_application_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE;
 
 --
@@ -574,8 +627,8 @@ ALTER TABLE `user_link`
 -- Constraints for table `user_saved`
 --
 ALTER TABLE `user_saved`
-  ADD CONSTRAINT `user_saved_ibfk_2` FOREIGN KEY (`announcement_id`) REFERENCES `announcement` (`announcement_id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `user_saved_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `user_saved_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_saved_ibfk_4` FOREIGN KEY (`announcement_id`) REFERENCES `announcement` (`announcement_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `user_skill`

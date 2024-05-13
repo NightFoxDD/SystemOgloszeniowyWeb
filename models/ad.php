@@ -5,12 +5,51 @@
             // $rows = $this->resultSet();
             // return $rows;
         }
+        public function index_PositionNameView($id){
+            $this->query('SELECT * FROM `announcement` WHERE announcement_id = :id');
+            $this->bind(':id',$id);
+            $ad = $this->single();
+            $this->query('SELECT * FROM `company` WHERE company_id = :company_id');
+            $this->bind(':company_id',$ad['company_id']);
+            $company = $this->single();
+            ob_start();
+            ?>
+                <div class="row">
+                    <div class="col">
+                        <h1><?php echo $ad['position_name']?> </h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h2 class="fs-5"><?php echo $company['name']; ?> <a href="" class="text-decoration-none ml-2" title="Dowiedz się więcej o danej firmie"> O firmie</a></h2>
+                    </div>
+                </div>
+            <?php
+            $content = ob_get_contents();
+            ob_end_clean();
+            return $content;
+        }
+        public function index_CompanyImage($id){
+            $this->query('SELECT `imagelink` FROM `announcement` JOIN company on company.company_id = announcement.company_id WHERE announcement_id = :id');
+            $this->bind(':id',$id);
+            $ad = $this->single();
+            ob_start();
+            ?>
+                <img src="<?php echo ROOT_IMG_COMPANY ?><?php echo $ad['imagelink']?>" height="128" width="220" alt="Zdjęcie profilowe firmy">
+            <?php
+            $content = ob_get_contents();
+            ob_end_clean();
+            return $content;
+        }
         public function add(){
             // Sanitize POST
             echo"<pre>";
             print_r(($_POST));
             echo "</pre>";
             echo $_SESSION['user_data']['id'];
+            $this->query('SELECT * FROM `company` WHERE user_id = :company_id');
+            $this->bind(':company_id',$_SESSION['user_data']['id']);
+            $company = $this->single();
             $Localization = $_POST['InputTitle_0'] . ";" . $_POST['InputDescription_0'];
             $TimeRemaining = $_POST['InputTitle_1'] . ";" . $_POST['InputDescription_1'];
             $ContractType = $_POST['InputTitle_2'] . ";" . $_POST['InputTitle_2'];
@@ -19,7 +58,7 @@
             $WorkType = $_POST['InputTitle_5'] . ";" . $_POST['InputDescription_5'];
             $TypeOfEmployment = $_POST['InputTitle_6'] . ";" . $_POST['InputDescription_6'];
             $this->query("INSERT INTO `announcement`(`company_id`,`position_name`,`localization`, `position_level`, `contract_type`, `working_time`, `work_type`, `expire_date`, `typeOfEmployment`,`duties`,`requirements`,`benefits`,`Map`,`descriptions`) VALUES (:company_id,:positionName,:localization,:positionLevel,:contractType,:timeRemaining,:workType,:expireDate,:typeOfEmployment,:duties,:requirements,:benefits,:map,:description)");
-            $this->bind(':company_id', $_SESSION['user_data']['id']);
+            $this->bind(':company_id', $company['company_id']);
             $this->bind(':positionName', $_POST['input_PositionName']);
             $this->bind(':localization', $Localization);
             $this->bind(':timeRemaining', $TimeRemaining);
@@ -43,7 +82,7 @@
             {
                 $this->query('SELECT name from company where user_id = :user_id');
                 $this->bind(':user_id',$_SESSION['user_data']['id']);
-                $row =   $this->single();
+                $row = $this->single();
                 if(isset($row['name']))
                 {
                     $companyName = $row['name'];
