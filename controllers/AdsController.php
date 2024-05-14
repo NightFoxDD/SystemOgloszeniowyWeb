@@ -3,9 +3,9 @@
         protected function Index(){
             $adsModel = new Ad();
             $model = [
-                "CompanyImage"=> $adsModel->index_CompanyImage($_POST['id']), 
+                "CompanyImage"=> $adsModel->index_CompanyImageView($_POST['id']), 
                 "PositionName" => $adsModel->index_PositionNameView($_POST['id']),
-                 
+                "BasicInformations" => $adsModel->index_BasicInformationsViews($_POST['id'])
             ];
             
             $this->returnView('index', $model);

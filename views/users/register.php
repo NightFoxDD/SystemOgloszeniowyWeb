@@ -6,7 +6,7 @@
     <form method="post" action="<?php echo ROOT_URL ?>users/createAccount">
       <div class="form-group">
         <label>login</label>
-        <input type="text" name="login" class="formcontrol" />
+        <input type="text" name="login" class="form-control" />
       </div>
       <div class="form-group">
         <label>Hasło</label>
