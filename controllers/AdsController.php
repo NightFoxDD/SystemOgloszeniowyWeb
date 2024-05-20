@@ -5,7 +5,13 @@
             $model = [
                 "CompanyImage"=> $adsModel->index_CompanyImageView($_POST['id']), 
                 "PositionName" => $adsModel->index_PositionNameView($_POST['id']),
-                "BasicInformations" => $adsModel->index_BasicInformationsViews($_POST['id'])
+                "BasicInformations" => $adsModel->index_BasicInformationsViews($_POST['id']),
+                "Map" => $adsModel->index_MapPointView($_POST['id']),
+                "Duties" => $adsModel->index_DutiesArray($_POST['id']),
+                "Requirements" => $adsModel->index_RequirementsArray($_POST['id']),
+                "Welcome" => $adsModel->index_WelcomesArray($_POST['id']),
+                "Benefits" => $adsModel->index_BenefitsArray($_POST['id']),
+                "Description" => $adsModel->index_DescriptionsArray($_POST['id'])
             ];
             
             $this->returnView('index', $model);

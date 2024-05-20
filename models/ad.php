@@ -5,6 +5,165 @@
             // $rows = $this->resultSet();
             // return $rows;
         }
+        public function index_DescriptionsArray($id){
+            $this->query('SELECT descriptions FROM `announcement` WHERE announcement_id = :id');
+            $this->bind(':id',$id);
+            $ad = $this->single();
+            $description = [];
+            foreach(explode(";",$ad['descriptions']) as $content){
+                if($content == "") break;
+                array_push($benefits,$this->index_DescriptionView($content));
+            }
+            return $description;
+        }
+        public function index_DescriptionView($content){
+            ob_start();
+            ?>
+                <div class="col-12 mt-5 border rounded-3 shadow-sm p-4">
+                    <?php  echo $content;  ?>
+                </div>
+            <?php 
+            $content = ob_get_contents();
+             ob_end_clean();
+             return $content;
+        }
+        public function index_BenefitsArray($id){
+            $this->query('SELECT benefits FROM `announcement` WHERE announcement_id = :id');
+            $this->bind(':id',$id);
+            $ad = $this->single();
+            $benefits = [];
+            foreach(explode(";",$ad['benefits']) as $content){
+                if($content == "") break;
+                array_push($benefits,$this->index_BenefitsView($content));
+            }
+            return $benefits;
+        }
+        public function index_BenefitsView($content){
+            ob_start();
+            ?>
+                <div class="col-lg-3 col-md-6 col-sm-12 p-1">
+                    <div class="rounded-3 shadow-sm border m-3 p-3">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="dodgerblue" class="bi bi-compass-fill mb-4" viewBox="0 0 16 16">
+                                <path d="M15.5 8.516a7.5 7.5 0 1 1-9.462-7.24A1 1 0 0 1 7 0h2a1 1 0 0 1 .962 1.276 7.503 7.503 0 0 1 5.538 7.24m-3.61-3.905L6.94 7.439 4.11 12.39l4.95-2.828 2.828-4.95z" />
+                            </svg>
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <p class="text-center"><?php echo $content; ?></p>
+                        </div>
+                        
+                    </div>
+                </div> 
+            <?php 
+            $content = ob_get_contents();
+             ob_end_clean();
+             return $content;
+        }
+        public function index_RequirementsArray($id){
+            $this->query('SELECT requirements FROM `announcement` WHERE announcement_id = :id');
+            $this->bind(':id',$id);
+            $ad = $this->single();
+            $requirements = [];
+            foreach(explode("_",explode('_',$ad['requirements'])[0]) as $content){
+                if($content == "") break;
+                array_push($requirements,$this->index_RequirementsView($content));
+            }
+            return $requirements;
+        }
+        public function index_WelcomesArray($id){
+            $this->query('SELECT requirements FROM `announcement` WHERE announcement_id = :id');
+            $this->bind(':id',$id);
+            $ad = $this->single();
+            $welcome = [];
+            if(explode("_",explode('_',$ad['requirements'])[1])[0] != ""){
+                foreach(explode("_",explode('_',$ad['requirements'])[1]) as $content){
+                    if($content == "") break;
+                    array_push($welcome,$this->index_WelocmeView($content));
+                }
+            }else{
+                array_push($welcome, $this->sorry());
+            }
+            
+            return $welcome;
+        }
+        public function sorry(){
+            ob_start();
+            ?>
+            <p>Przepraszam nie posiadamy takich zeczy!</p>
+            <?php
+             $content = ob_get_contents();
+             ob_end_clean();
+             return $content;
+        }
+        public function index_RequirementsView($content){
+            ob_start();
+            ?>
+            <li class="list-group-item border-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dodgerblue" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+            </svg>
+            
+                <?php echo $content; ?>
+            </li>
+            <?php
+             $content = ob_get_contents();
+             ob_end_clean();
+             return $content;
+        }
+        public function index_WelocmeView($content){
+            ob_start();
+            ?>
+            <li class="list-group-item border-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gray" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+            </svg>
+            
+                <?php echo $content; ?>
+            </li>
+            <?php
+             $content = ob_get_contents();
+             ob_end_clean();
+             return $content;
+        }
+        public function index_DutiesArray($id){
+            $this->query('SELECT duties FROM `announcement` WHERE announcement_id = :id');
+            $this->bind(':id',$id);
+            $ad = $this->single();
+            $dutiesArray = [];
+            foreach(explode(';',$ad['duties']) as $row)
+            {
+                if($row == "") break;
+                array_push($dutiesArray,$this->index_dutiesView($row));
+            }
+            return $dutiesArray;
+        }
+        public function index_dutiesView($content){
+            ob_start();
+            ?>
+            <li class="list-group-item border-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dodgerblue" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+            </svg>
+            
+                <?php echo $content; ?>
+            </li>
+            <?php
+             $content = ob_get_contents();
+             ob_end_clean();
+             return $content;
+        }
+        public function index_MapPointView($id){
+            $this->query('SELECT * FROM `announcement` WHERE announcement_id = :id');
+            $this->bind(':id',$id);
+            $ad = $this->single();
+            ob_start();
+            ?>
+            <iframe src="<?php echo $ad['Map']; ?>" class="rounded-1" width="100%" height="350 rem" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <?php
+            $content = ob_get_contents();
+            ob_end_clean();
+            return $content;
+        }
         public function index_PositionNameView($id){
             $this->query('SELECT * FROM `announcement` WHERE announcement_id = :id');
             $this->bind(':id',$id);
@@ -111,7 +270,7 @@
             $company = $this->single();
             $Localization = $_POST['InputTitle_0'] . ";" . $_POST['InputDescription_0'];
             $TimeRemaining = $_POST['InputTitle_1'] . ";" . $_POST['InputDescription_1'];
-            $ContractType = $_POST['InputTitle_2'] . ";" . $_POST['InputTitle_2'];
+            $ContractType = $_POST['InputTitle_2'] . ";" . $_POST['InputDescription_2'];
             $ExpireDate = $_POST['InputTitle_3'] . ";" . $_POST['InputDescription_3'];
             $PositionLevel = $_POST['InputTitle_4'] . ";" . $_POST['InputDescription_4'];
             $WorkType = $_POST['InputTitle_5'] . ";" . $_POST['InputDescription_5'];
