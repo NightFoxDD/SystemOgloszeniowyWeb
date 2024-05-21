@@ -27,7 +27,11 @@
             $this->returnView('add', $model);
         }
         protected function editView(){
-            $this->returnView('edit');
+            $adsmodel = new ad();
+            $model = [
+                "ads" => $adsmodel->getAds(),
+            ];
+            $this->returnView('edit',$model);
         }
         protected function add(){
             $model = new ad();

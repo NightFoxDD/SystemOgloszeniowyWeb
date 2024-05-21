@@ -79,7 +79,7 @@
             <?php 
                 foreach ($model['Description'] as $content ) {
                   echo $content;
-              }
+                }
             ?>
   </div>
   <div class="row">

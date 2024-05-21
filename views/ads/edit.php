@@ -1,1 +1,3 @@
-Edit advertisement
+<?php
+  print_r($model);  
+?>

@@ -37,7 +37,15 @@
                 $row = $this->single();
                 if($row){
                     $_SESSION['is_logged_in'] = true;
-                    $_SESSION['user_data'] = array("id" => $row['user_id'],"login" => $row['login'],"type" => $row['role_id']);
+                    if($row['role_id'] == 3){
+                        $this->query('SELECT * FROM company WHERE user_id = :user_id');
+                        $this->bind(':user_id', $row['user_id']);
+                        $row2 = $this->single();
+                        $_SESSION['user_data'] = array("id" => $row['user_id'],"login" => $row['login'],"type" => $row['role_id'],"company_id" => $row2['company_id']);
+                    }else{
+                        $_SESSION['user_data'] = array("id" => $row['user_id'],"login" => $row['login'],"type" => $row['role_id']);
+                    }
+
                     
                     return true;
                 }

@@ -5,6 +5,17 @@
             // $rows = $this->resultSet();
             // return $rows;
         }
+        public function getAds(){
+            $this->query('SELECT * FROM `announcement` WHERE company_id = :id_company');
+            $this->bind(':id_company',$_SESSION['user_data']['company_id']);
+            $ad = $this->execute();
+            $ads = [];
+            foreach($ad as $item)
+            {
+                push_array($ads,$item);
+            }
+            return $ads;
+        }
         public function index_DescriptionsArray($id){
             $this->query('SELECT descriptions FROM `announcement` WHERE announcement_id = :id');
             $this->bind(':id',$id);
@@ -12,7 +23,7 @@
             $description = [];
             foreach(explode(";",$ad['descriptions']) as $content){
                 if($content == "") break;
-                array_push($benefits,$this->index_DescriptionView($content));
+                array_push($description,$this->index_DescriptionView($content));
             }
             return $description;
         }
@@ -89,7 +100,7 @@
         public function sorry(){
             ob_start();
             ?>
-            <p>Przepraszam nie posiadamy takich zeczy!</p>
+            <p>Przepraszam nie posiadamy</p>
             <?php
              $content = ob_get_contents();
              ob_end_clean();
