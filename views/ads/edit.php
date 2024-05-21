@@ -1,3 +1,6 @@
 <?php
-  print_r($model);  
+foreach($model['ads'] as $item)
+{
+  echo $item;
+}
 ?>

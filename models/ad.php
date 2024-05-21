@@ -6,15 +6,47 @@
             // return $rows;
         }
         public function getAds(){
+            
             $this->query('SELECT * FROM `announcement` WHERE company_id = :id_company');
             $this->bind(':id_company',$_SESSION['user_data']['company_id']);
-            $ad = $this->execute();
+            $ad = $this->resultSet();
             $ads = [];
             foreach($ad as $item)
             {
-                push_array($ads,$item);
+                array_push($ads,$this->adsEditView($item));
             }
             return $ads;
+        }
+        public function delete($id){
+            $this->query('DELETE FROM `announcement` WHERE announcement_id = :id');
+            $this->bind(':id',$id);
+            $ad = $this->single();
+            return true;
+        }
+        public function adsEditView($content){
+            ob_start();
+            ?>
+
+                
+                <div class="container ">
+                    <div class="row">
+                        <div class="col">
+                            <?php echo $content['announcement_id'] ."/". $content['position_name'];?>   
+                            <form method = "POST" action = "<?php echo ROOT_URL?>ads/goEdit">
+                                <input type="hidden" name="id" value = "<?php echo $content['announcement_id']?>">
+                                <button type = "submit"> edit</button>
+                            </form>
+                            <form method = "POST" action = "<?php echo ROOT_URL?>ads/delete">
+                                <input type="hidden" name="id" value = "<?php echo $content['announcement_id']?>">
+                                <button type = "submit"> delete</button> 
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            <?php
+            $content = ob_get_contents();
+            ob_end_clean();
+            return $content;
         }
         public function index_DescriptionsArray($id){
             $this->query('SELECT descriptions FROM `announcement` WHERE announcement_id = :id');

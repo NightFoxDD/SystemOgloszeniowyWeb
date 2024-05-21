@@ -33,6 +33,18 @@
             ];
             $this->returnView('edit',$model);
         }
+        protected function delete(){
+            $adsmodel = new ad();
+            if($adsmodel->delete($_POST['id']))
+            {
+                Messages::setMsg("Usunięto ogłoszenie","success");
+                $this->redirect('company', 'index');
+            }
+            else {
+                Messages::setMsg("Nie usunięto ogłoszenia", "error");
+                $this->redirect('company', 'index');
+            }
+        }
         protected function add(){
             $model = new ad();
             if($model->add())
