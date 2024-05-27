@@ -38,10 +38,22 @@
             if($adsmodel->delete($_POST['id']))
             {
                 Messages::setMsg("Usunięto ogłoszenie","success");
-                $this->redirect('company', 'index');
+                $this->redirect('ads', 'editView');
             }
             else {
                 Messages::setMsg("Nie usunięto ogłoszenia", "error");
+                $this->redirect('ads', 'editView');
+            }
+        }
+        protected function edit(){
+            $model = new ad();
+            if($model->edit())
+            {
+                Messages::setMsg("Zedytowano ogłoszenie","success");
+                $this->redirect('company', 'index');
+            }
+            else {
+                Messages::setMsg("Nie zedytowano ogłoszenia", "error");
                 $this->redirect('company', 'index');
             }
         }

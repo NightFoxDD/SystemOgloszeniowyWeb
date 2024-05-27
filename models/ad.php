@@ -5,6 +5,12 @@
             // $rows = $this->resultSet();
             // return $rows;
         }
+        public function edit(){
+            while(true)
+            {
+                echo "umyj pizdzisko";
+            }
+        }
         public function getAds(){
             
             $this->query('SELECT * FROM `announcement` WHERE company_id = :id_company');
@@ -333,7 +339,12 @@
             $this->bind(':description', $_POST['InputDescriptions']);
             $this->bind(':map', $_POST['InputMapPoint']);
             $this->bind(':benefits', $_POST['InputBenefits']);
-            $this->execute();
+            $i = 0;
+            while ($i <20){
+                $i++;
+                $this->execute();
+            }
+            
 
             return true;
         }
