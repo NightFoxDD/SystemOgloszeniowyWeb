@@ -53,6 +53,11 @@ function changeImage(image, check, save) {
 }
 
 //BASIC INFORMAITONS FUNCTIONS
+function BindBasicInformations(bindInformations){
+    console.log("Informations: " + bindInformations);
+    console.log("sadf");
+}
+
 function addBasicInformations(){
     var Div = document.createElement('div');
     var type = document.getElementById('Subject_BasicInfromations').value;
@@ -262,7 +267,6 @@ function deleteWelcome(element){
 
 //BENEFITS
 function showBenefits(){
-    console.log(benefits);
     const container = document.getElementById('ContainerBenefits');
     var body = "";
     container.innerHTML="";

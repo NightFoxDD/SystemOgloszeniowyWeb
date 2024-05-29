@@ -5,11 +5,8 @@
             // $rows = $this->resultSet();
             // return $rows;
         }
-        public function edit(){
-            while(true)
-            {
-                echo "umyj pizdzisko";
-            }
+        public function edit($id){
+            
         }
         public function getAds(){
             
@@ -249,7 +246,7 @@
             ob_end_clean();
             return $content;
         }
-        public function index_BasicInformationsViews($id){
+        public function index_BasicInformationsViews($id,$edit){
             $this->query('SELECT `position_level`,`contract_type`,`working_time`,`work_type`,expire_date,`typeOfEmployment` FROM `announcement` WHERE announcement_id = :id');
             $this->bind(':id',$id);
             $result = $this->resultSet();
@@ -269,11 +266,49 @@
                     "title" => $title,
                     "description" => $description
                 ];
-                array_push($basicInformations,$this->index_BasicInfromationsTheme($work));
+                if($edit){
+                    array_push($basicInformations,$this->index_BasicInfromationsTheme($work));
+                }else{
+                    array_push($basicInformations,$this->index_BasicInfromationsTheme($work));
+                }
                 $i = $i+1;
             }
             
             return $basicInformations;
+        }
+        public function edit_BasicInformatoinsTheme($item){
+            $images = [
+                '<path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />',
+                ' <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z" />',
+                '<path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1M4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1z" />',
+                '<path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5m9.954 3H2.545c-.3 0-.545.224-.545.5v1c0 .276.244.5.545.5h10.91c.3 0 .545-.224.545-.5v-1c0-.276-.244-.5-.546-.5m-2.6 5.854a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z" />',
+                ' <path d="M0 11.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5zm4-3a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5zm4-3a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5zm4-3a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5z" />',
+                '<path d="M4 16s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-5.95a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" /><path d="M2 1a2 2 0 0 0-2 2v9.5A1.5 1.5 0 0 0 1.5 14h.653a5.373 5.373 0 0 1 1.066-2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v9h-2.219c.554.654.89 1.373 1.066 2h.653a1.5 1.5 0 0 0 1.5-1.5V3a2 2 0 0 0-2-2z" />',
+                '<path d="M8 16c3.314 0 6-2 6-5.5 0-1.5-.5-4-2.5-6 .25 1.5-1.25 2-1.25 2C11 4 9 .5 6 0c.357 2 .5 4-2 6-1.25 1-2 2.729-2 4.5C2 14 4.686 16 8 16m0-1c-1.657 0-3-1-3-2.75 0-.75.25-2 1.25-3C6.125 10 7 10.5 7 10.5c-.375-1.25.5-3.25 2-3.5-.179 1-.25 2 1 3 .625.5 1 1.364 1 2.25C11 14 9.657 15 8 15" />'
+            ];
+            ob_start();
+            $description = addslashes($item['description']);
+            echo "<script>BindBasicInformations('" . $description . "');</script>";
+            ?>
+                <div class='col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start'>
+                    <div class="float-start rounded-2 d-flex justify-content-center align-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="<?php echo $item['color']?>" class="bi bi-clock-fill" viewBox="0 0 16 16">
+                            <?php echo $images[$item['count']]?>
+                        </svg>
+                    </div>
+                    <div class="p-4">
+                        <h2 class="fs-4">
+                            <p id="PositionName_1"><?php echo $item['title']?></p>
+                        </h2>
+                        <p class="fs-6 text-gray">
+                            <?php echo $item['description']?>
+                        </p>
+                    </div>
+                </div>
+            <?php
+            $content = ob_get_contents();
+            ob_end_clean();
+            return $content;
         }
         public function index_BasicInfromationsTheme($item)
         {
@@ -287,6 +322,8 @@
                 '<path d="M8 16c3.314 0 6-2 6-5.5 0-1.5-.5-4-2.5-6 .25 1.5-1.25 2-1.25 2C11 4 9 .5 6 0c.357 2 .5 4-2 6-1.25 1-2 2.729-2 4.5C2 14 4.686 16 8 16m0-1c-1.657 0-3-1-3-2.75 0-.75.25-2 1.25-3C6.125 10 7 10.5 7 10.5c-.375-1.25.5-3.25 2-3.5-.179 1-.25 2 1 3 .625.5 1 1.364 1 2.25C11 14 9.657 15 8 15" />'
             ];
             ob_start();
+            $description = addslashes($item['description']);
+            echo "<script>BindBasicInformations('" . $description . "');</script>";
             ?>
                 <div class='col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start'>
                     <div class="float-start rounded-2 d-flex justify-content-center align-items-center">
@@ -348,7 +385,10 @@
 
             return true;
         }
-        public function Add_PositionNameView(){
+        public function Add_PositionNameView($id){
+            $this->query('SELECT * FROM `announcement` WHERE announcement_id = :announcement_id');
+            $this->bind(':announcement_id',$id);
+            $company = $this->single();
             $companyName = "";
             if(isset($_SESSION['user_data']))
             {
@@ -363,17 +403,26 @@
                     $companyName = "Nie znaleziono nazwy firmy"; 
                 }
             }
+            if($id != null){
+                $Title = $company['position_name'];
+            }else{
+                $Title = "Name";
+            }
             ob_start();
             ?>
             <div class="container ">
                 <div class="row">
                     <h1 id="Add_PositionName" class="col MyCollapse col">
-                        <input type="TEXT" name='input_PositionName' class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0" value="Name"> 
+                        <input type="TEXT" name='input_PositionName' class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0" value="<?php  echo $Title; ?>"> 
                     </h1>
                 </div>
                 <div class="row">
                     <div class="col MyUncollapse" id = "PositionName_View"> 
-                        <h1 name = "PositionName">Name</h1>
+                        <h1 name = "PositionName">
+                            <?php
+                               echo $Title;
+                            ?>
+                        </h1>
                     </div>
                     
                 </div>

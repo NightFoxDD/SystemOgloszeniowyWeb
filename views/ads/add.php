@@ -6,9 +6,8 @@
                 <li class="list-group-item">
                 <div class="d-flex justify-content-start align-items-top">
                     <img src="<?php echo ROOT_IMG ?>/Swiftlly_transparent_Logo.png" height="128" alt="Zdjęcie profilowe firmy">
-                    
+            
                     <?php echo $model['add_PositionName'];?>
-                    
                 </div>
                 </li>
                 <li class="list-group-item">
