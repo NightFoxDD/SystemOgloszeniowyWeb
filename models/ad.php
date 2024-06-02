@@ -7,6 +7,49 @@
         }
         public function edit($id){
             echo $id;
+            echo "<pre>";
+            print_r($_POST);
+            echo "</pre>";
+            $PositionLevel = $_POST['TBIinput_0'] . "_" . $_POST['TMP_Edit_Color_0'] . ";" . $_POST['TBIdescInput_0'];
+            $ContractType = $_POST['TBIinput_1'] . "_" . $_POST['TMP_Edit_Color_1'] . ";" . $_POST['TBIdescInput_1'];
+            $TimeRemaining = $_POST['TBIinput_2'] . "_" . $_POST['TMP_Edit_Color_2'] . ";" . $_POST['TBIdescInput_2'];
+            $WorkType = $_POST['TBIinput_3'] . "_" . $_POST['TMP_Edit_Color_3'] . ";" . $_POST['TBIdescInput_3'];
+            $ExpireDate = $_POST['TBIinput_4'] . "_" . $_POST['TMP_Edit_Color_4'] . ";" . $_POST['TBIdescInput_4'];
+            $TypeOfEmployment = $_POST['TBIinput_5'] . "_" . $_POST['TMP_Edit_Color_5'] . ";" . $_POST['TBIdescInput_5'];
+            $Localization = $_POST['TBIinput_6'] . "_" . $_POST['TMP_Edit_Color_6'] . ";" . $_POST['TBIdescInput_6'];
+
+            $this->query("UPDATE `announcement` 
+            SET `position_name` = :positionName,
+                `localization` = :localization, 
+                `position_level` = :positionLevel, 
+                `contract_type` = :contractType, 
+                `working_time` = :timeRemaining, 
+                `work_type` = :workType, 
+                `expire_date` = :expireDate, 
+                `typeOfEmployment` = :typeOfEmployment,
+                `duties` = :duties,
+                `requirements` = :requirements,
+                `benefits` = :benefits,
+                `Map` = :map,
+                `descriptions` = :descriptions
+            WHERE `announcement_id` = :id");
+            $this->bind(':id', $id);
+            $this->bind(':positionName', $_POST['input_PositionName']);
+            $this->bind(':localization', $Localization);
+            $this->bind(':timeRemaining', $TimeRemaining);
+            $this->bind(':contractType', $ContractType);
+            $this->bind(':expireDate', $ExpireDate);
+            $this->bind(':positionLevel', $PositionLevel);
+            $this->bind(':workType', $WorkType);
+            $this->bind(':typeOfEmployment', $TypeOfEmployment);
+            $this->bind(':duties', $_POST['InputDuties']);
+            $this->bind(':requirements', $_POST['InputRequirements'] . "_" . $_POST['InputWelcome']);
+            $this->bind(':descriptions', $_POST['InputDescriptions']);
+            $this->bind(':map', $_POST['inputMapPoint']);
+            $this->bind(':benefits', $_POST['InputBenefits']);
+
+            $this->single();
+
             return true;
         }
         public function getAds(){
@@ -51,16 +94,51 @@
             ob_end_clean();
             return $content;
         }
-        public function index_DescriptionsArray($id){
+        public function index_DescriptionsArray($id, $edit){
             $this->query('SELECT descriptions FROM `announcement` WHERE announcement_id = :id');
             $this->bind(':id',$id);
             $ad = $this->single();
             $description = [];
+            $count = 0;
             foreach(explode(";",$ad['descriptions']) as $content){
                 if($content == "") break;
-                array_push($description,$this->index_DescriptionView($content));
+                if($edit)
+                {
+                    array_push($description,$this->edit_DescriptionView($content,$count));$count++;
+                }
+                else{
+                    array_push($description,$this->index_DescriptionView($content));
+                }
             }
             return $description;
+        }
+        public function edit_DescriptionView($content,$count){
+            ob_start();
+            ?>
+                <div class="d-flex justify-content-center align-items-center">
+                    <div id="containerContentDescrip_<?php echo $count?>" class="MyUncollapse col-12 mt-5 border rounded-3 shadow-sm p-4">
+                        <h2 class="fs-4" name="divDescrip_<?php echo $count?>">
+                            <?php echo $content?> 
+                        </h2>
+                    </div>
+                    <div id="containerInputDescrip_<?php echo $count?>" class="MyCollapse col-12 mt-5 border rounded-3 shadow-sm p-4">
+                        <textarea name="inputDescrip1_<?php echo $count?>" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0"><?php echo $content?></textarea>
+                    </div>
+            
+                    <button  type="button" class="btn btn-outline-secondary m-1" onclick="UpdateDescriptionText('inputDescrip1_<?php echo $count?>','<?php echo $count?>'),RepeatText('inputDescrip1_<?php echo $count?>','divDescrip_<?php echo $count?>'),CollapseUncollapseForm('containerInputDescrip_<?php echo $count?>','containerContentDescrip_<?php echo $count?>'),changeImage('changeposition_image_TBI_Descrip_<?php echo $count?>','<?php echo ROOT_IMG ?>/checked.png','<?php echo ROOT_IMG ?>/edit.png')"><img id="changeposition_image_TBI_Descrip_<?php echo $count?>" src="<?php echo ROOT_IMG ?>/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
+
+                    <button type='button' onclick = 'deleteEditDescription(<?php echo $count; ?>)'>remove</button>
+                </div>
+            <script>
+                if (typeof descriptionArray === 'undefined') {
+                    var descriptionArray = [];
+                }
+                descriptionArray.push('<?php echo addslashes($content); ?>');
+            </script>
+            <?php 
+            $content = ob_get_contents();
+             ob_end_clean();
+             return $content;
         }
         public function index_DescriptionView($content){
             ob_start();
@@ -73,16 +151,59 @@
              ob_end_clean();
              return $content;
         }
-        public function index_BenefitsArray($id){
+        public function index_BenefitsArray($id,$edit){
             $this->query('SELECT benefits FROM `announcement` WHERE announcement_id = :id');
             $this->bind(':id',$id);
             $ad = $this->single();
             $benefits = [];
+            $count = 0;
             foreach(explode(";",$ad['benefits']) as $content){
                 if($content == "") break;
-                array_push($benefits,$this->index_BenefitsView($content));
+                if($edit){
+                    array_push($benefits,$this->edit_BenefitsView($content,$count)); $count++;
+                }else{
+                    array_push($benefits,$this->index_BenefitsView($content));
+                }
+
             }
             return $benefits;
+        }
+        public function edit_BenefitsView($content,$count){
+            ob_start();
+            ?>
+                <div class="col-lg-3 col-md-6 col-sm-12 p-1">
+                    <div class="rounded-3 shadow-sm border m-3 p-3">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="dodgerblue" class="bi bi-compass-fill mb-4" viewBox="0 0 16 16">
+                                <path d="M15.5 8.516a7.5 7.5 0 1 1-9.462-7.24A1 1 0 0 1 7 0h2a1 1 0 0 1 .962 1.276 7.503 7.503 0 0 1 5.538 7.24m-3.61-3.905L6.94 7.439 4.11 12.39l4.95-2.828 2.828-4.95z" />
+                            </svg>
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <div id="containerContentBenef_<?php echo $count?>" class="MyUncollapse">
+                                <h2 class="fs-4" name="divBenef_<?php echo $count?>">
+                                    <?php echo $content?> 
+                                </h2>
+                            </div>
+                            <div id="containerInputBenef_<?php echo $count?>" class="MyCollapse">
+                                <input type="text" name="inputBenef1_<?php echo $count?>" value="<?php echo $content?>" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0"/>
+                            </div>
+                    
+                            <button  type="button" class="btn btn-outline-secondary m-1" onclick="UpdateBenefitText('inputBenef1_<?php echo $count?>','<?php echo $count?>'),RepeatText('inputBenef1_<?php echo $count?>','divBenef_<?php echo $count?>'),CollapseUncollapseForm('containerInputBenef_<?php echo $count?>','containerContentBenef_<?php echo $count?>'),changeImage('changeposition_image_TBI_Benef_<?php echo $count?>','<?php echo ROOT_IMG ?>/checked.png','<?php echo ROOT_IMG ?>/edit.png')"><img id="changeposition_image_TBI_Benef_<?php echo $count?>" src="<?php echo ROOT_IMG ?>/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
+
+                            <button type='button' onclick = 'deleteEditBenefit(<?php echo $count; ?>)'>remove</button>
+                        </div>
+                    </div>
+                </div> 
+                <script>
+                if (typeof benefitArray === 'undefined') {
+                    var benefitArray = [];
+                }
+                benefitArray.push('<?php echo addslashes($content); ?>');
+                </script>
+            <?php 
+            $content = ob_get_contents();
+             ob_end_clean();
+             return $content;
         }
         public function index_BenefitsView($content){
             ob_start();
@@ -129,11 +250,12 @@
             $this->bind(':id',$id);
             $ad = $this->single();
             $welcome = [];
+            $count = 0;
             if(explode("_",explode('_',$ad['requirements'])[1])[0] != ""){
-                foreach(explode(";",explode("_",explode('_',$ad['requirements'])[0])[1]) as $content){
+                foreach(explode(";",explode("_",$ad['requirements'])[1]) as $content){
                     if($content == "") break;
                     if($edit){
-                        
+                        array_push($welcome,$this->edit_WelocmeView($content,$count));$count++;
                     }else{
                         array_push($welcome,$this->index_WelocmeView($content));
                     }
@@ -201,6 +323,38 @@
              ob_end_clean();
              return $content;
         }
+        public function edit_WelocmeView($content,$count){
+            ob_start();
+            ?>
+                <li class="list-group-item border-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gray" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                </svg>
+                    <div id="containerContentDuties_<?php echo $count?>" class="MyUncollapse">
+                        <h2 class="fs-4" name="divDuties_<?php echo $count?>">
+                            <?php echo $content?> 
+                        </h2>
+                    </div>
+                    <div id="containerInputDuties_<?php echo $count?>" class="MyCollapse">
+                        <input type="text" name="inputDuties1_<?php echo $count?>" value="<?php echo $content?>" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0"/>
+                    </div>
+                 
+                        <button  type="button" class="btn btn-outline-secondary m-1" onclick="UpdateWelcomeText('inputDuties1_<?php echo $count?>','<?php echo $count?>'),RepeatText('inputDuties1_<?php echo $count?>','divDuties_<?php echo $count?>'),CollapseUncollapseForm('containerInputDuties_<?php echo $count?>','containerContentDuties_<?php echo $count?>'),changeImage('changeposition_image_TBI_Duties_<?php echo $count?>','<?php echo ROOT_IMG ?>/checked.png','<?php echo ROOT_IMG ?>/edit.png')"><img id="changeposition_image_TBI_Duties_<?php echo $count?>" src="<?php echo ROOT_IMG ?>/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
+
+                    <button type='button' onclick = 'deleteEditWelcome(<?php echo $count; ?>)'>remove</button>
+            </li>
+
+            <script>
+                if (typeof welcomeArray === 'undefined') {
+                    var welcomeArray = [];
+                }
+                welcomeArray.push('<?php echo addslashes($content); ?>');
+            </script>
+            <?php
+             $content = ob_get_contents();
+             ob_end_clean();
+             return $content;
+        }
         public function index_WelocmeView($content){
             ob_start();
             ?>
@@ -256,10 +410,10 @@
             </li>
 
             <script>
-                if (typeof dutiesArray === 'undefined') {
-                    var dutiesArray = [];
+                if (typeof dutiesArray1 === 'undefined') {
+                    var dutiesArray1 = [];
                 }
-                dutiesArray.push('<?php echo addslashes($content); ?>');
+                dutiesArray1.push('<?php echo addslashes($content); ?>');
             </script>
             <?php
              $content = ob_get_contents();
@@ -281,6 +435,7 @@
              ob_end_clean();
              return $content;
         }
+       
         public function index_MapPointView($id){
             $this->query('SELECT * FROM `announcement` WHERE announcement_id = :id');
             $this->bind(':id',$id);
@@ -292,6 +447,12 @@
             $content = ob_get_contents();
             ob_end_clean();
             return $content;
+        }
+        public function index_MapSrc($id){
+            $this->query('SELECT * FROM `announcement` WHERE announcement_id = :id');
+            $this->bind(':id',$id);
+            $ad = $this->single();
+            return $ad['Map'];
         }
         public function index_PositionNameView($id){
             $this->query('SELECT * FROM `announcement` WHERE announcement_id = :id');
@@ -331,7 +492,7 @@
             return $content;
         }
         public function index_BasicInformationsViews($id,$edit){
-            $this->query('SELECT `position_level`,`contract_type`,`working_time`,`work_type`,expire_date,`typeOfEmployment` FROM `announcement` WHERE announcement_id = :id');
+            $this->query('SELECT `position_level`,`contract_type`,`working_time`,`work_type`,expire_date,`typeOfEmployment`,`localization` FROM `announcement` WHERE announcement_id = :id');
             $this->bind(':id',$id);
             $result = $this->resultSet();
             $i = 0;
@@ -372,8 +533,9 @@
             ];
             ob_start();
             ?>
+
                 <div class='col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start'>
-                <input type="color" id="TMP_Edit_Color_<?php echo $item['count']?>" value="<?php echo $item['color']; ?>" onchange="ChangeTmpEditImageColor('<?php echo $item['count']; ?>')">
+                <input type="color" id="TMP_Edit_Color_<?php echo $item['count']?>" name ="TMP_Edit_Color_<?php echo $item['count']?>" value="<?php echo $item['color']; ?>" onchange="ChangeTmpEditImageColor('<?php echo $item['count']; ?>')">
                     <div id = "divImage_<?php echo $item['count'];?>" class="float-start rounded-2 d-flex justify-content-center align-items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" id = "image_<?php echo $item['count'];?>" width="70" height="70" fill="<?php echo $item['color']?>" class="bi bi-clock-fill" viewBox="0 0 16 16">
                             <?php echo $images[$item['count']]?>
@@ -447,6 +609,7 @@
             echo"<pre>";
             print_r(($_POST));
             echo "</pre>";
+
             echo $_SESSION['user_data']['id'];
             $this->query('SELECT * FROM `company` WHERE user_id = :company_id');
             $this->bind(':company_id',$_SESSION['user_data']['id']);
@@ -473,11 +636,8 @@
             $this->bind(':description', $_POST['InputDescriptions']);
             $this->bind(':map', $_POST['InputMapPoint']);
             $this->bind(':benefits', $_POST['InputBenefits']);
-            $i = 0;
-            while ($i <20){
-                $i++;
-                $this->execute();
-            }
+
+            $this->execute();
             
 
             return true;

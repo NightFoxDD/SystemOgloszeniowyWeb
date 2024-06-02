@@ -15,17 +15,18 @@ const useInformations=[0,1,2,3,4,5,6];
 const duties = [];
 const requirements = [];
 const welcome = [];
-refreshDutiesArray();
-refreshRequirementsArray();
 const benefits = [];
 const descriptions = [];
+refreshDutiesArray();
+refreshRequirementsArray();
+refreshBenefitArray();
+refreshDescriptionArray();
+refreshWelcomeArray();
+
 var color = "dodgerblue";
 var defaultColor = "#0099E6";
-ChangeTmpImageColor();
+
 updateSelectOptions();
-function check(){
-    console.log(dutiesArray);
-}
 //BASIC FUNCTIONS
 function CollapseUncollapseForm(Userinformations, Form){
     const userInformations = document.getElementById(Userinformations);
@@ -62,7 +63,11 @@ function addBasicInformations(){
     var Div = document.createElement('div');
     var type = document.getElementById('Subject_BasicInfromations').value;
     usedInformations.push(type);
-    console.log(usedInformations);
+
+    if(color == undefined){
+        color = "dodgerblue";     
+        document.getElementById("TMP_Color").selected = color;
+    }
     updateSelectOptions();
     Div.className = 'col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start';
     const content = document.getElementsByName("TBIinput")[0];
@@ -102,12 +107,9 @@ function addBasicInformations(){
     }
 }
 function updateSelectOptions() {
-    // Get the select element
     var selectElement = document.getElementById('Subject_BasicInfromations');
-    // Clear existing options
     selectElement.innerHTML = '';
     
-    // Add default option
     createElementSelect(selectElement, '0', 'lokalizacja');
     createElementSelect(selectElement, '1', 'Czas oczekiwania na pracę');
     createElementSelect(selectElement, '2', 'Typ umowy');
@@ -154,6 +156,7 @@ function ChangeTmpImage(){
 }
 function ChangeTmpImageColor(){
     color = document.getElementById("TMP_Color").value;
+    
     ChangeTmpImage();
 }
 
@@ -209,19 +212,18 @@ function deleteDutie(element){
 //EDIT DUTIES
 
 function refreshDutiesArray(){
+    console.log(dutiesArray);
     document.getElementsByName('InputDuties')[0].value = "";
-    dutiesArray.forEach((dutie) => {
-        document.getElementsByName('InputDuties')[0].value += dutie + ";";
+    dutiesArray1.forEach((benefit) => {
+        document.getElementsByName('InputDuties')[0].value += benefit + ";";
     });
 }
 function showEditDuties() {
     const container = document.getElementById('containerDuties');
     var body = "";
     container.innerHTML = "";
-    document.getElementsByName('InputDuties')[0].value = "";
-
-    dutiesArray.forEach((dutie, index) => {
-        document.getElementsByName('InputDuties')[0].value += dutie + ";";
+    dutiesArray1.forEach((dutie, index) => {
+       
         var svg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dodgerblue" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
         </svg>`;
@@ -243,17 +245,21 @@ function showEditDuties() {
             </li>
         `
     });
+    document.getElementsByName('InputDuties')[0].value = "";
+    dutiesArray1.forEach((benefit) => {
+        document.getElementsByName('InputDuties')[0].value += benefit + ";";
+    });
 
     container.innerHTML = body;
 }
 function UpdateText(inputid,index){
     var newValue = document.getElementsByName(inputid)[0].value;
-     dutiesArray[index] = newValue;
+     dutiesArray1[index] = newValue;
     refreshDutiesArray();
 }
 function addEditDutes() {
     var value = document.getElementsByName('inputDutie')[0].value;
-    dutiesArray.push(value);
+    dutiesArray1.push(value);
     document.getElementsByName('inputDutie')[0].value = "";
     showEditDuties();
 }
@@ -291,6 +297,7 @@ function deleteRequirement(element){
 }
 //EDIR REQUIREMENTS
 function refreshRequirementsArray(){
+    console.log(requirementsArray);
     document.getElementsByName('InputRequirements')[0].value = "";
     requirementsArray.forEach((dutie) => {
         document.getElementsByName('InputRequirements')[0].value += dutie + ";";
@@ -373,7 +380,8 @@ function deleteWelcome(element){
     showWelcome();
 }
 //EDIT WELCOME
-function refreshWelcomeArray(){
+function refreshWelcomeArray(){    
+    console.log(welcomeArray);
     document.getElementsByName('InputWelcome')[0].value = "";
     welcomeArray.forEach((dutie) => {
         document.getElementsByName('InputWelcome')[0].value += dutie + ";";
@@ -387,7 +395,7 @@ function showEditWelcome() {
 
     welcomeArray.forEach((item, index) => {
         document.getElementsByName('InputWelcome')[0].value += item + ";";
-        var svg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dodgerblue" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+        var svg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gray" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
         </svg>`;
         body += `
@@ -404,7 +412,7 @@ function showEditWelcome() {
                  
                         <button  type="button" class="btn btn-outline-secondary m-1" onclick="UpdateWelcomeText('inputDuties1_${index}',${index}),RepeatText('inputDuties1_${index}','divDuties_${index}'),CollapseUncollapseForm('containerInputDuties_${index}','containerContentDuties_${index}'),changeImage('changeposition_image_TBI_Duties_${index}','${ROOT_IMG}/checked.png','${ROOT_IMG}/edit.png')"><img id="changeposition_image_TBI_Duties_${index}" src="${ROOT_IMG}/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
 
-                    <button type='button' onclick = 'deleteEditDutie(${index})'>remove</button>
+                    <button type='button' onclick = 'deleteEditWelcome(${index})'>remove</button>
             </li>
         `
     });
@@ -416,7 +424,7 @@ function UpdateWelcomeText(inputid,index){
      welcomeArray[index] = newValue;
      refreshWelcomeArray();
 }
-function addWelcome() {
+function addEditWelcome() {
     var value = document.getElementsByName('Textarea_welcome')[0].value;
     welcomeArray.push(value);
     document.getElementsByName('Textarea_welcome')[0].value = "";
@@ -467,10 +475,12 @@ function deleteBenefit(element){
     showBenefits();
 }
 //EDIT BENEFITS 
-function refreshBenefitArray(){
+
+function refreshBenefitArray() {
+    console.log(benefitArray);
     document.getElementsByName('InputBenefits')[0].value = "";
-    benefitArray.forEach((dutie) => {
-        document.getElementsByName('InputBenefits')[0].value += dutie + ";";
+    benefitArray.forEach((benefit) => {
+        document.getElementsByName('InputBenefits')[0].value += benefit + ";";
     });
 }
 function showEditBenefit() {
@@ -479,47 +489,56 @@ function showEditBenefit() {
     container.innerHTML = "";
     document.getElementsByName('InputBenefits')[0].value = "";
 
-    benefitArray.forEach((dutie, index) => {
-        document.getElementsByName('InputBenefits')[0].value += dutie + ";";
+    benefitArray.forEach((benefit, index) => {
+        document.getElementsByName('InputBenefits')[0].value += benefit + ";";
         var svg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dodgerblue" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
         </svg>`;
         body += `
-            <li class="list-group-item border-0">
-               ${svg}
-                    <div id="containerContentDuties_${index}" class="MyUncollapse">
-                        <h2 class="fs-4" name="divDuties_${index}">
-                            ${dutie}
-                        </h2>
+            <div class="col-lg-3 col-md-6 col-sm-12 p-1">
+                <div class="rounded-3 shadow-sm border m-3 p-3">
+                    <div class="d-flex justify-content-center align-items-center">
+                        ${svg}
                     </div>
-                    <div id="containerInputDuties_${index}" class="MyCollapse">
-                        <input type="text" name="inputDuties1_${index}" value="${dutie}" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0"/>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div id="containerContentBenefits_${index}" class="MyUncollapse">
+                            <h2 class="fs-4" name="divBenefits_${index}">
+                                ${benefit}
+                            </h2>
+                        </div>
+                        <div id="containerInputBenefits_${index}" class="MyCollapse">
+                            <input type="text" name="inputBenefits_${index}" value="${benefit}" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0"/>
+                        </div>
+                        <button type="button" class="btn btn-outline-secondary m-1" onclick="UpdateBenefitText('inputBenefits_${index}', ${index}), RepeatText('inputBenefits_${index}', 'divBenefits_${index}'), CollapseUncollapseForm('containerInputBenefits_${index}', 'containerContentBenefits_${index}'), changeImage('changeposition_image_TBI_Benefits_${index}', '${ROOT_IMG}/checked.png', '${ROOT_IMG}/edit.png')">
+                            <img id="changeposition_image_TBI_Benefits_${index}" src="${ROOT_IMG}/edit.png" class="image-thumbnail" style="height:50px; weight:50px;">
+                        </button>
                     </div>
-                 
-                        <button  type="button" class="btn btn-outline-secondary m-1" onclick="UpdateBenefitText('inputDuties1_${index}',${index}),RepeatText('inputDuties1_${index}','divDuties_${index}'),CollapseUncollapseForm('containerInputDuties_${index}','containerContentDuties_${index}'),changeImage('changeposition_image_TBI_Duties_${index}','${ROOT_IMG}/checked.png','${ROOT_IMG}/edit.png')"><img id="changeposition_image_TBI_Duties_${index}" src="${ROOT_IMG}/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
-
-                    <button type='button' onclick = 'deleteBenefit(${index})'>remove</button>
-            </li>
-        `
+                    <button type='button' onclick='deleteEditBenefit(${index})'>remove</button>
+                </div>
+            </div>
+        `;
     });
 
     container.innerHTML = body;
 }
-function UpdateBenefitText(inputid,index){
+
+
+function UpdateBenefitText(inputid, index) {
     var newValue = document.getElementsByName(inputid)[0].value;
     benefitArray[index] = newValue;
-    refreshDutiesArray();
+    refreshBenefitArray();
+    showEditBenefit();  // Odświeżenie widoku po aktualizacji
 }
 function addEditBenefit() {
     var value = document.getElementsByName('InputBenefit')[0].value;
     benefitArray.push(value);
     document.getElementsByName('InputBenefit')[0].value = "";
-    showEditDuties();
+    showEditBenefit();
 }
 
-function deleteBenefit(element) {
-    benefitArray.splice(element, 1);
-    showEditDuties();
+function deleteEditBenefit(index) {
+    benefitArray.splice(index, 1);
+    showEditBenefit();
 }
 //DESCRIPTIONS
 function showDescriptions(){
@@ -553,9 +572,10 @@ function deleteDescription(element){
 }
 //EDIT DESCRIPTIONS
 function refreshDescriptionArray(){
-    document.getElementsByName('InputBenefits')[0].value = "";
+    console.log(descriptionArray);
+    document.getElementsByName('InputDescriptions')[0].value = "";
     descriptionArray.forEach((dutie) => {
-        document.getElementsByName('InputBenefits')[0].value += dutie + ";";
+        document.getElementsByName('InputDescriptions')[0].value += dutie + ";";
     });
 }
 function showEditDescripton() {
@@ -568,16 +588,16 @@ function showEditDescripton() {
         document.getElementsByName('InputDescriptions')[0].value += dutie + ";";
        
         body += `
-                <div id="containerContentDuties_${index}" class="MyUncollapse col-12 mt-5 border rounded-3 shadow-sm p-4">
-                    <h2 class="fs-4" name="divDuties_${index}">
+                <div id="containerContentDescrip_${index}" class="MyUncollapse col-12 mt-5 border rounded-3 shadow-sm p-4">
+                    <h2 class="fs-4" name="divDescrip_${index}">
                         ${dutie}
                     </h2>
                 </div>
-                <div id="containerInputDuties_${index}" class="MyCollapse">
-                    <input type="text" name="inputDuties1_${index}" value="${dutie}" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0"/>
+                <div id="containerInputDescrip_${index}" class="MyCollapse col-12 mt-5 border rounded-3 shadow-sm p-4">
+                    <textarea type="text" name="inputDescrip1_${index}" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0">${dutie}</textarea>
                 </div>
                 
-                    <button  type="button" class="btn btn-outline-secondary m-1" onclick="UpdateDescriptionText('inputDuties1_${index}',${index}),RepeatText('inputDuties1_${index}','divDuties_${index}'),CollapseUncollapseForm('containerInputDuties_${index}','containerContentDuties_${index}'),changeImage('changeposition_image_TBI_Duties_${index}','${ROOT_IMG}/checked.png','${ROOT_IMG}/edit.png')"><img id="changeposition_image_TBI_Duties_${index}" src="${ROOT_IMG}/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
+                    <button  type="button" class="btn btn-outline-secondary m-1" onclick="UpdateDescriptionText('inputDescrip1_${index}',${index}),RepeatText('inputDescrip1_${index}','divDescrip_${index}'),CollapseUncollapseForm('containerInputDescrip_${index}','containerContentDescrip_${index}'),changeImage('changeposition_image_TBI_Descrip_${index}','${ROOT_IMG}/checked.png','${ROOT_IMG}/edit.png')"><img id="changeposition_image_TBI_Descrip_${index}" src="${ROOT_IMG}/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
 
                 <button type='button' onclick = 'deleteEditDescription(${index})'>remove</button>
         `
@@ -590,7 +610,7 @@ function UpdateDescriptionText(inputid,index){
     descriptionArray[index] = newValue;
     refreshDescriptionArray();
 }
-function addEditDutes() {
+function addEditDescriptions() {
     var value = document.getElementsByName('TextAreaDescription')[0].value;
     descriptionArray.push(value);
     document.getElementsByName('TextAreaDescription')[0].value = "";
@@ -610,5 +630,4 @@ function ChangeTmpEditImageColor($image){
        `+ images[$image] + `
     </svg>
     `;
-
 }

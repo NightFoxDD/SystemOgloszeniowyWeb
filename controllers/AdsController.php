@@ -10,8 +10,8 @@
                 "Duties" => $adsModel->index_DutiesArray($_POST['id'],false),
                 "Requirements" => $adsModel->index_RequirementsArray($_POST['id'],false),
                 "Welcome" => $adsModel->index_WelcomesArray($_POST['id'],false),
-                "Benefits" => $adsModel->index_BenefitsArray($_POST['id']),
-                "Description" => $adsModel->index_DescriptionsArray($_POST['id'])
+                "Benefits" => $adsModel->index_BenefitsArray($_POST['id'],false),
+                "Description" => $adsModel->index_DescriptionsArray($_POST['id'],false)
             ];
             
             $this->returnView('index', $model);
@@ -53,11 +53,12 @@
                 "PositionName" => $adsModel->index_PositionNameView($_POST['id']),
                 "BasicInformations" => $adsModel->index_BasicInformationsViews($_POST['id'],true),
                 "Map" => $adsModel->index_MapPointView($_POST['id']),
+                "MapSrc" => $adsModel->index_MapSrc($_POST['id']),
                 "Duties" => $adsModel->index_DutiesArray($_POST['id'],true),
                 "Requirements" => $adsModel->index_RequirementsArray($_POST['id'],true),
                 "Welcome" => $adsModel->index_WelcomesArray($_POST['id'],true),
-                "Benefits" => $adsModel->index_BenefitsArray($_POST['id']),
-                "Description" => $adsModel->index_DescriptionsArray($_POST['id'])
+                "Benefits" => $adsModel->index_BenefitsArray($_POST['id'],true),
+                "Description" => $adsModel->index_DescriptionsArray($_POST['id'],true)
             ];
             $this->returnView('edit', $model);
         }

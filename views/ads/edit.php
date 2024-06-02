@@ -28,8 +28,8 @@
             </div>
         </div>
         <div class="row">
-            <div id = "addMapPoint" style="visibility:hidden;">
-                <input type="text" name = "inputMapPoint">
+            <div id = "addMapPoint"  style="visibility:hidden;">
+                <input type="text" name = "inputMapPoint" value = "<?php echo $model['MapSrc']?>">
                 <button type="button" onclick="addMapPoint()">ADD</button>
             </div>
             <div id = "deleteMapPoint" >
@@ -63,7 +63,6 @@
                 ?>
                  
             </ul>
-            <button onclick="check()" type="button">spraawdz</button>
             </div>
         </div>
         <div class="row">
@@ -94,12 +93,21 @@
                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
                 </svg>
                 <textarea name = "Textarea_welcome"></textarea>
-                <button type="button" onclick="addWelcome()">dodaj</button>
+                <button type="button" onclick="addEditWelcome()">dodaj</button>
                 <input type="text" name="InputWelcome">
             </li>
             <h1 class="fs-3">Mile widziane</h1>
             <ul class="list-group list-group-flush" id = "containerWelcome">
-                
+                <script>
+                    var welcomeArray = [];
+                </script>
+
+                <?php
+                    foreach($model['Welcome'] as $content)
+                    {
+                        echo $content;
+                    }
+                ?>
             </ul>
             </div>
         </div>
@@ -115,14 +123,21 @@
                     <div class="d-flex justify-content-center align-items-center">
                         <p class="text-center"><input type="text" name="InputBenefit"></p>
                     </div>
-                    <button type="button" onclick="addBenefit()">dodaj benefit</button>
+                    <button type="button" onclick="addEditBenefit()">dodaj benefit</button>
                     <input type="text" name = "InputBenefits"> 
                 </div>
             </div>
             <h2 class="fs-4">Benefity</h2>
             <div class="container" >
                 <div class="row d-flex justify-content-start" id = "ContainerBenefits">
-            
+                    <script>
+                        var benefitArray = [];
+                        </script>       
+                    <?php
+                        foreach($model['Benefits'] as $content){
+                            echo $content;
+                        }
+                    ?>
                 </div>
             </div>
             </div>
@@ -130,10 +145,19 @@
         <div class="row">
             <div class="col-12 mt-5 border rounded-3 shadow-sm p-4">
             <textarea name="TextAreaDescription"></textarea>
-            <button type="button" onclick="addDescription()">Add</button>
+            <button type="button" onclick="addEditDescriptions()">Add</button>
             <input name="InputDescriptions">
             </div>
-            <div id = "ContainerDescription"></div>
+            <div id = "ContainerDescription">
+                <script>
+                    var descriptionArray1 = [];
+                </script>
+                <?php 
+                foreach($model['Description'] as $content){
+                    echo $content;
+                }
+                ?>
+            </div>
         </div>
         <div class="row">
             <div class="col mt-5 border rounded-3 p-3">
