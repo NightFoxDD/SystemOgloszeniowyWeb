@@ -7,6 +7,7 @@ const images = [
     '<path d="M4 16s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-5.95a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" /><path d="M2 1a2 2 0 0 0-2 2v9.5A1.5 1.5 0 0 0 1.5 14h.653a5.373 5.373 0 0 1 1.066-2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v9h-2.219c.554.654.89 1.373 1.066 2h.653a1.5 1.5 0 0 0 1.5-1.5V3a2 2 0 0 0-2-2z" />',
     '<path d="M8 16c3.314 0 6-2 6-5.5 0-1.5-.5-4-2.5-6 .25 1.5-1.25 2-1.25 2C11 4 9 .5 6 0c.357 2 .5 4-2 6-1.25 1-2 2.729-2 4.5C2 14 4.686 16 8 16m0-1c-1.657 0-3-1-3-2.75 0-.75.25-2 1.25-3C6.125 10 7 10.5 7 10.5c-.375-1.25.5-3.25 2-3.5-.179 1-.25 2 1 3 .625.5 1 1.364 1 2.25C11 14 9.657 15 8 15" />'
 ];
+
 const inputTypes = [ "Text","Date"];
 const ROOT_IMG = "http://localhost/SystemOgloszeniowyWeb/images/assets/";
 const usedInformations = [];
@@ -14,17 +15,19 @@ const useInformations=[0,1,2,3,4,5,6];
 const duties = [];
 const requirements = [];
 const welcome = [];
+refreshDutiesArray();
+refreshRequirementsArray();
 const benefits = [];
 const descriptions = [];
 var color = "dodgerblue";
 var defaultColor = "#0099E6";
 ChangeTmpImageColor();
 updateSelectOptions();
-
-
+function check(){
+    console.log(dutiesArray);
+}
 //BASIC FUNCTIONS
 function CollapseUncollapseForm(Userinformations, Form){
-
     const userInformations = document.getElementById(Userinformations);
     if (userInformations.classList.contains("MyUncollapse")) {
         document.getElementById(Userinformations).classList.replace("MyUncollapse", "MyCollapse");
@@ -53,10 +56,7 @@ function changeImage(image, check, save) {
 }
 
 //BASIC INFORMAITONS FUNCTIONS
-function BindBasicInformations(bindInformations){
-    console.log("Informations: " + bindInformations);
-    console.log("sadf");
-}
+
 
 function addBasicInformations(){
     var Div = document.createElement('div');
@@ -104,8 +104,6 @@ function addBasicInformations(){
 function updateSelectOptions() {
     // Get the select element
     var selectElement = document.getElementById('Subject_BasicInfromations');
-
-    
     // Clear existing options
     selectElement.innerHTML = '';
     
@@ -208,6 +206,62 @@ function deleteDutie(element){
     duties.splice(element, 1);
     showDuties();
 }
+//EDIT DUTIES
+
+function refreshDutiesArray(){
+    document.getElementsByName('InputDuties')[0].value = "";
+    dutiesArray.forEach((dutie) => {
+        document.getElementsByName('InputDuties')[0].value += dutie + ";";
+    });
+}
+function showEditDuties() {
+    const container = document.getElementById('containerDuties');
+    var body = "";
+    container.innerHTML = "";
+    document.getElementsByName('InputDuties')[0].value = "";
+
+    dutiesArray.forEach((dutie, index) => {
+        document.getElementsByName('InputDuties')[0].value += dutie + ";";
+        var svg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dodgerblue" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+        </svg>`;
+        body += `
+            <li class="list-group-item border-0">
+               ${svg}
+                    <div id="containerContentDuties_${index}" class="MyUncollapse">
+                        <h2 class="fs-4" name="divDuties_${index}">
+                            ${dutie}
+                        </h2>
+                    </div>
+                    <div id="containerInputDuties_${index}" class="MyCollapse">
+                        <input type="text" name="inputDuties1_${index}" value="${dutie}" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0"/>
+                    </div>
+                 
+                        <button  type="button" class="btn btn-outline-secondary m-1" onclick="UpdateText('inputDuties1_${index}',${index}),RepeatText('inputDuties1_${index}','divDuties_${index}'),CollapseUncollapseForm('containerInputDuties_${index}','containerContentDuties_${index}'),changeImage('changeposition_image_TBI_Duties_${index}','${ROOT_IMG}/checked.png','${ROOT_IMG}/edit.png')"><img id="changeposition_image_TBI_Duties_${index}" src="${ROOT_IMG}/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
+
+                    <button type='button' onclick = 'deleteEditDutie(${index})'>remove</button>
+            </li>
+        `
+    });
+
+    container.innerHTML = body;
+}
+function UpdateText(inputid,index){
+    var newValue = document.getElementsByName(inputid)[0].value;
+     dutiesArray[index] = newValue;
+    refreshDutiesArray();
+}
+function addEditDutes() {
+    var value = document.getElementsByName('inputDutie')[0].value;
+    dutiesArray.push(value);
+    document.getElementsByName('inputDutie')[0].value = "";
+    showEditDuties();
+}
+
+function deleteEditDutie(element) {
+    dutiesArray.splice(element, 1);
+    showEditDuties();
+}
 
 //REQUIREMENTS
 function showRequirements(){
@@ -234,6 +288,60 @@ function addRequirements(){
 function deleteRequirement(element){
     requirements.splice(element, 1);
     showRequirements();
+}
+//EDIR REQUIREMENTS
+function refreshRequirementsArray(){
+    document.getElementsByName('InputRequirements')[0].value = "";
+    requirementsArray.forEach((dutie) => {
+        document.getElementsByName('InputRequirements')[0].value += dutie + ";";
+    });
+}
+function showEditRequirements() {
+    const container = document.getElementById('containerRequirements');
+    var body = "";
+    container.innerHTML = "";
+    document.getElementsByName('InputRequirements')[0].value = "";
+
+    requirementsArray.forEach((requirement, index) => {
+        document.getElementsByName('InputRequirements')[0].value += requirement + ";";
+        var svg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dodgerblue" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+        </svg>`;
+        body += `
+            <li class="list-group-item border-0">
+               ${svg}
+                    <div id="containerContentRequi_${index}" class="MyUncollapse">
+                        <h2 class="fs-4" name="divRequi_${index}">
+                            ${requirement}
+                        </h2>
+                    </div>
+                    <div id="containerInputRequi_${index}" class="MyCollapse">
+                        <input type="text" name="inputRequi1_${index}" value="${requirement}" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0"/>
+                    </div>
+                 
+                        <button  type="button" class="btn btn-outline-secondary m-1" onclick="UpdateRequirementText('inputRequi1_${index}',${index}),RepeatText('inputRequi1_${index}','divRequi_${index}'),CollapseUncollapseForm('containerInputRequi_${index}','containerContentRequi_${index}'),changeImage('changeposition_image_TBI_Requi_${index}','${ROOT_IMG}/checked.png','${ROOT_IMG}/edit.png')"><img id="changeposition_image_TBI_Requi_${index}" src="${ROOT_IMG}/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
+
+                    <button type='button' onclick = 'daleteEditRequirement(${index})'>remove</button>
+            </li>
+        `
+    });
+    container.innerHTML = body;
+}
+function UpdateRequirementText(inputid,index){
+    var newValue = document.getElementsByName(inputid)[0].value;
+    requirementsArray[index] = newValue;
+    refreshRequirementsArray();
+}
+function addEditRequirements() {
+    var value = document.getElementsByName('Textarea_requirements')[0].value;
+    requirementsArray.push(value);
+    document.getElementsByName('Textarea_requirements')[0].value = "";
+    showEditRequirements();
+}
+
+function daleteEditRequirement(element) {
+    requirementsArray.splice(element, 1);
+    showEditRequirements();
 }
 
 //WELCOME
@@ -263,6 +371,61 @@ function addWelcome(){
 function deleteWelcome(element){
     welcome.splice(element, 1);
     showWelcome();
+}
+//EDIT WELCOME
+function refreshWelcomeArray(){
+    document.getElementsByName('InputWelcome')[0].value = "";
+    welcomeArray.forEach((dutie) => {
+        document.getElementsByName('InputWelcome')[0].value += dutie + ";";
+    });
+}
+function showEditWelcome() {
+    const container = document.getElementById('containerWelcome');
+    var body = "";
+    container.innerHTML = "";
+    document.getElementsByName('InputWelcome')[0].value = "";
+
+    welcomeArray.forEach((item, index) => {
+        document.getElementsByName('InputWelcome')[0].value += item + ";";
+        var svg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dodgerblue" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+        </svg>`;
+        body += `
+            <li class="list-group-item border-0">
+               ${svg}
+                    <div id="containerContentDuties_${index}" class="MyUncollapse">
+                        <h2 class="fs-4" name="divDuties_${index}">
+                            ${item}
+                        </h2>
+                    </div>
+                    <div id="containerInputDuties_${index}" class="MyCollapse">
+                        <input type="text" name="inputDuties1_${index}" value="${item}" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0"/>
+                    </div>
+                 
+                        <button  type="button" class="btn btn-outline-secondary m-1" onclick="UpdateWelcomeText('inputDuties1_${index}',${index}),RepeatText('inputDuties1_${index}','divDuties_${index}'),CollapseUncollapseForm('containerInputDuties_${index}','containerContentDuties_${index}'),changeImage('changeposition_image_TBI_Duties_${index}','${ROOT_IMG}/checked.png','${ROOT_IMG}/edit.png')"><img id="changeposition_image_TBI_Duties_${index}" src="${ROOT_IMG}/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
+
+                    <button type='button' onclick = 'deleteEditDutie(${index})'>remove</button>
+            </li>
+        `
+    });
+
+    container.innerHTML = body;
+}
+function UpdateWelcomeText(inputid,index){
+    var newValue = document.getElementsByName(inputid)[0].value;
+     welcomeArray[index] = newValue;
+     refreshWelcomeArray();
+}
+function addWelcome() {
+    var value = document.getElementsByName('Textarea_welcome')[0].value;
+    welcomeArray.push(value);
+    document.getElementsByName('Textarea_welcome')[0].value = "";
+    showEditWelcome();
+}
+
+function deleteEditWelcome(element) {
+    welcomeArray.splice(element, 1);
+    showEditWelcome();
 }
 
 //BENEFITS
@@ -303,7 +466,61 @@ function deleteBenefit(element){
     benefits.splice(element, 1);
     showBenefits();
 }
+//EDIT BENEFITS 
+function refreshBenefitArray(){
+    document.getElementsByName('InputBenefits')[0].value = "";
+    benefitArray.forEach((dutie) => {
+        document.getElementsByName('InputBenefits')[0].value += dutie + ";";
+    });
+}
+function showEditBenefit() {
+    const container = document.getElementById('ContainerBenefits');
+    var body = "";
+    container.innerHTML = "";
+    document.getElementsByName('InputBenefits')[0].value = "";
 
+    benefitArray.forEach((dutie, index) => {
+        document.getElementsByName('InputBenefits')[0].value += dutie + ";";
+        var svg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dodgerblue" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+        </svg>`;
+        body += `
+            <li class="list-group-item border-0">
+               ${svg}
+                    <div id="containerContentDuties_${index}" class="MyUncollapse">
+                        <h2 class="fs-4" name="divDuties_${index}">
+                            ${dutie}
+                        </h2>
+                    </div>
+                    <div id="containerInputDuties_${index}" class="MyCollapse">
+                        <input type="text" name="inputDuties1_${index}" value="${dutie}" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0"/>
+                    </div>
+                 
+                        <button  type="button" class="btn btn-outline-secondary m-1" onclick="UpdateBenefitText('inputDuties1_${index}',${index}),RepeatText('inputDuties1_${index}','divDuties_${index}'),CollapseUncollapseForm('containerInputDuties_${index}','containerContentDuties_${index}'),changeImage('changeposition_image_TBI_Duties_${index}','${ROOT_IMG}/checked.png','${ROOT_IMG}/edit.png')"><img id="changeposition_image_TBI_Duties_${index}" src="${ROOT_IMG}/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
+
+                    <button type='button' onclick = 'deleteBenefit(${index})'>remove</button>
+            </li>
+        `
+    });
+
+    container.innerHTML = body;
+}
+function UpdateBenefitText(inputid,index){
+    var newValue = document.getElementsByName(inputid)[0].value;
+    benefitArray[index] = newValue;
+    refreshDutiesArray();
+}
+function addEditBenefit() {
+    var value = document.getElementsByName('InputBenefit')[0].value;
+    benefitArray.push(value);
+    document.getElementsByName('InputBenefit')[0].value = "";
+    showEditDuties();
+}
+
+function deleteBenefit(element) {
+    benefitArray.splice(element, 1);
+    showEditDuties();
+}
 //DESCRIPTIONS
 function showDescriptions(){
     console.log(descriptions);
@@ -333,4 +550,65 @@ function addDescription(){
 function deleteDescription(element){
     descriptions.splice(element, 1);
     showDescriptions();
+}
+//EDIT DESCRIPTIONS
+function refreshDescriptionArray(){
+    document.getElementsByName('InputBenefits')[0].value = "";
+    descriptionArray.forEach((dutie) => {
+        document.getElementsByName('InputBenefits')[0].value += dutie + ";";
+    });
+}
+function showEditDescripton() {
+    const container = document.getElementById('ContainerDescription');
+    var body = "";
+    container.innerHTML = "";
+    document.getElementsByName('InputDescriptions')[0].value = "";
+
+    descriptionArray.forEach((dutie, index) => {
+        document.getElementsByName('InputDescriptions')[0].value += dutie + ";";
+       
+        body += `
+                <div id="containerContentDuties_${index}" class="MyUncollapse col-12 mt-5 border rounded-3 shadow-sm p-4">
+                    <h2 class="fs-4" name="divDuties_${index}">
+                        ${dutie}
+                    </h2>
+                </div>
+                <div id="containerInputDuties_${index}" class="MyCollapse">
+                    <input type="text" name="inputDuties1_${index}" value="${dutie}" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0"/>
+                </div>
+                
+                    <button  type="button" class="btn btn-outline-secondary m-1" onclick="UpdateDescriptionText('inputDuties1_${index}',${index}),RepeatText('inputDuties1_${index}','divDuties_${index}'),CollapseUncollapseForm('containerInputDuties_${index}','containerContentDuties_${index}'),changeImage('changeposition_image_TBI_Duties_${index}','${ROOT_IMG}/checked.png','${ROOT_IMG}/edit.png')"><img id="changeposition_image_TBI_Duties_${index}" src="${ROOT_IMG}/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
+
+                <button type='button' onclick = 'deleteEditDescription(${index})'>remove</button>
+        `
+    });
+
+    container.innerHTML = body;
+}
+function UpdateDescriptionText(inputid,index){
+    var newValue = document.getElementsByName(inputid)[0].value;
+    descriptionArray[index] = newValue;
+    refreshDescriptionArray();
+}
+function addEditDutes() {
+    var value = document.getElementsByName('TextAreaDescription')[0].value;
+    descriptionArray.push(value);
+    document.getElementsByName('TextAreaDescription')[0].value = "";
+    showEditDescripton();
+}
+
+function deleteEditDescription(element) {
+    descriptionArray.splice(element, 1);
+    showEditDescripton();
+}
+
+function ChangeTmpEditImageColor($image){
+    const container = document.getElementById('divImage_' + $image);
+    container.innerHTML = 
+    `
+    <svg xmlns="http://www.w3.org/2000/svg" id = "image_`+ $image +`" width="70" height="70" fill="`+ document.getElementById('TMP_Edit_Color_'+$image).value + `" class="bi bi-clock-fill" viewBox="0 0 16 16">
+       `+ images[$image] + `
+    </svg>
+    `;
+
 }

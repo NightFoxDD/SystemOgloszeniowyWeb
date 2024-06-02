@@ -6,7 +6,8 @@
             // return $rows;
         }
         public function edit($id){
-            
+            echo $id;
+            return true;
         }
         public function getAds(){
             
@@ -26,11 +27,10 @@
             $ad = $this->single();
             return true;
         }
+        
         public function adsEditView($content){
             ob_start();
             ?>
-
-                
                 <div class="container ">
                     <div class="row">
                         <div class="col">
@@ -105,28 +105,41 @@
              ob_end_clean();
              return $content;
         }
-        public function index_RequirementsArray($id){
+        public function index_RequirementsArray($id,$edit){
             $this->query('SELECT requirements FROM `announcement` WHERE announcement_id = :id');
             $this->bind(':id',$id);
             $ad = $this->single();
             $requirements = [];
-            foreach(explode("_",explode('_',$ad['requirements'])[0]) as $content){
+            $count = 0;
+            foreach(explode(";",explode("_",explode('_',$ad['requirements'])[0])[0]) as $content){
                 if($content == "") break;
-                array_push($requirements,$this->index_RequirementsView($content));
+                if($edit){
+                    array_push($requirements,$this->edit_RequirementsView($content,$count));
+                    $count++;
+                }else
+                {
+                    array_push($requirements,$this->index_RequirementsView($content));
+                }
             }
             return $requirements;
         }
-        public function index_WelcomesArray($id){
+        
+        public function index_WelcomesArray($id,$edit){
             $this->query('SELECT requirements FROM `announcement` WHERE announcement_id = :id');
             $this->bind(':id',$id);
             $ad = $this->single();
             $welcome = [];
             if(explode("_",explode('_',$ad['requirements'])[1])[0] != ""){
-                foreach(explode("_",explode('_',$ad['requirements'])[1]) as $content){
+                foreach(explode(";",explode("_",explode('_',$ad['requirements'])[0])[1]) as $content){
                     if($content == "") break;
-                    array_push($welcome,$this->index_WelocmeView($content));
+                    if($edit){
+                        
+                    }else{
+                        array_push($welcome,$this->index_WelocmeView($content));
+                    }
+                    
                 }
-            }else{
+            }else if (!$edit){
                 array_push($welcome, $this->sorry());
             }
             
@@ -136,6 +149,38 @@
             ob_start();
             ?>
             <p>Przepraszam nie posiadamy</p>
+            <?php
+             $content = ob_get_contents();
+             ob_end_clean();
+             return $content;
+        }
+        public function edit_RequirementsView($content,$count){
+            ob_start();
+            ?>
+                <li class="list-group-item border-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dodgerblue" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                </svg>
+                    <div id="containerContentRequi_<?php echo $count?>" class="MyUncollapse">
+                        <h2 class="fs-4" name="divRequi_<?php echo $count?>">
+                            <?php echo $content?> 
+                        </h2>
+                    </div>
+                    <div id="containerInputRequi_<?php echo $count?>" class="MyCollapse">
+                        <input type="text" name="inputRequi_<?php echo $count?>" value="<?php echo $content?>" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0"/>
+                    </div>
+                 
+                        <button  type="button" class="btn btn-outline-secondary m-1" onclick="UpdateRequirementText('inputRequi1_<?php echo $count?>','<?php echo $count?>'),RepeatText('inputRequi1_<?php echo $count?>','divRequi_<?php echo $count?>'),CollapseUncollapseForm('containerInputRequi_<?php echo $count?>','containerContentRequi_<?php echo $count?>'),changeImage('changeposition_image_TBI_Requi_<?php echo $count?>','<?php echo ROOT_IMG ?>/checked.png','<?php echo ROOT_IMG ?>/edit.png')"><img id="changeposition_image_TBI_Requi_<?php echo $count?>" src="<?php echo ROOT_IMG ?>/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
+
+                    <button type='button' onclick = 'daleteEditRequirement(<?php echo $count; ?>)'>remove</button>
+            </li>
+
+            <script>
+                if (typeof requirementsArray === 'undefined') {
+                    var requirementsArray = [];
+                }
+                requirementsArray.push('<?php echo addslashes($content); ?>');
+            </script>
             <?php
              $content = ob_get_contents();
              ob_end_clean();
@@ -171,17 +216,55 @@
              ob_end_clean();
              return $content;
         }
-        public function index_DutiesArray($id){
+        public function index_DutiesArray($id, $edit){
             $this->query('SELECT duties FROM `announcement` WHERE announcement_id = :id');
             $this->bind(':id',$id);
             $ad = $this->single();
             $dutiesArray = [];
+            $count = 0;
             foreach(explode(';',$ad['duties']) as $row)
             {
                 if($row == "") break;
-                array_push($dutiesArray,$this->index_dutiesView($row));
+                if($edit){
+                    array_push($dutiesArray,$this->edit_dutiesView($row,$count));$count++;
+                }else{
+                    array_push($dutiesArray,$this->index_dutiesView($row));
+                }
+                
             }
             return $dutiesArray;
+        }
+        public function edit_dutiesView($content,$count){
+            ob_start();
+            ?>
+                <li class="list-group-item border-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dodgerblue" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                </svg>
+                    <div id="containerContentDuties_<?php echo $count?>" class="MyUncollapse">
+                        <h2 class="fs-4" name="divDuties_<?php echo $count?>">
+                            <?php echo $content?> 
+                        </h2>
+                    </div>
+                    <div id="containerInputDuties_<?php echo $count?>" class="MyCollapse">
+                        <input type="text" name="inputDuties1_<?php echo $count?>" value="<?php echo $content?>" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0"/>
+                    </div>
+                 
+                        <button  type="button" class="btn btn-outline-secondary m-1" onclick="UpdateText('inputDuties1_<?php echo $count?>','<?php echo $count?>'),RepeatText('inputDuties1_<?php echo $count?>','divDuties_<?php echo $count?>'),CollapseUncollapseForm('containerInputDuties_<?php echo $count?>','containerContentDuties_<?php echo $count?>'),changeImage('changeposition_image_TBI_Duties_<?php echo $count?>','<?php echo ROOT_IMG ?>/checked.png','<?php echo ROOT_IMG ?>/edit.png')"><img id="changeposition_image_TBI_Duties_<?php echo $count?>" src="<?php echo ROOT_IMG ?>/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
+
+                    <button type='button' onclick = 'deleteEditDutie(<?php echo $count; ?>)'>remove</button>
+            </li>
+
+            <script>
+                if (typeof dutiesArray === 'undefined') {
+                    var dutiesArray = [];
+                }
+                dutiesArray.push('<?php echo addslashes($content); ?>');
+            </script>
+            <?php
+             $content = ob_get_contents();
+             ob_end_clean();
+             return $content;
         }
         public function index_dutiesView($content){
             ob_start();
@@ -240,6 +323,7 @@
             $ad = $this->single();
             ob_start();
             ?>
+                <input type='hidden' value="<?php echo $id ?>" name="id">
                 <img src="<?php echo ROOT_IMG_COMPANY ?><?php echo $ad['imagelink']?>" height="128" width="220" alt="Zdjęcie profilowe firmy">
             <?php
             $content = ob_get_contents();
@@ -267,7 +351,7 @@
                     "description" => $description
                 ];
                 if($edit){
-                    array_push($basicInformations,$this->index_BasicInfromationsTheme($work));
+                    array_push($basicInformations,$this->edit_BasicInformatoinsTheme($work));
                 }else{
                     array_push($basicInformations,$this->index_BasicInfromationsTheme($work));
                 }
@@ -287,22 +371,37 @@
                 '<path d="M8 16c3.314 0 6-2 6-5.5 0-1.5-.5-4-2.5-6 .25 1.5-1.25 2-1.25 2C11 4 9 .5 6 0c.357 2 .5 4-2 6-1.25 1-2 2.729-2 4.5C2 14 4.686 16 8 16m0-1c-1.657 0-3-1-3-2.75 0-.75.25-2 1.25-3C6.125 10 7 10.5 7 10.5c-.375-1.25.5-3.25 2-3.5-.179 1-.25 2 1 3 .625.5 1 1.364 1 2.25C11 14 9.657 15 8 15" />'
             ];
             ob_start();
-            $description = addslashes($item['description']);
-            echo "<script>BindBasicInformations('" . $description . "');</script>";
             ?>
                 <div class='col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start'>
-                    <div class="float-start rounded-2 d-flex justify-content-center align-items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="<?php echo $item['color']?>" class="bi bi-clock-fill" viewBox="0 0 16 16">
+                <input type="color" id="TMP_Edit_Color_<?php echo $item['count']?>" value="<?php echo $item['color']; ?>" onchange="ChangeTmpEditImageColor('<?php echo $item['count']; ?>')">
+                    <div id = "divImage_<?php echo $item['count'];?>" class="float-start rounded-2 d-flex justify-content-center align-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" id = "image_<?php echo $item['count'];?>" width="70" height="70" fill="<?php echo $item['color']?>" class="bi bi-clock-fill" viewBox="0 0 16 16">
                             <?php echo $images[$item['count']]?>
                         </svg>
                     </div>
                     <div class="p-4">
-                        <h2 class="fs-4">
-                            <p id="PositionName_1"><?php echo $item['title']?></p>
-                        </h2>
-                        <p class="fs-6 text-gray">
-                            <?php echo $item['description']?>
-                        </p>
+                        <div class="col">
+                            <div id="containerContent_<?php echo $item['count']?>" class="MyUncollapse">
+                                <h2 class="fs-4" name="TBIcontent_<?php echo $item['count']?>"><?php echo $item['title']?> </h2>
+                            </div>
+                            <div id="containerInput_<?php echo $item['count']?>" class="MyCollapse">
+                                <h2><input type="text" name="TBIinput_<?php echo $item['count']?>" value="<?php echo $item['title']?>" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0"/><h2>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <button id="btn_changeTBI" type="button" class="btn btn-outline-secondary m-1" onclick="RepeatText('TBIinput_<?php echo $item['count']?>','TBIcontent_<?php echo $item['count']?>'),CollapseUncollapseForm('containerInput_<?php echo $item['count']?>','containerContent_<?php echo $item['count']?>'),changeImage('changeposition_image_TBI_<?php echo $item['count']?>','<?php echo ROOT_IMG ?>/checked.png','<?php echo ROOT_IMG ?>/edit.png')"><img id="changeposition_image_TBI_<?php echo $item['count']?>" src="<?php echo ROOT_IMG ?>/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
+                        </div>
+                        <div class="col">
+                            <div id="containerDescContent_<?php echo $item['count']?>" class="MyUncollapse">
+                                <p class="fs-6 text-gray" name="TBIdescContent_<?php echo $item['count']?>"> <?php echo $item['description']?></p>
+                            </div>
+                            <div id="containerDescInput_<?php echo $item['count']?>" class="MyCollapse">
+                                <input type="text" name="TBIdescInput_<?php echo $item['count']?>" value=" <?php echo $item['description']?>" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <button id="btn_changeTBI" type="button" class="btn btn-outline-secondary m-1" onclick="RepeatText('TBIdescInput_<?php echo $item['count']?>','TBIdescContent_<?php echo $item['count']?>'),CollapseUncollapseForm('containerDescInput_<?php echo $item['count']?>','containerDescContent_<?php echo $item['count']?>'),changeImage('changeposition_image_TBIdesc_<?php echo $item['count']?>','<?php echo ROOT_IMG ?>/checked.png','<?php echo ROOT_IMG ?>/edit.png')"><img id="changeposition_image_TBIdesc_<?php echo $item['count']?>" src="<?php echo ROOT_IMG ?>/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
+                        </div>
                     </div>
                 </div>
             <?php
@@ -322,8 +421,6 @@
                 '<path d="M8 16c3.314 0 6-2 6-5.5 0-1.5-.5-4-2.5-6 .25 1.5-1.25 2-1.25 2C11 4 9 .5 6 0c.357 2 .5 4-2 6-1.25 1-2 2.729-2 4.5C2 14 4.686 16 8 16m0-1c-1.657 0-3-1-3-2.75 0-.75.25-2 1.25-3C6.125 10 7 10.5 7 10.5c-.375-1.25.5-3.25 2-3.5-.179 1-.25 2 1 3 .625.5 1 1.364 1 2.25C11 14 9.657 15 8 15" />'
             ];
             ob_start();
-            $description = addslashes($item['description']);
-            echo "<script>BindBasicInformations('" . $description . "');</script>";
             ?>
                 <div class='col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start'>
                     <div class="float-start rounded-2 d-flex justify-content-center align-items-center">

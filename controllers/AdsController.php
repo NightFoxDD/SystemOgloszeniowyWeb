@@ -7,9 +7,9 @@
                 "PositionName" => $adsModel->index_PositionNameView($_POST['id']),
                 "BasicInformations" => $adsModel->index_BasicInformationsViews($_POST['id'],false),
                 "Map" => $adsModel->index_MapPointView($_POST['id']),
-                "Duties" => $adsModel->index_DutiesArray($_POST['id']),
-                "Requirements" => $adsModel->index_RequirementsArray($_POST['id']),
-                "Welcome" => $adsModel->index_WelcomesArray($_POST['id']),
+                "Duties" => $adsModel->index_DutiesArray($_POST['id'],false),
+                "Requirements" => $adsModel->index_RequirementsArray($_POST['id'],false),
+                "Welcome" => $adsModel->index_WelcomesArray($_POST['id'],false),
                 "Benefits" => $adsModel->index_BenefitsArray($_POST['id']),
                 "Description" => $adsModel->index_DescriptionsArray($_POST['id'])
             ];
@@ -53,9 +53,9 @@
                 "PositionName" => $adsModel->index_PositionNameView($_POST['id']),
                 "BasicInformations" => $adsModel->index_BasicInformationsViews($_POST['id'],true),
                 "Map" => $adsModel->index_MapPointView($_POST['id']),
-                "Duties" => $adsModel->index_DutiesArray($_POST['id']),
-                "Requirements" => $adsModel->index_RequirementsArray($_POST['id']),
-                "Welcome" => $adsModel->index_WelcomesArray($_POST['id']),
+                "Duties" => $adsModel->index_DutiesArray($_POST['id'],true),
+                "Requirements" => $adsModel->index_RequirementsArray($_POST['id'],true),
+                "Welcome" => $adsModel->index_WelcomesArray($_POST['id'],true),
                 "Benefits" => $adsModel->index_BenefitsArray($_POST['id']),
                 "Description" => $adsModel->index_DescriptionsArray($_POST['id'])
             ];
@@ -71,6 +71,18 @@
             else {
                 Messages::setMsg("Nie dodano ogłoszenia", "error");
                 $this->redirect('company', 'index');
+            }
+        }
+        protected function edit(){
+            $model = new ad();
+            if($model->edit($_POST['id']))
+            {
+                Messages::setMsg("Edytowano ogłoszenie","success");
+                $this->redirect('ads', 'editView');
+            }
+            else {
+                Messages::setMsg("Nie edytowano ogłoszenia", "error");
+                $this->redirect('ads', 'editView');
             }
         }
     }

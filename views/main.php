@@ -223,6 +223,5 @@
 <script src="<?php echo ROOT_Script ?>profil.js"></script>
 <script src="<?php echo ROOT_Script ?>search.js"></script>
 <script src="<?php echo ROOT_Script ?>ads.js"></script>
-<script src="<?php echo ROOT_Script ?>adsEdit.js"></script>
 <script src="<?php echo ROOT_Script ?>carousel.js"></script>
 </html>
