@@ -35,6 +35,12 @@
                                     <a class="nav-link" aria-current="page" href="<?php echo ROOT_URL; ?>company/Index">Home</a>
                                 </li>
                                 <?php
+                            }else if ($_SESSION['user_data']['type'] == 2){
+                                ?>
+                                <li class="nav-item">
+                                    <a class="nav-link" aria-current="page" href="<?php echo ROOT_URL; ?>admin/Index">admin</a>
+                                </li>
+                                <?php
                             }
                         }
                     ?>
