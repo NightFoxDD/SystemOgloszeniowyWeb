@@ -66,6 +66,25 @@
             </div>
         </div>
         <div class="row">
+            <input type="text" name="SavedSubCategories" id="savedSubCategories">
+            <input type="text" name="SavedCategories" id="savedCategories">
+                <select id="selectCategory" onchange="showSubCategories()">
+                    <?php 
+                        foreach($model['Categories'] as $category){
+                            echo "<option value='". $category['id'] ."'>". $category['name'] ."</option>";
+                        }
+                    ?>
+                </select>
+                <ul id="subcategoryContainer">
+
+                </ul>
+                <ul id="checkedCategoryContainer">
+
+                </ul>
+                
+        </div>
+        <div class="row">
+            <input type="text" id="inputMapPoint2" name="inputMapPoint2" value=""/>
             <div id = "addMapPoint">
                 <input type="text" name = "inputMapPoint">
                 <button type="button" onclick="addMapPoint()">ADD</button>

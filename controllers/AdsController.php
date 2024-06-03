@@ -23,6 +23,8 @@
             $adsModel = new Ad();
             $model = [
                  "add_PositionName"=>$adsModel->Add_PositionNameView(null),
+                 "Categories" => $adsModel->GetCategories(),
+                 "SubCategories" => $adsModel->GetSubCategories()
             ];
             $this->returnView('add', $model);
         }
@@ -58,7 +60,9 @@
                 "Requirements" => $adsModel->index_RequirementsArray($_POST['id'],true),
                 "Welcome" => $adsModel->index_WelcomesArray($_POST['id'],true),
                 "Benefits" => $adsModel->index_BenefitsArray($_POST['id'],true),
-                "Description" => $adsModel->index_DescriptionsArray($_POST['id'],true)
+                "Description" => $adsModel->index_DescriptionsArray($_POST['id'],true),
+                "Categories" => $adsModel->GetEditCategories($_POST['id']),
+                "SubCategories" => $adsModel->GetEditSubCategories($_POST['id'])
             ];
             $this->returnView('edit', $model);
         }

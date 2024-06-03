@@ -28,14 +28,35 @@
             </div>
         </div>
         <div class="row">
+            <input type="text" name="SavedSubCategories" id="savedSubCategories">
+            <input type="text" name="SavedCategories" id="savedCategories">
+                <select id="selectCategory" onchange="showSubCategories()">
+                    <?php 
+                        foreach($model['Categories'] as $category){
+                            echo "<option value='". $category['id'] ."'>". $category['name'] ."</option>";
+                        }
+                    ?>
+                </select>
+                <script> console.log(subcategoriesArray);</script>
+                <ul id="subcategoryContainer">
+
+                </ul>
+                <ul id="checkedCategoryContainer">
+
+                </ul>
+                
+        </div>
+        <div class="row">
+            <input type="text" id="inputMapPoint2" name="inputMapPoint2" value="<?php echo $model['MapSrc']?>">
             <div id = "addMapPoint"  style="visibility:hidden;">
-                <input type="text" name = "inputMapPoint" value = "<?php echo $model['MapSrc']?>">
+                <input type="text" name = "inputMapPoint" value = "">
                 <button type="button" onclick="addMapPoint()">ADD</button>
             </div>
             <div id = "deleteMapPoint" >
                 <button type="button" onclick="removeMapPoint()">remove</button>
             </div>
             <div class="col-12 mt-5" id = "Container_AddMapPoint">
+                
                 <?php echo $model['Map']?>
             </div>
         </div>

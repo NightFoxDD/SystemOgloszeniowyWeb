@@ -83,5 +83,31 @@
             }
             return $data;
         }
+        public function search($text,$category,$localization){
+            $query = "SELECT * FROM `announcement` WHERE position_name LIKE CONCAT('%', '". $text ."', '%')";
+            if($category != "" && $category != -1){
+                $query = $query . " AND category_id LIKE CONCAT('%', '". $category .";" ."', '%')";
+            }
+            if($localization != ""){
+                $query = $query . " AND position_level LIKE CONCAT('%', '". $localization ."', '%')";
+            }
+            $this->query($query);
+            $result = $this->resultSet();
+
+            $data = [];
+            foreach($result as $row){
+                if($row){
+                    $item = [
+                    "announcement_id" => $row['announcement_id'],
+                    "position_name" => $row['position_name'],
+                    "expire_date" => $row['expire_date'],
+                    "company_id" => $row['company_id']
+                    ];
+                    
+                    array_push($data, $this->getLastAdsView($item));
+                }
+            }
+            return $data;
+        }
     }
 ?>

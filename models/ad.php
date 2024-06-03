@@ -5,11 +5,156 @@
             // $rows = $this->resultSet();
             // return $rows;
         }
+        public function GetEditCategories($id){
+            $this->query('SELECT category_id FROM `announcement` WHERE announcement_id = :id');
+            $this->bind(":id",$id);
+            $categoriesToCheck = $this->resultSet();
+            $categoriesCheck = [];
+
+            if($categoriesToCheck != null){
+                $categoriesCheck = explode(";",$categoriesToCheck[0]['category_id']);
+            }
+            $this->query('SELECT * FROM `announcement_category`');
+            $result = $this->resultSet();
+            $categories = [];
+            $data = [];
+            foreach($result as $row){
+                if($row){
+                    $check = false;
+                    if(in_array($row['category_id'],$categoriesCheck)){
+                        $check = true;
+                    }
+                    $data = [
+                    "id" => $row['category_id'],
+                    "checked" => $check,
+                    "name" => $row['name']
+                    ];
+                    ?>
+                    
+                    <?php
+                    array_push($categories,$data);
+                }
+            }    
+            $categoriesJson = json_encode($categories);
+            ?>
+            <script>
+                    if (typeof categoriesArray === 'undefined') {
+                    var categoriesArray = [];
+                }
+                categoriesArray.push('<?php echo $categoriesJson;?>');
+            </script>
+            <?php
+            return $categories;
+        }
+        public function GetEditSubCategories($id){
+            $this->query('SELECT subcategory_id FROM `announcement` WHERE announcement_id = :id');
+            $this->bind(":id",$id);
+            $categoriesToCheck = $this->resultSet();
+            $categoriesCheck = [];
+
+            if($categoriesToCheck != null){
+                $categoriesCheck = explode(";",$categoriesToCheck[0]['subcategory_id']);
+            }
+            $this->query('SELECT * FROM `announcement_subcategory`');
+            $result = $this->resultSet();
+            $subcategories = [];
+            $data = [];
+            $check = false;
+
+            foreach($result as $row){
+                if($row){
+                    $data = [
+                        "id" => $row['subcategory_id'],
+                        "checked" => $check,
+                        "master_id" => $row['category_id'],
+                        "name" => $row['name']
+                        ];
+                    foreach($categoriesCheck as $cat){
+                        if(explode("_",$cat)[0] == $row['category_id'] && $row['subcategory_id'] == explode("_",$cat)[1]){
+                            $check = true;
+                            break;
+                        }else{
+                            $check = false;
+                        }
+                    }
+                    $data['checked'] = $check;
+                    array_push($subcategories,$data);
+                }
+            }
+
+            $subcategoriesJson = json_encode($subcategories);
+            ?>
+            <script>
+                    if (typeof subcategoriesArray === 'undefined') {
+                    var subcategoriesArray = [];
+                }
+                subcategoriesArray.push('<?php echo $subcategoriesJson;?>');
+            </script>
+            <?php
+            return $subcategories;
+        }
+        public function GetCategories(){
+            $this->query('SELECT * FROM `announcement_category`');
+            $result = $this->resultSet();
+            $categories = [];
+            $data = [];
+            foreach($result as $row){
+                if($row){
+                    $data = [
+                    "id" => $row['category_id'],
+                    "checked" => false,
+                    "name" => $row['name']
+                    ];
+                    ?>
+                    
+                    <?php
+                    array_push($categories,$data);
+                }
+            }    
+            $categoriesJson = json_encode($categories);
+            ?>
+            <script>
+                    if (typeof categoriesArray === 'undefined') {
+                    var categoriesArray = [];
+                }
+                categoriesArray.push('<?php echo $categoriesJson;?>');
+            </script>
+            <?php
+            return $categories;
+        }
+        public function GetSubCategories(){
+            $this->query('SELECT * FROM `announcement_subcategory`');
+            $result = $this->resultSet();
+            $subcategories = [];
+            $data = [];
+            foreach($result as $row){
+                if($row){
+                    $data = [
+                    "id" => $row['subcategory_id'],
+                    "checked" => false,
+                    "master_id" => $row['category_id'],
+                    "name" => $row['name']
+                    ];
+                    array_push($subcategories,$data);
+                }
+            }
+            $subcategoriesJson = json_encode($subcategories);
+            ?>
+            <script>
+                    if (typeof subcategoriesArray === 'undefined') {
+                    var subcategoriesArray = [];
+                }
+                subcategoriesArray.push('<?php echo $subcategoriesJson;?>');
+            </script>
+            <?php
+            return $subcategories;
+        }
         public function edit($id){
             echo $id;
             echo "<pre>";
             print_r($_POST);
             echo "</pre>";
+    
             $PositionLevel = $_POST['TBIinput_0'] . "_" . $_POST['TMP_Edit_Color_0'] . ";" . $_POST['TBIdescInput_0'];
             $ContractType = $_POST['TBIinput_1'] . "_" . $_POST['TMP_Edit_Color_1'] . ";" . $_POST['TBIdescInput_1'];
             $TimeRemaining = $_POST['TBIinput_2'] . "_" . $_POST['TMP_Edit_Color_2'] . ";" . $_POST['TBIdescInput_2'];
@@ -31,7 +176,9 @@
                 `requirements` = :requirements,
                 `benefits` = :benefits,
                 `Map` = :map,
-                `descriptions` = :descriptions
+                `descriptions` = :descriptions,
+                `category_id` = :categories,
+                `subcategory_id` = :subcategories
             WHERE `announcement_id` = :id");
             $this->bind(':id', $id);
             $this->bind(':positionName', $_POST['input_PositionName']);
@@ -45,9 +192,10 @@
             $this->bind(':duties', $_POST['InputDuties']);
             $this->bind(':requirements', $_POST['InputRequirements'] . "_" . $_POST['InputWelcome']);
             $this->bind(':descriptions', $_POST['InputDescriptions']);
-            $this->bind(':map', $_POST['inputMapPoint']);
+            $this->bind(':map', $_POST['inputMapPoint2']);
             $this->bind(':benefits', $_POST['InputBenefits']);
-
+            $this->bind(':categories', $_POST['SavedCategories']);
+            $this->bind(':subcategories', $_POST['SavedSubCategories']);
             $this->single();
 
             return true;
@@ -330,16 +478,16 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gray" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
                 </svg>
-                    <div id="containerContentDuties_<?php echo $count?>" class="MyUncollapse">
-                        <h2 class="fs-4" name="divDuties_<?php echo $count?>">
+                    <div id="containerContentWelcome_<?php echo $count?>" class="MyUncollapse">
+                        <h2 class="fs-4" name="divWelcome_<?php echo $count?>">
                             <?php echo $content?> 
                         </h2>
                     </div>
-                    <div id="containerInputDuties_<?php echo $count?>" class="MyCollapse">
-                        <input type="text" name="inputDuties1_<?php echo $count?>" value="<?php echo $content?>" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0"/>
+                    <div id="containerInputWelcome_<?php echo $count?>" class="MyCollapse">
+                        <input type="text" name="inputWelcome1_<?php echo $count?>" value="<?php echo $content?>" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0"/>
                     </div>
                  
-                        <button  type="button" class="btn btn-outline-secondary m-1" onclick="UpdateWelcomeText('inputDuties1_<?php echo $count?>','<?php echo $count?>'),RepeatText('inputDuties1_<?php echo $count?>','divDuties_<?php echo $count?>'),CollapseUncollapseForm('containerInputDuties_<?php echo $count?>','containerContentDuties_<?php echo $count?>'),changeImage('changeposition_image_TBI_Duties_<?php echo $count?>','<?php echo ROOT_IMG ?>/checked.png','<?php echo ROOT_IMG ?>/edit.png')"><img id="changeposition_image_TBI_Duties_<?php echo $count?>" src="<?php echo ROOT_IMG ?>/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
+                        <button  type="button" class="btn btn-outline-secondary m-1" onclick="UpdateWelcomeText('inputWelcome1_<?php echo $count?>','<?php echo $count?>'),RepeatText('inputWelcome1_<?php echo $count?>','divWelcome_<?php echo $count?>'),CollapseUncollapseForm('containerInputWelcome_<?php echo $count?>','containerContentWelcome_<?php echo $count?>'),changeImage('changeposition_image_TBI_Welcome_<?php echo $count?>','<?php echo ROOT_IMG ?>/checked.png','<?php echo ROOT_IMG ?>/edit.png')"><img id="changeposition_image_TBI_Welcome_<?php echo $count?>" src="<?php echo ROOT_IMG ?>/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
 
                     <button type='button' onclick = 'deleteEditWelcome(<?php echo $count; ?>)'>remove</button>
             </li>
@@ -609,7 +757,6 @@
             echo"<pre>";
             print_r(($_POST));
             echo "</pre>";
-
             echo $_SESSION['user_data']['id'];
             $this->query('SELECT * FROM `company` WHERE user_id = :company_id');
             $this->bind(':company_id',$_SESSION['user_data']['id']);
@@ -621,7 +768,7 @@
             $PositionLevel = $_POST['InputTitle_4'] . ";" . $_POST['InputDescription_4'];
             $WorkType = $_POST['InputTitle_5'] . ";" . $_POST['InputDescription_5'];
             $TypeOfEmployment = $_POST['InputTitle_6'] . ";" . $_POST['InputDescription_6'];
-            $this->query("INSERT INTO `announcement`(`company_id`,`position_name`,`localization`, `position_level`, `contract_type`, `working_time`, `work_type`, `expire_date`, `typeOfEmployment`,`duties`,`requirements`,`benefits`,`Map`,`descriptions`) VALUES (:company_id,:positionName,:localization,:positionLevel,:contractType,:timeRemaining,:workType,:expireDate,:typeOfEmployment,:duties,:requirements,:benefits,:map,:description)");
+            $this->query("INSERT INTO `announcement`(`company_id`,`position_name`,`localization`, `position_level`, `contract_type`, `working_time`, `work_type`, `expire_date`, `typeOfEmployment`,`duties`,`requirements`,`benefits`,`Map`,`descriptions`,`category_id`,`subcategory_id`) VALUES (:company_id,:positionName,:localization,:positionLevel,:contractType,:timeRemaining,:workType,:expireDate,:typeOfEmployment,:duties,:requirements,:benefits,:map,:description,:categories,:subcategories)");
             $this->bind(':company_id', $company['company_id']);
             $this->bind(':positionName', $_POST['input_PositionName']);
             $this->bind(':localization', $Localization);
@@ -634,8 +781,10 @@
             $this->bind(':duties', $_POST['InputDuties']);
             $this->bind(':requirements', $_POST['InputRequirements'] . "_" . $_POST['InputWelcome']);
             $this->bind(':description', $_POST['InputDescriptions']);
-            $this->bind(':map', $_POST['InputMapPoint']);
+            $this->bind(':map', $_POST['inputMapPoint2']);
             $this->bind(':benefits', $_POST['InputBenefits']);
+            $this->bind(':categories', $_POST['SavedCategories']);
+            $this->bind(':subcategories', $_POST['SavedSubCategories']);
 
             $this->execute();
             

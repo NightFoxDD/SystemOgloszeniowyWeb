@@ -17,6 +17,10 @@ const requirements = [];
 const welcome = [];
 const benefits = [];
 const descriptions = [];
+const subCategoriesFromJson = JSON.parse(subcategoriesArray);
+const CategoriesFromJson = JSON.parse(categoriesArray);
+showSubCategories();
+showCheckedCategories();
 refreshDutiesArray();
 refreshRequirementsArray();
 refreshBenefitArray();
@@ -168,8 +172,9 @@ function addMapPoint(){
     var mappoint= mapPointSrc[1].slice(5);
     mappoint = mappoint.slice(0,-1);
     console.log(mappoint);
-    var iframeMapPoint = `<input type='text' name="InputMapPoint" value =  '${mappoint}}'>
-    <iframe src=" ${mappoint}" width="100%" height="350 rem" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    document.getElementById("inputMapPoint2").value = mappoint;
+    var iframeMapPoint = `
+        <iframe src=" ${mappoint}" width="100%" height="350 rem" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     `;
     Div.innerHTML = iframeMapPoint;
     document.getElementById('addMapPoint').style.visibility = "hidden";
@@ -177,6 +182,7 @@ function addMapPoint(){
 }
 function removeMapPoint(){
     var Div = document.getElementById('Container_AddMapPoint');
+    document.getElementById("inputMapPoint2").value = "";
     Div.innerHTML = "";
     document.getElementById('addMapPoint').style.visibility = "visible";
     document.getElementById('deleteMapPoint').style.visibility = "hidden";
@@ -295,7 +301,7 @@ function deleteRequirement(element){
     requirements.splice(element, 1);
     showRequirements();
 }
-//EDIR REQUIREMENTS
+//EDIT REQUIREMENTS
 function refreshRequirementsArray(){
     console.log(requirementsArray);
     document.getElementsByName('InputRequirements')[0].value = "";
@@ -483,6 +489,7 @@ function refreshBenefitArray() {
         document.getElementsByName('InputBenefits')[0].value += benefit + ";";
     });
 }
+
 function showEditBenefit() {
     const container = document.getElementById('ContainerBenefits');
     var body = "";
@@ -491,8 +498,8 @@ function showEditBenefit() {
 
     benefitArray.forEach((benefit, index) => {
         document.getElementsByName('InputBenefits')[0].value += benefit + ";";
-        var svg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dodgerblue" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+        var svg = `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="dodgerblue" class="bi bi-compass-fill mb-4" viewBox="0 0 16 16">
+        <path d="M15.5 8.516a7.5 7.5 0 1 1-9.462-7.24A1 1 0 0 1 7 0h2a1 1 0 0 1 .962 1.276 7.503 7.503 0 0 1 5.538 7.24m-3.61-3.905L6.94 7.439 4.11 12.39l4.95-2.828 2.828-4.95z" />
         </svg>`;
         body += `
             <div class="col-lg-3 col-md-6 col-sm-12 p-1">
@@ -501,16 +508,16 @@ function showEditBenefit() {
                         ${svg}
                     </div>
                     <div class="d-flex justify-content-center align-items-center">
-                        <div id="containerContentBenefits_${index}" class="MyUncollapse">
-                            <h2 class="fs-4" name="divBenefits_${index}">
+                        <div id="containerContentBenefits1_${index}" class="MyUncollapse">
+                            <h2 class="fs-4" name="divBenefits1_${index}">
                                 ${benefit}
                             </h2>
                         </div>
-                        <div id="containerInputBenefits_${index}" class="MyCollapse">
-                            <input type="text" name="inputBenefits_${index}" value="${benefit}" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0"/>
+                        <div id="containerInputBenefits1_${index}" class="MyCollapse">
+                            <input type="text" name="inputBenefits1_${index}" value="${benefit}" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0"/>
                         </div>
-                        <button type="button" class="btn btn-outline-secondary m-1" onclick="UpdateBenefitText('inputBenefits_${index}', ${index}), RepeatText('inputBenefits_${index}', 'divBenefits_${index}'), CollapseUncollapseForm('containerInputBenefits_${index}', 'containerContentBenefits_${index}'), changeImage('changeposition_image_TBI_Benefits_${index}', '${ROOT_IMG}/checked.png', '${ROOT_IMG}/edit.png')">
-                            <img id="changeposition_image_TBI_Benefits_${index}" src="${ROOT_IMG}/edit.png" class="image-thumbnail" style="height:50px; weight:50px;">
+                        <button type="button" class="btn btn-outline-secondary m-1" onclick="UpdateBenefitText('inputBenefits1_${index}', ${index}); RepeatText('inputBenefits1_${index}', 'divBenefits1_${index}'); CollapseUncollapseForm('containerInputBenefits1_${index}', 'containerContentBenefits1_${index}'); changeImage('changeposition_image_TBI_Benefits1_${index}', '${ROOT_IMG}/checked.png', '${ROOT_IMG}/edit.png')">
+                            <img id="changeposition_image_TBI_Benefits1_${index}" src="${ROOT_IMG}/edit.png" class="image-thumbnail" style="height:50px; weight:50px;">
                         </button>
                     </div>
                     <button type='button' onclick='deleteEditBenefit(${index})'>remove</button>
@@ -522,13 +529,13 @@ function showEditBenefit() {
     container.innerHTML = body;
 }
 
-
 function UpdateBenefitText(inputid, index) {
     var newValue = document.getElementsByName(inputid)[0].value;
     benefitArray[index] = newValue;
     refreshBenefitArray();
     showEditBenefit();  // Odświeżenie widoku po aktualizacji
 }
+
 function addEditBenefit() {
     var value = document.getElementsByName('InputBenefit')[0].value;
     benefitArray.push(value);
@@ -540,6 +547,7 @@ function deleteEditBenefit(index) {
     benefitArray.splice(index, 1);
     showEditBenefit();
 }
+
 //DESCRIPTIONS
 function showDescriptions(){
     console.log(descriptions);
@@ -630,4 +638,67 @@ function ChangeTmpEditImageColor($image){
        `+ images[$image] + `
     </svg>
     `;
+}
+
+function check(){
+    console.log(categoriesArray);console.log(subcategoriesArray);
+}
+
+function showSubCategories() {
+    const container = document.getElementById("subcategoryContainer");
+    const masterId = document.getElementById("selectCategory").value;
+    let body = "";
+    subCategoriesFromJson.forEach((subcategory, index) => {
+        if (masterId == subcategory['master_id']) {
+            body += `<li><input type='checkbox' id="checkbox_${index}" ${subcategory['checked'] === true ? 'checked' : ''} onchange='updateCheckbox(${index},${subcategory['master_id']})'> ${subcategory['name']} </li>`;
+        }
+    });
+    container.innerHTML = body;
+}
+
+function updateCheckbox(index,masterid) {
+    const checkbox = document.getElementById(`checkbox_${index}`);
+    subCategoriesFromJson[index]['checked'] = checkbox.checked;
+    CategoriesFromJson.forEach((category,index)=>{
+        if(category['id'] == masterid){
+            let count = 0;
+            subCategoriesFromJson.forEach((subcategory,index)=>{
+                if(subcategory['master_id'] == masterid){
+                    if(subCategoriesFromJson[index]['checked'] == true){
+                        count++;
+                    }
+                }
+            })
+            if(count > 0){
+                CategoriesFromJson[index]['checked'] = true;
+            }else{
+                CategoriesFromJson[index]['checked'] = false;
+            }
+        }
+    })
+    showCheckedCategories();
+}
+function showCheckedCategories() {
+    const container = document.getElementById("checkedCategoryContainer");
+    const inputCat = document.getElementById("savedCategories");
+    const inputSubCat = document.getElementById("savedSubCategories");
+    inputCat.value = "";
+    inputSubCat.value = "";
+    let body = "";
+    CategoriesFromJson.forEach(category => {
+        if(category['checked']){
+            console.log(category['id'] + ";");
+            inputCat.value += category['id'] + ";";
+            body+= `<li> ${category['name']} <ul>`;
+            subCategoriesFromJson.forEach(subcategory => {
+                if (subcategory['master_id'] === category['id'] && subcategory['checked']) {
+                    body += `<li>${subcategory.name}</li>`;
+                    inputSubCat.value += category['id'] + "_" + subcategory['id'] + ";";
+                }
+            });
+            body+="</ul></li>";
+        }
+        
+    });
+    container.innerHTML = body; 
 }

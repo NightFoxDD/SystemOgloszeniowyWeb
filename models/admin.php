@@ -49,7 +49,6 @@ class Admin extends Model{
         $result = $this->resultSet();
         $subcategories = [];
         $data = [];
-        array_push($subcategories,$data);
         foreach($result as $row){
             if($row){
                 $data = [

@@ -4,7 +4,6 @@
 </form>
 <?php 
     foreach($model['Categoies'] as $content){
-        //echo  $content['id'] . "/" . $content['name'] . "<bR>";
         ?>
         <li>
             <form method = "POST" action = "<?php echo ROOT_URL?>admin/removeCategories">

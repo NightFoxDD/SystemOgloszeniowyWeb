@@ -29,156 +29,30 @@
             <div class="container justify-content-center mt-5">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <form method="post" action="<?php echo ROOT_URL ?>search">
+                        <form method="post" action="<?php echo ROOT_URL ?>home/search">
                             <div class="input-group">
-                                <input type="text" class="form-control bg-white border-dark-subtle" placeholder="Stanowisko, firma, słowo klucz ?">
+                                <input type="text" name="name" class="form-control bg-white border-dark-subtle" placeholder="Stanowisko, firma, słowo klucz ?">
                                 <div class="form-floating">
-                                    <select class="form-select border-dark-subtle" id="floatingSelect" aria-label="Floating label select example">
-                                        <option value="0" selected>Wszystko</option>
-                                        <option value="1">AGD</option>
-                                        <option value="2">Elektronika</option>
-                                        <option value="3">Ogród</option>
+                                    <select name="category" class="form-select border-dark-subtle" id="floatingSelect" aria-label="Floating label select example">
+                                        <option value = "-1"> brak </option>
+                                        <?php
+                                            foreach($model['categories'] as $item){
+                                                echo "<option value = '". $item['id'] ."'>" . $item['name'] . "</option>";
+                                            }
+                                        ?>
                                     </select>
                                     <label for="floatingSelect">Kategorie</label>
                                 </div>
                                 <div class="form-floating">
-                                    <select class="form-select border-dark-subtle" id="floatingSelect" aria-label="Floating label select example">
-                                        <option value="0" selected>Wszystko</option>
-                                        <option value="1">AGD</option>
-                                        <option value="2">Elektronika</option>
-                                        <option value="3">Ogród</option>
-                                    </select>
+                                    <input type="text" name="localization" class="form-control bg-white border-dark-subtle" placeholder="Stanowisko, firma, słowo klucz ?">
                                     <label for="floatingSelect">Lokalizacja</label>
                                 </div>
-                            </div>
-                            <div class="container mt-3">
-                                <div class="row">
-                                    <div class="col-3">
-                                        <div class="container form-check text-white bg-primary rounded-4 p-2">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="float-start">
-                                                        <input class="form-check-input" type="checkbox" id="showOptions1">
-                                                        <label class="form-check-label" for="showOptions1">Rodzaj umowy</label>
-                                                    </div>
-                                                    <div class="float-end">
-                                                        <span id="selectedOptionsCountBadge1" class=" badge rounded-pill text-bg-light">0</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="collapse border rounded p-2 bg-white" id="optionsList1">
-                                            <div class="form-check ">
-                                                <input class="form-check-input" type="checkbox" id="option1_1">
-                                                <label class="form-check-label" for="option1_1">Opcja 1</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="option1_2">
-                                                <label class="form-check-label" for="option1_2">Opcja 2</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="option1_3">
-                                                <label class="form-check-label" for="option1_3">Opcja 3</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="container form-check text-white bg-primary rounded-4 p-2">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="float-start">
-                                                        <input class="form-check-input" type="checkbox" id="showOptions2">
-                                                        <label class="form-check-label" for="showOptions2">Rodzaj umowy</label>
-                                                    </div>
-                                                    <div class="float-end">
-                                                        <span id="selectedOptionsCountBadge2" class=" badge rounded-pill text-bg-light">0</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="collapse border rounded p-2 bg-white" id="optionsList2">
-                                            <div class="form-check ">
-                                                <input class="form-check-input" type="checkbox" id="option2_1">
-                                                <label class="form-check-label" for="option2_1">Opcja 1</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="option2_2">
-                                                <label class="form-check-label" for="option2_2">Opcja 2</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="option2_3">
-                                                <label class="form-check-label" for="option2_3">Opcja 3</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="container form-check text-white bg-primary rounded-4 p-2">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="float-start">
-                                                        <input class="form-check-input" type="checkbox" id="showOptions3">
-                                                        <label class="form-check-label" for="showOptions3">Rodzaj umowy</label>
-                                                    </div>
-                                                    <div class="float-end">
-                                                        <span id="selectedOptionsCountBadge3" class=" badge rounded-pill text-bg-light">0</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="collapse border rounded p-2 bg-white" id="optionsList3">
-                                            <div class="form-check ">
-                                                <input class="form-check-input" type="checkbox" id="option3_1">
-                                                <label class="form-check-label" for="option3_1">Opcja 1</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="option3_2">
-                                                <label class="form-check-label" for="option3_2">Opcja 2</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="option3_3">
-                                                <label class="form-check-label" for="option3_3">Opcja 3</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="container form-check text-white bg-primary rounded-4 p-2">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="float-start">
-                                                        <input class="form-check-input" type="checkbox" id="showOptions4">
-                                                        <label class="form-check-label" for="showOptions4">Rodzaj umowy</label>
-                                                    </div>
-                                                    <div class="float-end">
-                                                        <span id="selectedOptionsCountBadge4" class=" badge rounded-pill text-bg-light">0</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="collapse border rounded p-2 bg-white" id="optionsList4">
-                                            <div class="form-check ">
-                                                <input class="form-check-input" type="checkbox" id="option4_1">
-                                                <label class="form-check-label" for="option4_1">Opcja 1</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="option4_2">
-                                                <label class="form-check-label" for="option4_2">Opcja 2</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="option4_3">
-                                                <label class="form-check-label" for="option4_3">Opcja 3</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-3 d-flex  justify-content-center">
-                                        <button class="btn btn-outline-light border-dark-subtle text-dark" type="submit" id="button-addon2">Szukaj
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                                            </svg>
-                                        </button>
-                                    </div>
+                                <div class="col-1 d-flex  justify-content-center">
+                                    <button class="btn btn-outline-light border-dark-subtle text-dark" type="submit" id="button-addon2">Szukaj
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                        </svg>
+                                    </button>
                                 </div>
                             </div>
                         </form>
