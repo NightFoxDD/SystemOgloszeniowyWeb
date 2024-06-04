@@ -16,12 +16,20 @@
             </div>
         </div>
     
-    <input type="text" name="SavedSubCategories" id="savedSubCategories">
-    <input type="text" name="SavedCategories" id="savedCategories">
-    </form>
+   
     <div class="accordion" id="accordionExample">
             <?php 
+                $categories = "";
+                $subcategories = "";
                 foreach($model['categories'] as $category){
+                    if($category['checked'] == true){
+                        $categories = $categories . $category['id'] . ";";
+                    };
+                    foreach($model['subcategories'] as $subcategory){
+                        if($subcategory['checked'] == true && $subcategory['master_id'] == $category['id']){
+                            $subcategories = $subcategories . $subcategory['master_id'] . "_" . $subcategory['id'] . ";";
+                        }; 
+                    }
                 ?>
         <div class="accordion-item">
             <h2 class="accordion-header">
@@ -30,17 +38,16 @@
             </button>
             </h2>
             <div id="collapse_<?php echo $category['id']; ?>" class="accordion-collapse collapse " data-bs-parent="#accordionExample">
-                <div class="accordion-body" id = "accordcontainer_<?php echo $category['id'] ?>">
-                    
-                    
-                </div>
+                <div class="accordion-body" id = "accordcontainer_<?php echo $category['id'] ?>"></div>
             </div>
         </div>
         <?php
         }
         ?>
     </div>
-
+    <input type="text" name="SavedSubCategories" id="savedSubCategories" value="<?php echo $subcategories; ?>">
+    <input type="text" name="SavedCategories" id="savedCategories" value="<?php echo $categories; ?>">
+    </form>
     <?php
     print_r($_POST);
     print_r($model['Advertisements']);
