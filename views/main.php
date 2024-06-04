@@ -44,15 +44,11 @@
                             }
                         }
                     ?>
-                    
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li> -->
                 </ul>
                 <div class="justify-end d-lg-flex d-none me-5">
                     <ul class="navbar-nav me-auto d-lg-flex d-none">
                         <?php
-                        if (!isset($_SESSION['is_logged_in'])) :
+                        if (!isset($_SESSION['is_logged_in'])) {
                         ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="<?php echo ROOT_URL; ?>users/login">Zaloguj sie</a>
@@ -60,7 +56,8 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="<?php echo ROOT_URL; ?>users/register">Zarejestruj sie</a>
                             </li>
-                        <?php else : ?>
+                        <?php }else if($_SESSION['user_data']['type'] == 1) {
+                            ?>
                             <li class="nav-item">
                                 <a class="nav-link d-flex" aria-current="page" href="<?php echo ROOT_URL; ?>users/profil">
                                     <img src="<?php echo ROOT_IMG; ?>Swiftlly_transparent_Logo.png" class="rounded d-block" width="50" alt="...">
@@ -69,7 +66,25 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="<?php echo ROOT_URL; ?>users/logout">Wyloguj sie</a>
                             </li>
-                        <?php endif ?>
+                        <?php }else if ($_SESSION['user_data']['type'] == 2){?>
+                            <li class="nav-item">
+                                <a class="nav-link d-flex" aria-current="page" href="<?php echo ROOT_URL; ?>">
+                                    <img src="<?php echo ROOT_IMG; ?>Swiftlly_transparent_Logo.png" class="rounded d-block" width="50" alt="...">
+                                    <?php  echo $_SESSION["user_data"]["login"]; ?></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php echo ROOT_URL; ?>users/logout">Wyloguj sie</a>
+                            </li>
+                            <?php }else if($_SESSION['user_data']['type'] == 3){?>
+                                <li class="nav-item">
+                                <a class="nav-link d-flex" aria-current="page" href="<?php echo ROOT_URL; ?>company/profil">
+                                    <img src="<?php echo ROOT_IMG; ?>Swiftlly_transparent_Logo.png" class="rounded d-block" width="50" alt="...">
+                                    <?php  echo $_SESSION["user_data"]["login"]; ?></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?php echo ROOT_URL; ?>users/logout">Wyloguj sie</a>
+                                </li>
+                            <?php }?>
                     </ul>
                 </div>
             </div>

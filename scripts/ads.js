@@ -710,7 +710,7 @@ function showSubCategories_search(masterid){
     let body = "";
     subCategoriesFromJson.forEach((subcategory, index) => {
         if (subcategory['master_id'] == masterid) {
-            body += `<li><input type='checkbox' id="checkbox_${index}" ${subcategory['checked'] === true ? 'checked' : ''} onchange='updateCheckbox(${index},${subcategory['master_id']})'> ${subcategory['name']} </li>`;
+            body += `<input type='checkbox' id="checkbox_${index}" ${subcategory['checked'] === true ? 'checked' : ''} onchange='updateCheckbox(${index},${subcategory['master_id']})' >${subcategory['name']}<Br>`;
         }
     });
     container.innerHTML = body;
