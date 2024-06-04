@@ -46,6 +46,88 @@
             <?php
             return $categories;
         }
+        public function GetSelectedSubCategories($selected){
+            $categoriesCheck = [];
+            if($selected != null){
+                $categoriesCheck = explode(";",$selected);
+            }
+            $this->query('SELECT * FROM `announcement_subcategory`');
+            $result = $this->resultSet();
+            $subcategories = [];
+            $data = [];
+            $check = false;
+
+            foreach($result as $row){
+                if($row){
+                    $data = [
+                        "id" => $row['subcategory_id'],
+                        "checked" => $check,
+                        "master_id" => $row['category_id'],
+                        "name" => $row['name']
+                        ];
+                    foreach($categoriesCheck as $cat){
+                        if(explode("_",$cat)[0] == $row['category_id'] && $row['subcategory_id'] == explode("_",$cat)[1]){
+                            $check = true;
+                            break;
+                        }else{
+                            $check = false;
+                        }
+                    }
+                    $data['checked'] = $check;
+                    array_push($subcategories,$data);
+                }
+            }
+
+            $subcategoriesJson = json_encode($subcategories);
+            ?>
+            <script>
+                    if (typeof subcategoriesArray === 'undefined') {
+                    var subcategoriesArray = [];
+                }
+                subcategoriesArray.push('<?php echo $subcategoriesJson;?>');
+            </script>
+            <?php
+            return $subcategories;
+        }
+        public function GetSelectedCategories($selected){
+           
+            $categoriesCheck = [];
+
+            if($selected != null){
+                $categoriesCheck = explode(";",$selected);
+            }
+            $this->query('SELECT * FROM `announcement_category`');
+            $result = $this->resultSet();
+            $categories = [];
+            $data = [];
+            foreach($result as $row){
+                if($row){
+                    $check = false;
+                    if(in_array($row['category_id'],$categoriesCheck)){
+                        $check = true;
+                    }
+                    $data = [
+                    "id" => $row['category_id'],
+                    "checked" => $check,
+                    "name" => $row['name']
+                    ];
+                    ?>
+                    
+                    <?php
+                    array_push($categories,$data);
+                }
+            }    
+            $categoriesJson = json_encode($categories);
+            ?>
+            <script>
+                    if (typeof categoriesArray === 'undefined') {
+                    var categoriesArray = [];
+                }
+                categoriesArray.push('<?php echo $categoriesJson;?>');
+            </script>
+            <?php
+            return $categories;
+        }
         public function GetEditSubCategories($id){
             $this->query('SELECT subcategory_id FROM `announcement` WHERE announcement_id = :id');
             $this->bind(":id",$id);

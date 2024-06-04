@@ -24,5 +24,15 @@ class HomeController extends Controller{
         ];
         $this->returnView('searching', $model);
     }
+    protected function searchView(){
+        $adsModel = new ad();
+        $homeModel = new home();
+        $model = [
+            "Advertisements" => $homeModel->searchView($_POST['name'],$_POST['SavedCategories'],$_POST['SavedSubCategories'],$_POST['localization']),
+            "categories"=>$adsModel->GetSelectedCategories($_POST['SavedCategories']),
+            "subcategories"=>$adsModel->GetSelectedSubCategories($_POST['SavedSubCategories']) 
+        ];
+        $this->returnView('searching', $model);
+    }
 }
 ?>

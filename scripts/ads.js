@@ -702,3 +702,16 @@ function showCheckedCategories() {
     });
     container.innerHTML = body; 
 }
+function showSubCategories_search(masterid){
+    console.log(masterid);
+    console.log(CategoriesFromJson);
+    console.log(subCategoriesFromJson);
+    const container = document.getElementById("accordcontainer_" + masterid);
+    let body = "";
+    subCategoriesFromJson.forEach((subcategory, index) => {
+        if (subcategory['master_id'] == masterid) {
+            body += `<li><input type='checkbox' id="checkbox_${index}" ${subcategory['checked'] === true ? 'checked' : ''} onchange='updateCheckbox(${index},${subcategory['master_id']})'> ${subcategory['name']} </li>`;
+        }
+    });
+    container.innerHTML = body;
+}
