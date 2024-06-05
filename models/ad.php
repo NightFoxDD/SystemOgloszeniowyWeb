@@ -698,11 +698,6 @@
                         <h1><?php echo $ad['position_name']?> </h1>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <h2 class="fs-5"><?php echo $company['name']; ?> <a href="" class="text-decoration-none ml-2" title="Dowiedz się więcej o danej firmie"> O firmie</a></h2>
-                    </div>
-                </div>
             <?php
             $content = ob_get_contents();
             ob_end_clean();
@@ -715,8 +710,12 @@
             ob_start();
             ?>
                 <input type='hidden' value="<?php echo $id ?>" name="id">
-                <img src="<?php echo ROOT_IMG_COMPANY ?><?php echo $ad['imagelink']?>" height="128" width="220" alt="Zdjęcie profilowe firmy">
-            <?php
+                <?php if ($ad['imagelink'] != "Swiftlly_transparent_FullName.png"): ?>
+                    <img src="<?php echo ROOT_IMG_COMPANY . $ad['imagelink']; ?>" height="128" width="220" alt="Zdjęcie profilowe firmy">
+                <?php else: ?>
+                    <img src="<?php echo ROOT_IMG . 'Swiftlly_transparent_FullName.png'; ?>" height="128" width="220" alt="Zdjęcie profilowe firmy">
+                <?php endif; ?>
+             <?php
             $content = ob_get_contents();
             ob_end_clean();
             return $content;
@@ -914,11 +913,7 @@
                     </div>
                     
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <h2 class="fs-5"><?php echo $companyName;?> <a href="" class="text-decoration-none ml-2" title="Dowiedz się więcej o danej firmie"> O firmie</a></h2>
-                    </div>
-                </div>
+
             </div>
             <div class="  align-items-top justify-content-end">
                 <button id="btn_changePositionName" type="button" class="btn btn-outline-secondary m-1" onclick="RepeatText('input_PositionName','PositionName'),CollapseUncollapseForm('PositionName_View','Add_PositionName'),changeImage('changeposition_image','<?php echo ROOT_IMG ?>/checked.png','<?php echo ROOT_IMG ?>/edit.png')"><img id="changeposition_image" src="<?php echo ROOT_IMG ?>/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
@@ -971,6 +966,40 @@
                 return $this->single();
             }
             return null;
+        }
+        public function getCompanyID($id){
+            $this->query('SELECT * FROM announcement where announcement_id = :id');
+            $this->bind(':id', $id);
+            $result = $this->single();
+            if($result){
+                return $result['company_id'];
+            }
+            
+        }
+        public function haveApplication($user_id,$id){
+            $this->query('SELECT * FROM user_application where announcement_id = :id and user_id = :user_id');
+            $this->bind(':id', $id);
+            $this->bind(':user_id', $user_id);
+            $result = $this->single();
+            if(!empty($result)){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function addApplication($id){ 
+            $this->query("INSERT INTO `user_application`(`announcement_id`, `user_id`) VALUES (:id,:user_id)");
+            $this->bind(":id",$id);
+            $this->bind(":user_id",$_SESSION['user_data']['id']);
+            $this->execute();
+            return true;
+        }
+        public function deleteApplication($id,$user_id){
+            $this->query("DELETE FROM `user_application` WHERE user_id = :user_id and announcement_id = :announcement_id");
+            $this->bind(":announcement_id",$id);
+            $this->bind(":user_id",$user_id);
+            $this->execute();
+            return true;
         }
     }
 ?>

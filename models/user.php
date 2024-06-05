@@ -13,7 +13,7 @@
                 $this->query("INSERT INTO `user`(`login`, `password`, `role_id`) VALUES (:login,:password,:user_type)");
                 $this->bind(':login', $post['login']);
                 $this->bind(':password', $password);
-                $this->bind(':user_type', 1);
+                $this->bind(':user_type', 3);
                 
                 $this->execute();
                 $createAccount = $this->lastInsertId();
@@ -691,6 +691,89 @@
                         </form>
                     </div>
                 </div>
+            <?php
+            $content = ob_get_contents();
+            ob_end_clean();
+            return $content;
+        }
+        public function getUserApplications(){
+            $this->query("SELECT * FROM `user_application` WHERE user_id = :user_id");
+            $this->bind(':user_id', $_SESSION['user_data']['id']);
+            $result = $this->resultSet();
+            $data = [];
+            foreach($result as $row){
+                if($row){
+                    $item = [
+                    "announcement_id" => $row['announcement_id'],
+                    "user_id" => $row['user_id'],
+                    ];
+                    
+                    array_push($data, $this->getAnnouncmentInformations($item));
+                }
+            }
+            return $data;
+        }
+        public function getAnnouncmentInformations($item){
+            $this->query("SELECT * FROM `announcement` WHERE announcement_id = :announcement_id");
+            $this->bind(':announcement_id',$item['announcement_id']);
+            $ads = $this->single();
+
+            $this->query("SELECT * FROM `company` WHERE company_id = :company_id");
+            $this->bind(':company_id',$ads['company_id']);
+            $company = $this->single();
+            ob_start();
+            ?>
+                <div class="container mb-2 mt-2 row">
+                    <div class="col-10 card shadow-sm p-2">
+                        <form method="POST" class="m-2" action = "<?php echo ROOT_URL; ?>ads/index">
+                            <input type="hidden" value="<?php echo $ads['announcement_id']?>" name='id'>
+                            <button class='bg-transparent border-0 p-0 col-12 border-transparent rounded-0'>
+                                <li class="list-group-item container">
+                                    <div class="row">
+                                        <div class="col align-items-center">
+                                            <div class="float-start">
+                                                <p class="h4"><a href="<?php echo ROOT_URL; ?>ads/index?id=<?php echo $ads['announcement_id']?>" class="text-decoration-none text-black"> <?php echo explode(';',explode('_',$ads['position_name'])[0])[0]; ?></a></p>
+                                                <p><?php echo explode(';',$ads['expire_date'])[1] ?></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="container">
+                                            <div class="row">
+                                                <?php
+                                                    if($company['imageLink'] != "Swiftlly_transparent_FullName.png"){
+                                                        ?>
+                                                        <img src="<?php echo ROOT_IMG_COMPANY.$company['imageLink'] ?>" class="col-5 img-fluid" alt="image">
+                                                        <?php
+                                                    }else{
+                                                        ?>
+                                                        <img src="<?php echo ROOT_IMG."Swiftlly_transparent_FullName.png"; ?>" class=" col-5 img-fluid" alt="image">
+                                                        <?php
+                                                    }
+                                                    ?>
+                                                <div class="col">
+                                                    <p class="h4"><?php echo $company['name'];?></p>
+                                                    <p><?php echo $company['adress'];?></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="col-2 justify-content-end">
+                        <div class="row">
+                            <form action = "<?php echo ROOT_URL; ?>ads/deleteApplication" method="post">
+                                <input type="hidden" value="<?php echo $item['announcement_id'] ?>" name="announcement_id">
+                                <button class="btn btn-danger">
+                                    Usuń
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
             <?php
             $content = ob_get_contents();
             ob_end_clean();

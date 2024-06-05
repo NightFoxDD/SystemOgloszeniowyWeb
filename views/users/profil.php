@@ -1,4 +1,15 @@
-<div class="container mt-5 mb-5">
+<div id="m" class="carousel mt-5">
+                <div class="container">
+                    <div class="row d-flex justify-content-center mb-3">
+                        <button type="button" class="col-3 active button text-primary bg-transparent border-0 m-1 p-1 border-bottom border-primary" data-bs-target="#m" data-bs-slide-to="0" aria-current="true" aria-label="Slide 1">Profil</button>
+                        <button type="button" class="col-3 button text-primary bg-transparent border-0 m-1 p-1 border-bottom border-primary" data-bs-target="#m" data-bs-slide-to="1" aria-label="Slide 2">Twoje Zaaplikowania</button>
+                    </div>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="carousel-content">
+                            <div class="container">
+                            <div class="container mt-5 mb-5">
     <div class=" border p-1 rounded-1 m-1 shadow-sm">
         <div class="row">
             <div class="col-6">
@@ -325,3 +336,25 @@
             </div>
         </div>
 </div>
+                            </div>
+                    
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="carousel-content">
+                            <div class="carousel-content">
+                                <div class="container">
+                                    <?php
+                                        foreach($model['userApplications'] as $ads){
+                                            echo $ads;
+                                        }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            

@@ -85,12 +85,31 @@
   <div class="row">
     <div class="col mt-5 border rounded-3 p-3">
       <h1 class="fs-3">Dowiedz się więcej o Pracodawcy:</h1>
-      <a href="" class="text-decoration-none">
-        Zobacz profil pracodawcy
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
-        </svg>
-      </a>
+      <form  method="POST" action="<?php echo ROOT_URL; ?>company/profil">
+                    <input type="hidden" name="id" value="<?php  echo $model['company_id']; ?>">
+                    <button class="bg-transparent border-0">
+                        Zobacz profil pracodawcy
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                        </svg>
+                    </button>
+                </form>
     </div>
   </div>
+  <?php
+    if(!$model['application'] && $_SESSION['user_data']['type'] == 1){
+      ?>
+        <div class="row">
+              <form class="m-3" method="POST" action="<?php echo ROOT_URL; ?>ads/application">
+                  <input type="hidden" name="id" value="<?php  echo $model['company_id']; ?>">
+                  <input type="hidden" name="announcment_id" value="<?php echo $model['id'];?>">
+                  <button class="bg-primary col-12 border rounded-3 p-3">
+                      <label class="text-white">aplikuj</label>
+                  </button>
+              </form>
+          </div>
+      <?php
+    }
+  ?>
+ 
 </div>

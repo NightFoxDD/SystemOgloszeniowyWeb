@@ -13,7 +13,8 @@
                 "userContract"=>$userModel->getUserContract(),
                 "userExperience"=>$userModel->getUserExperienceWorks(),
                 "userEducation"=>$userModel->getUserEducations(),
-                "userLanguage"=>$userModel->getUserLanguages()
+                "userLanguage"=>$userModel->getUserLanguages(),
+                "userApplications"=>$userModel->getUserApplications()
             ];
             $this->returnView('profil',$model);
         }

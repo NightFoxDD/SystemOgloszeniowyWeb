@@ -28,8 +28,8 @@
             </div>
         </div>
         <div class="row">
-            <input type="text" name="SavedSubCategories" id="savedSubCategories">
-            <input type="text" name="SavedCategories" id="savedCategories">
+            <input type="hidden" name="SavedSubCategories" id="savedSubCategories">
+            <input type="hidden" name="SavedCategories" id="savedCategories">
                 <select id="selectCategory" onchange="showSubCategories()">
                     <?php 
                         foreach($model['Categories'] as $category){
@@ -47,7 +47,7 @@
                 
         </div>
         <div class="row">
-            <input type="text" id="inputMapPoint2" name="inputMapPoint2" value="<?php echo $model['MapSrc']?>">
+            <input type="hidden" id="inputMapPoint2" name="inputMapPoint2" value="<?php echo $model['MapSrc']?>">
             <div id = "addMapPoint"  style="visibility:hidden;">
                 <input type="text" name = "inputMapPoint" value = "">
                 <button type="button" onclick="addMapPoint()">ADD</button>
@@ -69,7 +69,7 @@
                 <textarea name = "inputDutie"></textarea>
             </li>
             <button type="button" onclick="addEditDutes()">Dodaj obowiazek</button>
-            <input type="text" name="InputDuties">
+            <input type="hidden" name="InputDuties">
             <h1 class="fs-3">Twój zakres obowiązków</h1>
             <ul class="list-group list-group-flush" id="containerDuties">
                 <script>
@@ -94,7 +94,7 @@
                 </svg>
                 <textarea name = "Textarea_requirements"></textarea>
                 <button type="button" onclick="addEditRequirements()">dodaj</button>
-                <input type="text" name="InputRequirements">
+                <input type="hidden" name="InputRequirements">
             </li>
             <h1 class="fs-3">Nasze wymagania</h1>
             <ul class="list-group list-group-flush" id = "containerRequirements">
@@ -115,7 +115,7 @@
                 </svg>
                 <textarea name = "Textarea_welcome"></textarea>
                 <button type="button" onclick="addEditWelcome()">dodaj</button>
-                <input type="text" name="InputWelcome">
+                <input type="hidden" name="InputWelcome">
             </li>
             <h1 class="fs-3">Mile widziane</h1>
             <ul class="list-group list-group-flush" id = "containerWelcome">
@@ -145,7 +145,7 @@
                         <p class="text-center"><input type="text" name="InputBenefit"></p>
                     </div>
                     <button type="button" onclick="addEditBenefit()">dodaj benefit</button>
-                    <input type="text" name = "InputBenefits"> 
+                    <input type="hidden" name = "InputBenefits"> 
                 </div>
             </div>
             <h2 class="fs-4">Benefity</h2>
@@ -167,7 +167,7 @@
             <div class="col-12 mt-5 border rounded-3 shadow-sm p-4">
             <textarea name="TextAreaDescription"></textarea>
             <button type="button" onclick="addEditDescriptions()">Add</button>
-            <input name="InputDescriptions">
+            <input type="hidden" name="InputDescriptions">
             </div>
             <div id = "ContainerDescription">
                 <script>
@@ -180,20 +180,25 @@
                 ?>
             </div>
         </div>
+       
+        <div class="row">
+            <button type="submit" class="col-12 m-3 bg-transparent border-1 rounded-3" name='add'>Edytuj </button>
+        </div>
+        </form>
         <div class="row">
             <div class="col mt-5 border rounded-3 p-3">
             <h1 class="fs-3">Dowiedz się więcej o Pracodawcy:</h1>
-            <a href="" class="text-decoration-none">
-                Zobacz profil pracodawcy
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
-                </svg>
-            </a>
+            <form  method="POST" action="<?php echo ROOT_URL; ?>company/profil">
+                    <input type="hidden" name="id" value="<?php  echo $model['company_id']; ?>">
+                    <button class="bg-transparent border-0">
+                        Zobacz profil pracodawcy
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                        </svg>
+                    </button>
+                </form>
             </div>
         </div>
-        <div class="row">
-            <button type="submit" name='add'>Dodaj </button>
-        </div>
     </div>
-</form>
+
 <script src="<?php echo ROOT_Script ?>ads.js"></script>

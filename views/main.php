@@ -59,7 +59,7 @@
                         <?php }else if($_SESSION['user_data']['type'] == 1) {
                             ?>
                             <li class="nav-item">
-                                <a class="nav-link d-flex" aria-current="page" href="<?php echo ROOT_URL; ?>users/profil">
+                                <a class="nav-link d-flex" aria-current="page" href="<?php echo ROOT_URL; ?>users/Profil">
                                     <img src="<?php echo ROOT_IMG; ?>Swiftlly_transparent_Logo.png" class="rounded d-block" width="50" alt="...">
                                     <?php  echo $_SESSION["user_data"]["login"]; ?></a>
                             </li>
@@ -77,10 +77,12 @@
                             </li>
                             <?php }else if($_SESSION['user_data']['type'] == 3){?>
                                 <li class="nav-item">
-                                <a class="nav-link d-flex" aria-current="page" href="<?php echo ROOT_URL; ?>company/profil">
-                                    <img src="<?php echo ROOT_IMG; ?>Swiftlly_transparent_Logo.png" class="rounded d-block" width="50" alt="...">
-                                    <?php  echo $_SESSION["user_data"]["login"]; ?></a>
-                                </li>
+                                    <form  method="POST" action="<?php echo ROOT_URL; ?>company/profil">
+                                        <input type="hidden" name="id" value="<?php  echo $_SESSION["user_data"]["company_id"]; ?>">
+                                        <button class="bg-transparent border-0">
+                                            <img src="<?php echo ROOT_IMG; ?>Swiftlly_transparent_Logo.png" class="rounded d-block" width="50" alt="..."> <?php  echo $_SESSION["user_data"]["login"]; ?>
+                                        </button>
+                                    </form>
                                 <li class="nav-item">
                                     <a class="nav-link" href="<?php echo ROOT_URL; ?>users/logout">Wyloguj sie</a>
                                 </li>

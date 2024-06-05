@@ -24,8 +24,21 @@
                                     <div class="row">
                                         <div class="container">
                                             <div class="row">
-                                                <img src="<?php echo ROOT_IMG_COMPANY ?><?php echo $company['imageLink']?>" class="col img-fluid" alt="image">
-                                                <div class="col">
+                                                <div class="col-7">
+                                                    <?php
+                                                    if($company['imageLink'] != "Swiftlly_transparent_FullName.png"){
+                                                        ?>
+                                                        <img src="<?php echo ROOT_IMG_COMPANY.$company['imageLink'] ?>" class="img-fluid" alt="image">
+                                                        <?php
+                                                    }else{
+                                                        ?>
+                                                        <img src="<?php echo ROOT_IMG."Swiftlly_transparent_FullName.png"; ?>" class="img-fluid" alt="image">
+                                                        <?php
+                                                    }
+                                                    ?>
+                                                </div>
+                                                
+                                                <div class="col-5">
                                                     <p class="h4"><?php echo $company['name'];?></p>
                                                     <p><?php echo $company['adress'];?></p>
                                                 </div>
@@ -67,7 +80,12 @@
                                     <div class="row">
                                         <div class="container">
                                             <div class="row">
-                                                <img src="<?php echo ROOT_IMG_COMPANY ?><?php echo $company['imageLink']?>" class="col img-fluid" alt="image">
+                                            <?php if ($company['imageLink'] != "Swiftlly_transparent_FullName.png"): ?>
+                                                <img src="<?php echo ROOT_IMG_COMPANY . $company['imageLink']; ?>" class="col img-fluid" alt="image">
+                                            <?php else: ?>
+                                                <img src="<?php echo ROOT_IMG . 'Swiftlly_transparent_FullName.png'; ?>" class="col img-fluid" alt="image">
+                                            <?php endif; ?>
+                                              
                                                 <div class="col">
                                                     <p class="h4"><?php echo $company['name'];?></p>
                                                     <p><?php echo $company['adress'];?></p>
@@ -168,6 +186,50 @@
                 }
             }
             return $data;
+        }
+        public function getComapnyProfiles(){
+            $this->query("SELECT * FROM `company` LIMIT 10");
+            $result = $this->resultSet();
+            $companies = [];
+            foreach($result as $row){
+                if($row){
+                    array_push($companies, $this->companyProfilView($row['company_id']));
+                }
+            }
+            return $companies;
+        }
+        public function companyProfilView($id){
+            $this->query("SELECT * FROM `company` WHERE company_id = :company_id");
+            $this->bind(':company_id', $id);
+            $company = $this->single();
+            ob_start();
+            ?>
+                <div class="item">
+                    <form method="post" action="<?php echo ROOT_URL; ?>company/profil">
+                        <button class="card bg-transparent border-1" style="width: 18rem;">
+                            <input type="hidden" name="id" value="<?php echo $company['company_id'] ?>">
+                            <?php 
+                                if($company['imageLink'] != "Swiftlly_transparent_FullName.png"){
+                                    ?>
+                                    <img src="<?php echo ROOT_IMG_COMPANY.$company['imageLink'] ?>" class="img-fluid p-2" alt="image">
+                                    <?php
+                                }else{
+                                    ?>
+                                    <img src="<?php echo ROOT_IMG."Swiftlly_transparent_FullName.png"; ?>" class="img-fluid p-2" alt="image">
+                                    <?php
+                                }
+                            ?>
+                            
+                            <div class="card-body">
+                                <h5 class="card-title text-center p-2"><?php echo $company['name'] ?></h5>
+                            </div>
+                        </button>
+                    </form>
+                </div>
+            <?php
+            $content = ob_get_contents();
+            ob_end_clean();
+            return $content;
         }
     }
 ?>

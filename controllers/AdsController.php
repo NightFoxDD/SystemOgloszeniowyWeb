@@ -3,6 +3,8 @@
         protected function Index(){
             $adsModel = new Ad();
             $model = [
+                "id" => $_POST['id'],
+                "company_id" => $adsModel->getCompanyID($_POST['id']),
                 "CompanyImage"=> $adsModel->index_CompanyImageView($_POST['id']), 
                 "PositionName" => $adsModel->index_PositionNameView($_POST['id']),
                 "BasicInformations" => $adsModel->index_BasicInformationsViews($_POST['id'],false),
@@ -11,7 +13,8 @@
                 "Requirements" => $adsModel->index_RequirementsArray($_POST['id'],false),
                 "Welcome" => $adsModel->index_WelcomesArray($_POST['id'],false),
                 "Benefits" => $adsModel->index_BenefitsArray($_POST['id'],false),
-                "Description" => $adsModel->index_DescriptionsArray($_POST['id'],false)
+                "Description" => $adsModel->index_DescriptionsArray($_POST['id'],false),
+                "application" => $adsModel->haveApplication($_SESSION['user_data']['id'],$_POST['id'])
             ];
             
             $this->returnView('index', $model);
@@ -22,6 +25,7 @@
         protected function addView(){
             $adsModel = new Ad();
             $model = [
+                 "company_id" => $_SESSION['user_data']['company_id'],
                  "add_PositionName"=>$adsModel->Add_PositionNameView(null),
                  "Categories" => $adsModel->GetCategories(),
                  "SubCategories" => $adsModel->GetSubCategories()
@@ -47,9 +51,18 @@
                 $this->redirect('ads', 'editView');
             }
         }
+        protected function application(){
+            $adsmodel = new ad();
+            if($adsmodel->addApplication($_POST['announcment_id']))
+            {
+                Messages::setMsg("Zaaplikowano się do ogłoszenie","success");
+                $this->redirect('home','index');
+            }
+        }
         protected function goEdit(){
             $adsModel = new ad();
             $model = [
+                "company_id" => $adsModel->getCompanyID($_POST['id']),
                 "CompanyImage"=> $adsModel->index_CompanyImageView($_POST['id']), 
                 "add_PositionName"=>$adsModel->Add_PositionNameView($_POST['id']),
                 "PositionName" => $adsModel->index_PositionNameView($_POST['id']),
@@ -88,6 +101,13 @@
             else {
                 Messages::setMsg("Nie edytowano ogłoszenia", "error");
                 $this->redirect('ads', 'editView');
+            }
+        }
+        protected function deleteApplication(){
+            $model = new ad();
+            if($model->deleteApplication($_POST['announcement_id'],$_SESSION['user_data']['id'])){
+                Messages::setMsg("Edytowano ogłoszenie","success");
+                $this->redirect('users', 'profil');
             }
         }
     }

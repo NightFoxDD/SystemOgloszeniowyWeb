@@ -10,7 +10,8 @@ class HomeController extends Controller{
         $adsModel = new ad();
         $model = [
             "lastAds"=>$homeModel->getLastAdsArray(),
-            "categories"=>$adsModel->getCategories()
+            "categories"=>$adsModel->getCategories(),
+            "companies"=>$homeModel->getComapnyProfiles()
         ];
         $this->returnView('index',$model);
     }

@@ -6,7 +6,6 @@ class Company extends Model{
         $company = $this->single();
         ob_start();
         ?>
-            
             <div class="container mb-2 mt-2">
                 <div class="card shadow-sm p-2">
                     <form method="POST" class="m-2" action = "<?php echo ROOT_URL; ?>ads/index">
@@ -24,7 +23,17 @@ class Company extends Model{
                                 <div class="row">
                                     <div class="container">
                                         <div class="row">
-                                            <img src="<?php echo ROOT_IMG_COMPANY ?><?php echo $company['imageLink']?>" class="col img-fluid" alt="image">
+                                        <?php
+                                                    if($company['imageLink'] != "Swiftlly_transparent_FullName.png"){
+                                                        ?>
+                                                        <img src="<?php echo ROOT_IMG_COMPANY.$company['imageLink'] ?>" class="col-5 img-fluid" alt="image">
+                                                        <?php
+                                                    }else{
+                                                        ?>
+                                                        <img src="<?php echo ROOT_IMG."Swiftlly_transparent_FullName.png"; ?>" class=" col-5 img-fluid" alt="image">
+                                                        <?php
+                                                    }
+                                                    ?>
                                             <div class="col">
                                                 <p class="h4"><?php echo $company['name'];?></p>
                                                 <p><?php echo $company['adress'];?></p>
@@ -42,6 +51,29 @@ class Company extends Model{
          $content = ob_get_contents();
          ob_end_clean();
          return $content;
+    }
+    public function saveProfil($id){
+        $this->query("UPDATE `company` SET `name` = :name, `adress` = :adress, `localization_link` = :localizationlink, `imageLink` = :imagelink, `description` = :description WHERE `company_id` = :id");
+        $this->bind(":id", $id);
+        $this->bind(":name", $_POST['input_PositionName']);
+        $this->bind(":adress", $_POST['input_adress']);
+        $this->bind(":localizationlink", $_POST['inputMapPoint2']);
+        $this->bind(":imagelink", $_POST['imageName']);
+        $this->bind(":description", $_POST['inputDescrip1']);
+        $this->execute();
+        return true;
+    }
+    public function getMap($id){
+        $this->query("SELECT * FROM `announcement` WHERE company_id = :company_id limit 10");
+        $this->bind(":company_id",$id);
+        $result = $this->single();
+        ob_start();
+        ?>
+            
+        <?php
+        $content = ob_get_contents();
+        ob_end_clean();
+        return $content;
     }
     public function getAdvertisements(){
         $this->query("SELECT * FROM `announcement` WHERE company_id = :company_id limit 10");
