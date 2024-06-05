@@ -9,10 +9,10 @@
         protected function profil(){
             $companyModel = new company();
             $id = 1;
-            if($_POST['id']!=$_SESSION['user_data']['company_id']){
-                $id = $_POST['id'];
-            }else{
+            if(empty($_SESSION['user_data']['company_id'])){
                 $id = $_SESSION['user_data']['company_id'];
+            }else{
+                $id = $_POST['id'];
             }
             $model = [
                 "advertisements" => $companyModel->getAdvertisements(),

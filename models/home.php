@@ -209,7 +209,7 @@
                         <button class="card bg-transparent border-1" style="width: 18rem;">
                             <input type="hidden" name="id" value="<?php echo $company['company_id'] ?>">
                             <?php 
-                                if($company['imageLink'] != "Swiftlly_transparent_FullName.png"){
+                                if($company['imageLink'] != "Swiftlly_transparent_FullName.png" && $company['imageLink'] != ""){
                                     ?>
                                     <img src="<?php echo ROOT_IMG_COMPANY.$company['imageLink'] ?>" class="img-fluid p-2" alt="image">
                                     <?php

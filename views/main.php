@@ -21,10 +21,6 @@
                 </a>
                 
                 <ul class="navbar-nav me-auto d-lg-flex d-none">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="<?php echo ROOT_URL; ?>home/index">Home</a>
-                    </li>
-
                     <?php   
                         if (isset($_SESSION['is_logged_in'])) 
                         {
@@ -38,7 +34,7 @@
                             }else if ($_SESSION['user_data']['type'] == 2){
                                 ?>
                                 <li class="nav-item">
-                                    <a class="nav-link" aria-current="page" href="<?php echo ROOT_URL; ?>admin/Index">admin</a>
+                                    <a class="nav-link" aria-current="page" href="<?php echo ROOT_URL; ?>admin/Index">Admin Panel</a>
                                 </li>
                                 <?php
                             }

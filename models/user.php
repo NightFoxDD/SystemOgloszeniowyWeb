@@ -13,7 +13,20 @@
                 $this->query("INSERT INTO `user`(`login`, `password`, `role_id`) VALUES (:login,:password,:user_type)");
                 $this->bind(':login', $post['login']);
                 $this->bind(':password', $password);
-                $this->bind(':user_type', 3);
+                if(!empty($_POST['admin'])){
+                    if($_POST['admin']==true){
+                        $this->bind(':user_type', 2);
+                    }
+                }else
+                if(!empty($_POST['firma'])){
+                    if($_POST['firma']==true){
+                        $this->bind(':user_type', 3);
+                    }
+                }
+                else{
+                    $this->bind(':user_type', 1);
+                }
+
                 
                 $this->execute();
                 $createAccount = $this->lastInsertId();

@@ -68,7 +68,6 @@
                     <div class="row d-flex justify-content-center mb-3">
                         <button type="button" class="col-3 active button text-primary bg-transparent border-0 m-1 p-1 border-bottom border-primary" data-bs-target="#m" data-bs-slide-to="0" aria-current="true" aria-label="Slide 1">Ostatio oglądane</button>
                         <button type="button" class="col-3 button text-primary bg-transparent border-0 m-1 p-1 border-bottom border-primary" data-bs-target="#m" data-bs-slide-to="1" aria-label="Slide 2">Najnowsze oferty</button>
-                        <button type="button" class="col-3 button text-primary bg-transparent border-0 m-1 p-1 border-bottom border-primary" data-bs-target="#m" data-bs-slide-to="2" aria-label="Slide 3">Super oferty</button>
                     </div>
                 </div>
                 <div class="carousel-inner">
@@ -101,112 +100,14 @@
                             <div class="carousel-content">
                                 <div class="container">
                                     <div class="row d-flex justify-content-start">
-                                        <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
-                                            <div class="card shadow-sm">
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item container">
-                                                        <div class="row">
-                                                            <div class="col align-items-center">
-                                                                <div class="float-start">
-                                                                    <p class="h4"><a href="" class="text-decoration-none text-black"> tytul</a></p>
-                                                                    <p>mies</p>
-                                                                </div>
-                                                                <div class="float-end">
-                                                                    <a class=" text-decoration-none text-black" href="">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
-                                                                            <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
-                                                                        </svg>
-                                                                    </a>
-                                                                    <!--
-                                                                    <a class="float-end text-decoration-none text-black" href="">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                                                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                                                                        </svg> 
-                                                                    </a>    
-                                                                -->
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="container">
-                                                                <div class="row">
-                                                                    <img src="<?php echo ROOT_IMG ?>Swiftlly_transparent_FullName.png" class="col img-fluid" alt="image">
-                                                                    <div class="col">
-                                                                        <p class="h4">h6Bootstrap heading</p>
-                                                                        <p>Kraków</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                    <?php 
+                                        foreach ($model['lastAds'] as $content ) {
+                                            echo $content;
+                                        }
+                                    ?>
                                     </div>
                                     <div class="row">
                                         <div class="col-12 d-flex justify-content-center">
-                                            <button class="button border rounded-5 border-primary text-primary bg-white p-3">Pokaż więcej
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="carousel-content">
-                            <div class="carousel-content">
-                                <div class="container">
-                                    <div class="row d-flex justify-content-start">
-                                        <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
-                                            <div class="card shadow-sm">
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item container">
-                                                        <div class="row">
-                                                            <div class="col align-items-center">
-                                                                <div class="float-start">
-                                                                    <p class="h4"><a href="" class="text-decoration-none text-black"> tytul</a></p>
-                                                                    <p>mies</p>
-                                                                </div>
-                                                                <div class="float-end">
-                                                                    <a class=" text-decoration-none text-black" href="">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
-                                                                            <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
-                                                                        </svg>
-                                                                    </a>
-                                                                    <!--
-                                                                    <a class="float-end text-decoration-none text-black" href="">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                                                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                                                                        </svg> 
-                                                                    </a>    
-                                                                -->
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="container">
-                                                                <div class="row">
-                                                                    <img src="<?php echo ROOT_IMG ?>Swiftlly_transparent_FullName.png" class="col img-fluid" alt="image">
-                                                                    <div class="col">
-                                                                        <p class="h4">h6Bootstrap heading</p>
-                                                                        <p>Kraków</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-12 d-flex justify-content-center ">
                                             <button class="button border rounded-5 border-primary text-primary bg-white p-3">Pokaż więcej
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                                                     <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
@@ -263,14 +164,4 @@
             </div>
         </div>
     </div>
-
-    <!-- <div class="row">
-            <div class="col-12 d-flex justify-content-center">
-                <button class="button border rounded-5 border-primary text-primary bg-white p-3">Pokaż więcej
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
-                    </svg>
-                </button>
-            </div>
-        </div> -->
 </div>
