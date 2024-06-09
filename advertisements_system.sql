@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Cze 04, 2024 at 11:48 AM
+-- Generation Time: Cze 09, 2024 at 09:49 PM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -30,6 +30,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `announcement` (
   `announcement_id` int(10) UNSIGNED NOT NULL,
   `company_id` int(10) UNSIGNED DEFAULT NULL,
+  `category_id` text DEFAULT NULL,
+  `subcategory_id` text DEFAULT NULL,
   `localization` text NOT NULL,
   `Map` text NOT NULL,
   `position_name` text NOT NULL,
@@ -42,19 +44,20 @@ CREATE TABLE `announcement` (
   `duties` text NOT NULL,
   `requirements` text NOT NULL,
   `benefits` text NOT NULL,
-  `descriptions` text NOT NULL,
-  `category_id` text NOT NULL,
-  `subcategory_id` text NOT NULL
+  `descriptions` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
 --
 -- Dumping data for table `announcement`
 --
 
-INSERT INTO `announcement` (`announcement_id`, `company_id`, `localization`, `Map`, `position_name`, `position_level`, `contract_type`, `working_time`, `work_type`, `expire_date`, `typeOfEmployment`, `duties`, `requirements`, `benefits`, `descriptions`, `category_id`, `subcategory_id`) VALUES
-(19, 1, 'Default title;Default description', 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d41307.89305404976!2d20.3778259!3d49.6779736!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471604ac3d8d1f55%3A0xd36b3f6f6c764ae0!2zS2_Fm2Npw7PFgiDFm3cuIEFuZHJ6ZWphIEFwb3N0b8WCYSB3IFPFgm9wbmljYWNoIERvbG55Y2g!5e0!3m2!1spl!2spl!4v1715593993405!5m2!1spl!2spl}', 'Name', 'Default title;Default description', 'Default title;Default title', 'Default title;Default description', 'Default title;Default description', 'Default title;Default description', 'Default title;Default description', 'asf;Twój zakres obowiązków;', 'Twój zakres obowiązków;Twój zakres obowiązkówTwój zakres obowiązków;_', 'Twój zakres obowiązków;Twój zakres obowiązkówTwój zakres obowiązków;', 'Twój zakres obowiązków;', '', ''),
-(20, 1, 'Default title_#0099e6;Default description', 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d41307.89305404976!2d20.3778259!3d49.6779736!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471604ac3d8d1f55%3A0xd36b3f6f6c764ae0!2zS2_Fm2Npw7PFgiDFm3cuIEFuZHJ6ZWphIEFwb3N0b8WCYSB3IFPFgm9wbmljYWNoIERvbG55Y2g!5e0!3m2!1spl!2spl!4v1715594367043!5m2!1spl!2spl}', 'Name', 'Default title_#3da986;Default description', 'Default title_#3da986;Default title_#3da986', 'Default title_#3da986;Default description', 'Default title_#4fa73f;Default description', 'Default title_#3da986;Default description', 'Default title_#4fa73f;Default description', 'Twój zakres obowiązków;Twój zakres obowiązkówTwój zakres obowiązków;', 'Twój zakres obowiązków;_', 'Twój zakres obowiązków;', 'Twój zakres obowiązkówTwój zakres obowiązków;', '', ''),
-(21, 1, 'Default title_#0099e6;Default description', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d41307.893011576605!2d20.377825899999998!3d49.67797365!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471603a1039ab82b%3A0xc5a222b74977509e!2sDomki%20Zagroda!5e0!3m2!1spl!2spl!4v1715615510550!5m2!1spl!2spl}', 'Name', 'Default title_#0099e6;Default description', 'Default title_#0099e6;Default title_#0099e6', 'Default title_#0099e6;Default description', 'Default title_#0099e6;Default description', 'Default title_#0099e6;Default description', 'Default title_#0099e6;Default description', 'Twój zakres obowiązków;', 'Twój zakres obowiązków;_', 'Twój zakres obowiązków;', 'Twój zakres obowiązków;', '', '');
+INSERT INTO `announcement` (`announcement_id`, `company_id`, `category_id`, `subcategory_id`, `localization`, `Map`, `position_name`, `position_level`, `contract_type`, `working_time`, `work_type`, `expire_date`, `typeOfEmployment`, `duties`, `requirements`, `benefits`, `descriptions`) VALUES
+(86, 1, '1;3;', '1_7;3_4;', 'Default title_#18cd85;          Default description', 'https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d40946.33784057906!2d19.3921024!3d50.102272!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1spl!2spl!4v1717421608759!5m2!1spl!2spl', 'Name', 'warszawa_#18cd85;  warszawa', 'Default title_#18cd85;          Default description', 'Default title_#18cd85;          Default description', '_#000000;          ', 'Default title_#18cd85;          Default description', '_#000000;          ', 'a;b;', 'c;d;_e;f;', 'g;h;', '1;'),
+(90, 1, '3;', '3_4;3_5;3_6;', 'Default title_#000000; Default description', 'https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d40946.33784057906!2d19.3921024!3d50.102272!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1spl!2spl!4v1717421608759!5m2!1spl!2spl', 'Name', 'Default title_#000000; Default description', 'Default title_#000000; Default description', 'Default title_#000000; Default description', 'Default title_#000000; Default description', 'Default title_#000000; Default description', 'Default title_#000000; Default description', 'asdf;', 'a;_b;', '1;', '2;'),
+(92, 1, '3;', '3_4;', 'Default title_#000000; Default description', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d40946.33784057906!2d19.3921024!3d50.102272!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4716ebe5d4841d65%3A0xbde2b17622c0cbb9!2sPSB%20Mr%C3%B3wka!5e0!3m2!1spl!2spl!4v1717433438195!5m2!1spl!2spl', 'Name', 'Default title_#000000; Default description', 'Default title_#000000; Default description', 'Default title_#000000; Default description', 'Default title_#000000; Default description', 'Default title_#000000; Default description', 'Default title_#000000; Default description', 'a;', 'b;_c;', 'd;', 'e;'),
+(93, 1, '3;', '3_4;3_5;', '_#000000; ', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d40946.33784057906!2d19.3921024!3d50.102272!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4716ebe5d4841d65%3A0xbde2b17622c0cbb9!2sPSB%20Mr%C3%B3wka!5e0!3m2!1spl!2spl!4v1717433438195!5m2!1spl!2spl', '1kat', '_#000000; ', '_#000000; ', '_#000000; ', '_#000000; ', '_#000000; ', '_#000000; ', '', '_', '', ''),
+(94, 2, '1;', '1_7;', 'Default title_dodgerblue;Default description', 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2434.312828070464!2d16.920086!3d52.4010064!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47045b30521deb93%3A0xfe133a1f0df4613e!2zUGFya2luZyBQb3puYcWEIEfFgsOzd255!5e0!3m2!1spl!2spl!4v1717597995758!5m2!1spl!2spl', 'Name', 'Default title_dodgerblue;Default description', 'Default title_dodgerblue;Default description', 'Default title_dodgerblue;Default description', 'Default title_dodgerblue;Default description', 'Default title_dodgerblue;Default description', 'Default title_dodgerblue;Default description', '', '_', '', ''),
+(95, 2, '', '', '_#000000; ', '', 'Name', '_#000000; ', '_#000000; ', '_#000000; ', '_#000000; ', '_#000000; ', '_#000000; ', '', '_', '', '');
 
 -- --------------------------------------------------------
 
@@ -72,9 +75,8 @@ CREATE TABLE `announcement_category` (
 --
 
 INSERT INTO `announcement_category` (`category_id`, `name`) VALUES
-(1, 'a'),
-(2, 'b'),
-(3, 'c');
+(1, 'wat'),
+(3, 'ad');
 
 -- --------------------------------------------------------
 
@@ -93,14 +95,12 @@ CREATE TABLE `announcement_subcategory` (
 --
 
 INSERT INTO `announcement_subcategory` (`subcategory_id`, `category_id`, `name`) VALUES
-(1, 1, '1'),
-(2, 1, '2'),
-(3, 1, '3'),
-(4, 2, 'a1'),
-(5, 2, 'b2'),
-(6, 3, 'c'),
-(7, 3, 'cd'),
-(8, 3, 'sa');
+(4, 3, '1'),
+(5, 3, '2'),
+(6, 3, '3'),
+(7, 1, 'a'),
+(8, 1, 'b'),
+(9, 1, 'c');
 
 -- --------------------------------------------------------
 
@@ -141,7 +141,10 @@ CREATE TABLE `company` (
 --
 
 INSERT INTO `company` (`company_id`, `user_id`, `name`, `adress`, `localization_link`, `imageLink`, `description`) VALUES
-(1, 15, 'PracujPL', 'asdf', '', 'imagecompany.png', '');
+(1, 15, 'PracujPL', 'asdf', 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2434.312828070464!2d16.920086!3d52.4010064!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47045b30521deb93%3A0xfe133a1f0df4613e!2zUGFya2luZyBQb3puYcWEIEfFgsOzd255!5e0!3m2!1spl!2spl!4v1717597995758!5m2!1spl!2spl', 'imagecompany.png', 'fasdfasdf'),
+(2, 16, 'a', 'sf', '', 'Swiftlly_transparent_FullName.png', ''),
+(7, 21, '', '', '', '', ''),
+(8, 22, '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -162,8 +165,14 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`user_id`, `login`, `password`, `role_id`) VALUES
 (12, '123', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 1),
-(14, 'aaa', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 2),
-(15, 'company', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 3);
+(14, 'admin', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 2),
+(15, 'company', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 3),
+(16, 'company123', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 3),
+(17, 'asdf', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 2),
+(20, 'asdfasdfas', '5f0d399568ed9568061afd52a401b6ddaee96d70', 2),
+(21, 'asdf', '3da541559918a808c2402bba5012f6c60b27661c', 3),
+(22, 'firma', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 3),
+(23, 'user', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 1);
 
 --
 -- Wyzwalacze `user`
@@ -172,6 +181,11 @@ DELIMITER $$
 CREATE TRIGGER `adding user_data` AFTER INSERT ON `user` FOR EACH ROW BEGIN
 INSERT INTO `user_data` (`user_id`) VALUES (NEW.user_id);
 END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `insertCompany` AFTER INSERT ON `user` FOR EACH ROW IF NEW.role_id = 3 THEN INSERT INTO `company` (`user_id`) VALUES (NEW.user_id);
+    END IF
 $$
 DELIMITER ;
 
@@ -186,6 +200,15 @@ CREATE TABLE `user_application` (
   `announcement_id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+--
+-- Dumping data for table `user_application`
+--
+
+INSERT INTO `user_application` (`application_id`, `announcement_id`, `user_id`) VALUES
+(6, 93, 12),
+(7, 92, 12),
+(8, 90, 23);
 
 -- --------------------------------------------------------
 
@@ -229,7 +252,13 @@ CREATE TABLE `user_data` (
 INSERT INTO `user_data` (`user_data_id`, `user_id`, `name`, `surname`, `birth_date`, `email`, `telephone_number`, `pfp`, `city`, `currnent_occupation`, `nationality`) VALUES
 (1, 12, 'as', 'dfasdf', '0000-00-00', '', 0, '', 'asdf', 'asdf', '...'),
 (2, 14, '', '', '0000-00-00', '', 0, '', '', '', ''),
-(3, 15, '', '', '0000-00-00', '', 0, '', '', '', '');
+(3, 15, '', '', '0000-00-00', '', 0, '', '', '', ''),
+(4, 16, '', '', '0000-00-00', '', 0, '', '', '', ''),
+(5, 17, '', '', '0000-00-00', '', 0, '', '', '', ''),
+(8, 20, '', '', '0000-00-00', '', 0, '', '', '', ''),
+(9, 21, '', '', '0000-00-00', '', 0, '', '', '', ''),
+(10, 22, '', '', '0000-00-00', '', 0, '', '', '', ''),
+(11, 23, 'asdf', 'asdf', '2024-06-12', 'email@gmail.com', 456654456, '', 'asdf', 'asdf', 'asdf');
 
 -- --------------------------------------------------------
 
@@ -278,7 +307,8 @@ CREATE TABLE `user_experience` (
 
 INSERT INTO `user_experience` (`experience_id`, `user_id`, `position`, `company`, `localization`, `period_start`, `period_end`, `duties`) VALUES
 (22, 12, 'aaaaaaaaaaaaaaaa', 'aaaaaaaaaaaaaaaa', 'aaaaaaaaaaaaaaaa', '2024-02-26', '2024-03-30', 'aaaaaaaaaaaaaaaaaaaaaaaa'),
-(23, 12, 'k', 'k', 'k', '2024-03-26', '2024-04-13', 'jh');
+(23, 12, 'k', 'k', 'k', '2024-03-26', '2024-04-13', 'jh'),
+(24, 23, 'asdfasdfsf', 'sadf', 'sadf', '2024-05-27', '2024-06-22', 'asfddf');
 
 -- --------------------------------------------------------
 
@@ -482,7 +512,7 @@ ALTER TABLE `user_skill`
 -- AUTO_INCREMENT for table `announcement`
 --
 ALTER TABLE `announcement`
-  MODIFY `announcement_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `announcement_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 
 --
 -- AUTO_INCREMENT for table `announcement_category`
@@ -494,7 +524,7 @@ ALTER TABLE `announcement_category`
 -- AUTO_INCREMENT for table `announcement_subcategory`
 --
 ALTER TABLE `announcement_subcategory`
-  MODIFY `subcategory_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `subcategory_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `announcement_working_days`
@@ -506,19 +536,19 @@ ALTER TABLE `announcement_working_days`
 -- AUTO_INCREMENT for table `company`
 --
 ALTER TABLE `company`
-  MODIFY `company_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `company_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `user_application`
 --
 ALTER TABLE `user_application`
-  MODIFY `application_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `application_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `user_course`
@@ -530,7 +560,7 @@ ALTER TABLE `user_course`
 -- AUTO_INCREMENT for table `user_data`
 --
 ALTER TABLE `user_data`
-  MODIFY `user_data_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `user_data_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `user_education`
@@ -542,7 +572,7 @@ ALTER TABLE `user_education`
 -- AUTO_INCREMENT for table `user_experience`
 --
 ALTER TABLE `user_experience`
-  MODIFY `experience_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `experience_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `user_language`
