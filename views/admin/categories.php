@@ -1,7 +1,7 @@
 <div class="container m-auto">
     <form method = "POST" action = "<?php echo ROOT_URL?>admin/addCategories" class="m-auto">
         <label class="m-2 h4">Nazwa kategori:</label>
-        <input type= "text" name="name" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0">
+        <input type= "text" required min="1" max="20" name="name" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0">
         <button class="m-3 p-2 bg-transparent border-top border-left border-right bt-0 rounded-2"> dodaj </button>
     </form>
     <?php 

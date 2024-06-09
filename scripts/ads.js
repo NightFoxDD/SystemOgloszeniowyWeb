@@ -42,6 +42,14 @@ function CollapseUncollapseForm(Userinformations, Form){
         document.getElementById(Form).classList.replace("MyUncollapse", "MyCollapse");
     }
 }
+function isAlphabetic(input) {
+    const regex = /^[A-Za-z]+$/;
+    return regex.test(input);
+}
+function isNumeric(input) {
+    const regex = /^[0-9]+$/;
+    return regex.test(input);
+}
 function RepeatText(input,place)
 {
     const inputt = document.getElementsByName(input)[0];
@@ -85,14 +93,14 @@ function addBasicInformations(){
     <div class="p-4">
         <h2 class="fs-4">
             <p id="PositionName_1">${content.value}</p>
-            <input type='text' name='InputTitle_${type}' value='${content.value}_${color}'>
+            <input type='hidden' name='InputTitle_${type}' value='${content.value}_${color}'>
         </h2>
         <p class="fs-6 text-gray">
             ${description.value}
-            <input type='text' value='${description.value}' name='InputDescription_${type}'>
+            <input type='hidden' value='${description.value}' name='InputDescription_${type}'>
         </p>
     </div>
-    <button onclick="removeElement(this.parentNode)">Remove</button>
+    <button onclick="removeElement(this.parentNode)" class="btn btn-danger">Usuń</button>
 `;
     Div.innerHTML = clockContent;
     document.getElementById('BasicInformations').appendChild(Div);
@@ -200,7 +208,7 @@ function showDuties(){
         var svg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dodgerblue" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
         </svg>`;
-        body += `<li class="list-group-item border-0"> ${svg} ${dutie}<button type='button' onclick = 'deleteDutie(${duties.indexOf(dutie)})'>remove</button></li>`;
+        body += `<li class="list-group-item border-0"> ${svg} ${dutie}<button type='button' onclick = 'deleteDutie(${duties.indexOf(dutie)})' class="btn btn-danger">Usuń</button></li>`;
     });
 
     container.innerHTML = body;
@@ -247,7 +255,7 @@ function showEditDuties() {
                  
                         <button  type="button" class="btn btn-outline-secondary m-1" onclick="UpdateText('inputDuties1_${index}',${index}),RepeatText('inputDuties1_${index}','divDuties_${index}'),CollapseUncollapseForm('containerInputDuties_${index}','containerContentDuties_${index}'),changeImage('changeposition_image_TBI_Duties_${index}','${ROOT_IMG}/checked.png','${ROOT_IMG}/edit.png')"><img id="changeposition_image_TBI_Duties_${index}" src="${ROOT_IMG}/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
 
-                    <button type='button' onclick = 'deleteEditDutie(${index})'>remove</button>
+                    <button type='button' onclick = 'deleteEditDutie(${index})'>Usuń</button>
             </li>
         `
     });
@@ -271,7 +279,7 @@ function addEditDutes() {
 }
 
 function deleteEditDutie(element) {
-    dutiesArray.splice(element, 1);
+    dutiesArray1.splice(element, 1);
     showEditDuties();
 }
 
@@ -287,7 +295,7 @@ function showRequirements(){
         var svg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dodgerblue" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
         </svg>`;
-        body += `<li class="list-group-item border-0"> ${svg} ${requirement} <button type='button' onclick = 'deleteRequirement(${requirements.indexOf(requirement)})'>remove</button></li>`;
+        body += `<li class="list-group-item border-0"> ${svg} ${requirement} <button type='button' onclick = 'deleteRequirement(${requirements.indexOf(requirement)})' class="btn btn-danger">Usuń</button></li>`;
     });
     container.innerHTML = body;
 }
@@ -334,7 +342,7 @@ function showEditRequirements() {
                  
                         <button  type="button" class="btn btn-outline-secondary m-1" onclick="UpdateRequirementText('inputRequi1_${index}',${index}),RepeatText('inputRequi1_${index}','divRequi_${index}'),CollapseUncollapseForm('containerInputRequi_${index}','containerContentRequi_${index}'),changeImage('changeposition_image_TBI_Requi_${index}','${ROOT_IMG}/checked.png','${ROOT_IMG}/edit.png')"><img id="changeposition_image_TBI_Requi_${index}" src="${ROOT_IMG}/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
 
-                    <button type='button' onclick = 'daleteEditRequirement(${index})'>remove</button>
+                    <button type='button' onclick = 'daleteEditRequirement(${index})' class=" btn btn-danger">Usuń</button>
             </li>
         `
     });
@@ -367,7 +375,7 @@ function showWelcome(){
         var svg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gray" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
         </svg>`;
-        body += `<li class="list-group-item border-0"> ${svg} ${welcomeItem} <button type='button' onclick = 'deleteWelcome(${welcome.indexOf(welcomeItem)})'>remove</button></li>`;
+        body += `<li class="list-group-item border-0"> ${svg} ${welcomeItem} <button type='button' onclick = 'deleteWelcome(${welcome.indexOf(welcomeItem)})' class=" btn btn-danger">Usuń</button></li>`;
     });
     document.getElementsByName('InputWelcome')[0].value = "";
     welcome.forEach(element => {
@@ -418,7 +426,7 @@ function showEditWelcome() {
                  
                         <button  type="button" class="btn btn-outline-secondary m-1" onclick="UpdateWelcomeText('inputDuties1_${index}',${index}),RepeatText('inputDuties1_${index}','divDuties_${index}'),CollapseUncollapseForm('containerInputDuties_${index}','containerContentDuties_${index}'),changeImage('changeposition_image_TBI_Duties_${index}','${ROOT_IMG}/checked.png','${ROOT_IMG}/edit.png')"><img id="changeposition_image_TBI_Duties_${index}" src="${ROOT_IMG}/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
 
-                    <button type='button' onclick = 'deleteEditWelcome(${index})'>remove</button>
+                    <button type='button' onclick = 'deleteEditWelcome(${index})' class=" btn btn-danger">Usuń</button>
             </li>
         `
     });
@@ -459,7 +467,7 @@ function showBenefits(){
                         <div class="d-flex justify-content-center align-items-center">
                             <p class="text-center">${benefit}</p>
                         </div>
-                        <button type='button' onclick = 'deleteBenefit(${benefits.indexOf(benefit)})'>remove</button>
+                        <button type='button' onclick = 'deleteBenefit(${benefits.indexOf(benefit)})' class=" btn btn-danger">Usuń</button>
                     </div>
                 </div> `;
     });
@@ -516,16 +524,14 @@ function showEditBenefit() {
                         <div id="containerInputBenefits1_${index}" class="MyCollapse">
                             <input type="text" name="inputBenefits1_${index}" value="${benefit}" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0"/>
                         </div>
-                        <button type="button" class="btn btn-outline-secondary m-1" onclick="UpdateBenefitText('inputBenefits1_${index}', ${index}); RepeatText('inputBenefits1_${index}', 'divBenefits1_${index}'); CollapseUncollapseForm('containerInputBenefits1_${index}', 'containerContentBenefits1_${index}'); changeImage('changeposition_image_TBI_Benefits1_${index}', '${ROOT_IMG}/checked.png', '${ROOT_IMG}/edit.png')">
-                            <img id="changeposition_image_TBI_Benefits1_${index}" src="${ROOT_IMG}/edit.png" class="image-thumbnail" style="height:50px; weight:50px;">
-                        </button>
+                        <button  type="button" class="btn btn-outline-secondary m-1" onclick="UpdateWelcomeText('inputBenefits1_${index}',${index}),RepeatText('inputBenefits1_${index}','divBenefits1_${index}'),CollapseUncollapseForm('containerInputBenefits1_${index}','containerContentBenefits1_${index}'),changeImage('changeposition_image_TBI_Benefits1_${index}','${ROOT_IMG}/checked.png','${ROOT_IMG}/edit.png')"><img id="changeposition_image_TBI_Benefits1_${index}" src="${ROOT_IMG}/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
+                      
                     </div>
-                    <button type='button' onclick='deleteEditBenefit(${index})'>remove</button>
+                    <button type='button' onclick='deleteEditBenefit(${index})' class="btn btn-danger" >Usuń</button>
                 </div>
             </div>
         `;
     });
-
     container.innerHTML = body;
 }
 
@@ -542,8 +548,8 @@ function addEditBenefit() {
     document.getElementsByName('InputBenefit')[0].value = "";
     showEditBenefit();
 }
-
 function deleteEditBenefit(index) {
+
     benefitArray.splice(index, 1);
     showEditBenefit();
 }
@@ -558,7 +564,7 @@ function showDescriptions(){
         
         body += ` <div class="col-12 mt-5 border rounded-3 shadow-sm p-4">
                     ${descriptionItem}
-                        <button type='button' onclick = 'deleteDescription(${descriptions.indexOf(descriptionItem)})'>remove</button>
+                        <button type='button' onclick = 'deleteDescription(${descriptions.indexOf(descriptionItem)})' class=" btn btn-danger">Usuń</button>
                 </div> `;
     });
     document.getElementsByName('InputDescriptions')[0].value = "";
@@ -607,7 +613,7 @@ function showEditDescripton() {
                 
                     <button  type="button" class="btn btn-outline-secondary m-1" onclick="UpdateDescriptionText('inputDescrip1_${index}',${index}),RepeatText('inputDescrip1_${index}','divDescrip_${index}'),CollapseUncollapseForm('containerInputDescrip_${index}','containerContentDescrip_${index}'),changeImage('changeposition_image_TBI_Descrip_${index}','${ROOT_IMG}/checked.png','${ROOT_IMG}/edit.png')"><img id="changeposition_image_TBI_Descrip_${index}" src="${ROOT_IMG}/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
 
-                <button type='button' onclick = 'deleteEditDescription(${index})'>remove</button>
+                <button type='button' onclick = 'deleteEditDescription(${index})' class=" btn btn-danger">Usuń</button>
         `
     });
 
@@ -650,7 +656,7 @@ function showSubCategories() {
     let body = "";
     subCategoriesFromJson.forEach((subcategory, index) => {
         if (masterId == subcategory['master_id']) {
-            body += `<li><input type='checkbox' id="checkbox_${index}" ${subcategory['checked'] === true ? 'checked' : ''} onchange='updateCheckbox(${index},${subcategory['master_id']})'> ${subcategory['name']} </li>`;
+            body += `<li style="list-style-type:none;"><input type='checkbox' class="form-check-input m-2" id="checkbox_${index}" ${subcategory['checked'] === true ? 'checked' : ''} onchange='updateCheckbox(${index},${subcategory['master_id']})'> ${subcategory['name']} </li>`;
         }
     });
     container.innerHTML = body;
@@ -710,7 +716,7 @@ function showSubCategories_search(masterid){
     let body = "";
     subCategoriesFromJson.forEach((subcategory, index) => {
         if (subcategory['master_id'] == masterid) {
-            body += `<input type='checkbox' id="checkbox_${index}" ${subcategory['checked'] === true ? 'checked' : ''} onchange='updateCheckbox(${index},${subcategory['master_id']})' >${subcategory['name']}<Br>`;
+            body += `<input type='checkbox' class="form-check-input m-2" id="checkbox_${index}" ${subcategory['checked'] === true ? 'checked' : ''} onchange='updateCheckbox(${index},${subcategory['master_id']})' >${subcategory['name']}<Br>`;
         }
     });
     container.innerHTML = body;

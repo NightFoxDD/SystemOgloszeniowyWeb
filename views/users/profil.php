@@ -32,33 +32,27 @@
                     <div class="row m-1">
                         <div class="col">
                             <label class="form-label">Imię</label>
-                            <input type="text" name="user_name" class="form-control">
+                            <input type="text" name="user_name" class="form-control" required min="1" max="20">
                         </div>
                         <div class="col">
                             <label class="form-label">Nazwisko</label>
-                            <input type="text" name="user_surname" class="form-control">
+                            <input type="text" name="user_surname" class="form-control" required min="1" max="20">
                         </div>
                     </div>
                     <div class="row m-1">
                         <div class="col">
                             <label class="form-label">Aktualne stanowisko</label>
-                            <input type="text" name="user_currnent_occupation"  class="form-control">
+                            <input type="text" name="user_currnent_occupation"  class="form-control" required min="1" max="20">
                         </div>
                     </div>
                     <div class="row m-1">
                         <div class="col">
                             <label for="validationCustom04" class="form-label">Państwo</label>
-                            <select class="form-select" id="validationCustom04" name="user_nationality" required>
-                                <option selected disabled value="">Choose...</option>
-                                <option>...</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                Please select a valid state.
-                            </div>
+                           <input type="text" name="user_nationality" class="form-control" required min="1" max="20"/>
                         </div>
                         <div class="col">
                             <label class="form-label">Miasto</label>
-                            <input type="text" name="user_city" class="form-control">
+                            <input type="text" name="user_city" class="form-control" required min="1" max="20">
                         </div>
                     </div>
                     <div class="row m-1">
@@ -91,17 +85,17 @@
                         <div class="row m-1">
                             <div class="col d-flex align-items-center">
                                 <label class=" col-2 form-label m-1">Email:</label>
-                                <input type="text" name="user_email" class="form-control m-1">
+                                <input type="email" name="user_email" class="form-control m-1" required minlength="1" maxlength="20">
                             </div>
                             <div class="col d-flex align-items-center">
                                 <label class="col-2 form-label m-1">Telefon:</label>
-                                <input type="text" name="user_phoneNumber" class="form-control m-1">
+                                <input type="number" name="user_phoneNumber" class="form-control m-1" required minlength="9" maxlength="9">
                             </div>
                         </div>
                         <div class="col d-flex align-items-center">
                             <label class="col-2 form-label m-1">Data urodzenia:</label>
                             <div class=" m-1 d-flex">
-                               <input name="user_birthdate" type="date">
+                               <input name="user_birthdate" type="date" required>
                             </div>
                         </div>
                         <div class="row m-1">
@@ -142,7 +136,7 @@
                                 <label class="form-label m-1">Lokalizacja:</label>
                             </div>
                             <div class="col-9">
-                                <input type="text" name="localization" class="form-control m-1" placeholder="Lokalizacja">
+                                <input type="text" name="localization" class="form-control m-1" placeholder="Lokalizacja" required min="1" max="30">
                             </div>
                         </div>
                         <div class="row m-1">
@@ -150,7 +144,7 @@
                                 <label class="form-label m-1">Nazwa firmy:</label>
                             </div>
                             <div class="col-9">
-                                <input type="text" name="company" class="form-control m-1" placeholder="Nazwa firmy">
+                                <input type="text" name="company" class="form-control m-1" placeholder="Nazwa firmy" required min="1" max="20">
                             </div>
                         </div>
                         <div class="row m-1">
@@ -160,11 +154,11 @@
                             <div class="col-9 d-flex justify-content-center">
                                 <label class=" col align-items-center justify-content-center d-flex">Od</label>
                                 <div class=" col m-1 justify-content-center d-flex">
-                                    <input type="date" name="period_start"/>
+                                    <input type="date" name="period_start" required/>
                                 </div>
                                 <label class="col align-items-center justify-content-center d-flex">do</label>
                                 <div class="col m-1 d-flex justify-content-center">
-                                    <input type="date" name="period_end"/>
+                                    <input type="date" name="period_end" required/>
                                 </div>
                             </div>
                         </div>
@@ -173,7 +167,7 @@
                                 <label class="form-label m-1">Obowiązki:</label>
                             </div>
                             <div class="col-9">
-                                <textarea class="form-control bg-transparent TextareaEdit" name="duties" placeholder="Napisz twoje obowiazki"></textarea>
+                                <textarea class="form-control bg-transparent TextareaEdit" name="duties" placeholder="Napisz twoje obowiazki" required></textarea>
                             </div>
                         </div>
                         <div class="row m-1">
@@ -211,7 +205,7 @@
                                 <label class="form-label m-1">Nazwa szkoły:</label>
                             </div>
                             <div class="col-9">
-                                <input type="text" name="shoolName" class="form-control m-1" placeholder="Nazwa szkoły">
+                                <input type="text" name="shoolName" class="form-control m-1" required min="1" max="20" placeholder="Nazwa szkoły">
                             </div>
                         </div>
                         <div class="row m-1">
@@ -219,7 +213,7 @@
                                 <label class="form-label m-1">Miasto:</label>
                             </div>
                             <div class="col-9">
-                                <input type="text" name="UEdu_City" class="form-control m-1" placeholder="Nazwa miasta">
+                                <input type="text" name="UEdu_City" class="form-control m-1" required min="1" max="20" placeholder="Nazwa miasta">
                             </div>
                         </div>
                         <div class="row m-1">
@@ -239,7 +233,7 @@
                                 <label class="form-label m-1">Specjalizacja</label>
                             </div>
                             <div class="col-9">
-                                <input type="text" name="specialization" class="form-control m-1" placeholder="Specjalizacja">
+                                <input type="text" name="specialization" required min="1" max="20" class="form-control m-1" placeholder="Specjalizacja">
                             </div>
                         </div>
                         <div class="row m-1">
@@ -249,11 +243,11 @@
                             <div class="col-9 d-flex justify-content-center">
                                 <label class=" col align-items-center justify-content-center d-flex">Od</label>
                                 <div class=" col m-1 justify-content-center d-flex">
-                                    <input type="date" name="UEdu_periodStart">
+                                    <input type="date" name="UEdu_periodStart" required>
                                 </div>
                                 <label class="col align-items-center justify-content-center d-flex">do</label>
                                 <div class="col m-1 d-flex justify-content-center">
-                                    <input type="date" name="UEdu_periodEnd">
+                                    <input type="date" name="UEdu_periodEnd" required>
                                 </div>
                             </div>
                         </div>

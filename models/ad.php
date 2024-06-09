@@ -304,17 +304,17 @@
         public function adsEditView($content){
             ob_start();
             ?>
-                <div class="container ">
+                <div class="container">
                     <div class="row">
-                        <div class="col">
-                            <?php echo $content['announcement_id'] ."/". $content['position_name'];?>   
+                        <div class="col d-flex">
+                            <h3 class="m-2"><?php echo $content['position_name'];?></h3>   
                             <form method = "POST" action = "<?php echo ROOT_URL?>ads/goEdit">
                                 <input type="hidden" name="id" value = "<?php echo $content['announcement_id']?>">
-                                <button type = "submit"> edit</button>
+                                <button type = "submit" class="btn btn-warning m-2"> edit</button>
                             </form>
                             <form method = "POST" action = "<?php echo ROOT_URL?>ads/delete">
                                 <input type="hidden" name="id" value = "<?php echo $content['announcement_id']?>">
-                                <button type = "submit"> delete</button> 
+                                <button type = "submit" class="btn btn-danger m-2"> delete</button> 
                             </form>
                         </div>
                     </div>
@@ -357,7 +357,7 @@
             
                     <button  type="button" class="btn btn-outline-secondary m-1" onclick="UpdateDescriptionText('inputDescrip1_<?php echo $count?>','<?php echo $count?>'),RepeatText('inputDescrip1_<?php echo $count?>','divDescrip_<?php echo $count?>'),CollapseUncollapseForm('containerInputDescrip_<?php echo $count?>','containerContentDescrip_<?php echo $count?>'),changeImage('changeposition_image_TBI_Descrip_<?php echo $count?>','<?php echo ROOT_IMG ?>/checked.png','<?php echo ROOT_IMG ?>/edit.png')"><img id="changeposition_image_TBI_Descrip_<?php echo $count?>" src="<?php echo ROOT_IMG ?>/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
 
-                    <button type='button' onclick = 'deleteEditDescription(<?php echo $count; ?>)'>remove</button>
+                    <button type='button' onclick = 'deleteEditDescription(<?php echo $count; ?>)' class="btn btn-danger">Usuń</button>
                 </div>
             <script>
                 if (typeof descriptionArray === 'undefined') {
@@ -420,7 +420,7 @@
                     
                             <button  type="button" class="btn btn-outline-secondary m-1" onclick="UpdateBenefitText('inputBenef1_<?php echo $count?>','<?php echo $count?>'),RepeatText('inputBenef1_<?php echo $count?>','divBenef_<?php echo $count?>'),CollapseUncollapseForm('containerInputBenef_<?php echo $count?>','containerContentBenef_<?php echo $count?>'),changeImage('changeposition_image_TBI_Benef_<?php echo $count?>','<?php echo ROOT_IMG ?>/checked.png','<?php echo ROOT_IMG ?>/edit.png')"><img id="changeposition_image_TBI_Benef_<?php echo $count?>" src="<?php echo ROOT_IMG ?>/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
 
-                            <button type='button' onclick = 'deleteEditBenefit(<?php echo $count; ?>)'>remove</button>
+                            <button type='button' onclick = 'deleteEditBenefit(<?php echo $count; ?>)' class="btn btn-danger">Usuń</button>
                         </div>
                     </div>
                 </div> 
@@ -524,7 +524,7 @@
                  
                         <button  type="button" class="btn btn-outline-secondary m-1" onclick="UpdateRequirementText('inputRequi1_<?php echo $count?>','<?php echo $count?>'),RepeatText('inputRequi1_<?php echo $count?>','divRequi_<?php echo $count?>'),CollapseUncollapseForm('containerInputRequi_<?php echo $count?>','containerContentRequi_<?php echo $count?>'),changeImage('changeposition_image_TBI_Requi_<?php echo $count?>','<?php echo ROOT_IMG ?>/checked.png','<?php echo ROOT_IMG ?>/edit.png')"><img id="changeposition_image_TBI_Requi_<?php echo $count?>" src="<?php echo ROOT_IMG ?>/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
 
-                    <button type='button' onclick = 'daleteEditRequirement(<?php echo $count; ?>)'>remove</button>
+                    <button type='button' onclick = 'daleteEditRequirement(<?php echo $count; ?>)'class="btn btn-danger">Usuń</button>
             </li>
 
             <script>
@@ -571,7 +571,7 @@
                  
                         <button  type="button" class="btn btn-outline-secondary m-1" onclick="UpdateWelcomeText('inputWelcome1_<?php echo $count?>','<?php echo $count?>'),RepeatText('inputWelcome1_<?php echo $count?>','divWelcome_<?php echo $count?>'),CollapseUncollapseForm('containerInputWelcome_<?php echo $count?>','containerContentWelcome_<?php echo $count?>'),changeImage('changeposition_image_TBI_Welcome_<?php echo $count?>','<?php echo ROOT_IMG ?>/checked.png','<?php echo ROOT_IMG ?>/edit.png')"><img id="changeposition_image_TBI_Welcome_<?php echo $count?>" src="<?php echo ROOT_IMG ?>/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
 
-                    <button type='button' onclick = 'deleteEditWelcome(<?php echo $count; ?>)'>remove</button>
+                    <button type='button' onclick = 'deleteEditWelcome(<?php echo $count; ?>)' class="btn btn-danger">Usuń</button>
             </li>
 
             <script>
@@ -636,7 +636,7 @@
                  
                         <button  type="button" class="btn btn-outline-secondary m-1" onclick="UpdateText('inputDuties1_<?php echo $count?>','<?php echo $count?>'),RepeatText('inputDuties1_<?php echo $count?>','divDuties_<?php echo $count?>'),CollapseUncollapseForm('containerInputDuties_<?php echo $count?>','containerContentDuties_<?php echo $count?>'),changeImage('changeposition_image_TBI_Duties_<?php echo $count?>','<?php echo ROOT_IMG ?>/checked.png','<?php echo ROOT_IMG ?>/edit.png')"><img id="changeposition_image_TBI_Duties_<?php echo $count?>" src="<?php echo ROOT_IMG ?>/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
 
-                    <button type='button' onclick = 'deleteEditDutie(<?php echo $count; ?>)'>remove</button>
+                    <button type='button' onclick = 'deleteEditDutie(<?php echo $count; ?>)' class="btn btn-danger">Usuń</button>
             </li>
 
             <script>

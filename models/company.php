@@ -6,7 +6,7 @@ class Company extends Model{
         $company = $this->single();
         ob_start();
         ?>
-            <div class="container mb-2 mt-2">
+            <div class="container mb-2 mt-2 ml-5 mr-5">
                 <div class="card shadow-sm p-2">
                     <form method="POST" class="m-2" action = "<?php echo ROOT_URL; ?>ads/index">
                         <input type="hidden" value="<?php echo $item['announcement_id']?>" name='id'>
@@ -75,9 +75,9 @@ class Company extends Model{
         ob_end_clean();
         return $content;
     }
-    public function getAdvertisements(){
+    public function getAdvertisements($id){
         $this->query("SELECT * FROM `announcement` WHERE company_id = :company_id limit 10");
-        $this->bind(":company_id",$_SESSION['user_data']['company_id']);
+        $this->bind(":company_id",$id);
         $result = $this->resultSet();
         $data = [];
         foreach($result as $row){
@@ -88,7 +88,6 @@ class Company extends Model{
                 "expire_date" => $row['expire_date'],
                 "company_id" => $row['company_id']
                 ];
-                
                 array_push($data, $this->adsView($item));
             }
         }

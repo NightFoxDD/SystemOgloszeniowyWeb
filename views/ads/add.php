@@ -14,7 +14,7 @@
                     <div class="row">
                         <div class="col justify-content-center align-items-center" >
                             <input type="color" id="TMP_Color" value="#0099E6" onchange="ChangeTmpImageColor()">
-                            <select id="Subject_BasicInfromations" onchange="ChangeTmpImage()" onload="ChangeTmpImage()">
+                            <select id="Subject_BasicInfromations" required onchange="ChangeTmpImage()" onload="ChangeTmpImage()">
                                 <option value="0">lokalizacja</option>
                                 <option value="2">Typ umowy</option>
                                 <option value="4">Stanowisko</option>
@@ -34,7 +34,7 @@
                                             <h2 class="fs-4" name="TBIcontent">Default title </h2>
                                         </div>
                                         <div id="containerInput" class="MyCollapse">
-                                            <h2><input type="text" name="TBIinput" value="Default title" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0"/><h2>
+                                            <h2><input type="text" required min="1" max="20" name="TBIinput" value="Default title" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0"/><h2>
                                         </div>
                                     </div>
                                     <div class="col">
@@ -45,7 +45,7 @@
                                             <p class="fs-6 text-gray" name="TBIdescContent">Default description</p>
                                         </div>
                                         <div id="containerDescInput" class="MyCollapse">
-                                            <input type="text" name="TBIdescInput" value="Default description" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0">
+                                            <input type="text" required min="1" max="20" name="TBIdescInput" value="Default description" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0">
                                         </div>
                                     </div>
                                     <div class="col">
@@ -53,7 +53,7 @@
                                     </div>
                                     
                                 </div>
-                            <button type="button" onclick="addBasicInformations()" class="button" id="AddBasicInformaiton">Add</button>
+                            <button type="button" onclick="addBasicInformations()" class="button btn btn-success" id="AddBasicInformaiton" >Dodaj</button>
                         </div>
                     </div>
                     <div class="row" id="BasicInformations">
@@ -64,7 +64,8 @@
             </ul>
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-5 mb-5">
+            <div class="col p-3 card shadow-sm">
             <input type="hidden" name="SavedSubCategories" id="savedSubCategories">
             <input type="hidden" name="SavedCategories" id="savedCategories">
                 <select id="selectCategory" onchange="showSubCategories()">
@@ -80,16 +81,16 @@
                 <ul id="checkedCategoryContainer">
 
                 </ul>
-                
+            </div>
         </div>
         <div class="row">
             <input type="hidden" id="inputMapPoint2" name="inputMapPoint2" value=""/>
             <div id = "addMapPoint">
-                <input type="text" name = "inputMapPoint">
-                <button type="button" onclick="addMapPoint()">ADD</button>
+                <input type="text" required min="1" max="20" name = "inputMapPoint">
+                <button type="button" onclick="addMapPoint()" class="btn btn-success">Dodaj</button>
             </div>
             <div id = "deleteMapPoint" style="visibility:hidden;">
-                <button type="button" onclick="removeMapPoint()">remove</button>
+                <button type="button" onclick="removeMapPoint()" class="btn btn-danger">Usuń</button>
             </div>
             <div class="col-12 mt-5" id = "Container_AddMapPoint">
             
@@ -101,9 +102,9 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dodgerblue" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
                 </svg>
-                <textarea name = "inputDutie"></textarea>
+                <textarea name = "inputDutie" required></textarea>
             </li>
-            <button type="button" onclick="addDutes()">Dodaj obowiazek</button>
+            <button type="button" onclick="addDutes()" class="btn btn-success">Dodaj obowiazek</button>
             <input type="hidden" name="InputDuties">
             <h1 class="fs-3">Twój zakres obowiązków</h1>
             <ul class="list-group list-group-flush" id="containerDuties">
@@ -117,8 +118,8 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dodgerblue" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
                 </svg>
-                <textarea name = "Textarea_requirements"></textarea>
-                <button type="button" onclick="addRequirements()">dodaj</button>
+                <textarea maxlength="1000" required name = "Textarea_requirements"></textarea>
+                <button type="button" onclick="addRequirements()" class="btn btn-success">dodaj</button>
                 <input type="hidden" name="InputRequirements">
             </li>
             <h1 class="fs-3">Nasze wymagania</h1>
@@ -129,8 +130,8 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gray" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
                 </svg>
-                <textarea name = "Textarea_welcome"></textarea>
-                <button type="button" onclick="addWelcome()">dodaj</button>
+                <textarea maxlength="1000" required name = "Textarea_welcome"></textarea>
+                <button type="button" onclick="addWelcome()" class="btn btn-success">dodaj</button>
                 <input type="hidden" name="InputWelcome">
             </li>
             <h1 class="fs-3">Mile widziane</h1>
@@ -151,7 +152,7 @@
                     <div class="d-flex justify-content-center align-items-center">
                         <p class="text-center"><input type="text" name="InputBenefit"></p>
                     </div>
-                    <button type="button" onclick="addBenefit()">dodaj benefit</button>
+                    <button type="button" onclick="addBenefit()" class="btn btn-success">dodaj benefit</button>
                     <input type="hidden" name = "InputBenefits"> 
                 </div>
             </div>
@@ -165,14 +166,14 @@
         </div>
         <div class="row">
             <div class="col-12 mt-5 border rounded-3 shadow-sm p-4">
-            <textarea name="TextAreaDescription"></textarea>
-            <button type="button" onclick="addDescription()">Add</button>
+            <textarea required maxlength="1000" name="TextAreaDescription"></textarea>
+            <button type="button" onclick="addDescription()" class="btn btn-success">Add</button>
             <input type="hidden" name="InputDescriptions">
             </div>
             <div id = "ContainerDescription"></div>
         </div>
         <div class="row">
-            <button type="submit" class="col-12 m-3 bg-transparent border-1 rounded-3" name='add'>Dodaj </button>
+            <button type="submit" class="col-12 m-3 border-1 rounded-3 btn btn-success" name='add' >Dodaj </button>
         </div>
     </form>
         <div class="row">

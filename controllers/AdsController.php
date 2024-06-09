@@ -2,6 +2,9 @@
     class AdsController extends Controller{
         protected function Index(){
             $adsModel = new Ad();
+            $user_id = null;
+            $id = null;
+            if (isset($_SESSION['user_data'])){$user_id = $_SESSION['user_data']['id'];$id = $_POST['id'];}
             $model = [
                 "id" => $_POST['id'],
                 "company_id" => $adsModel->getCompanyID($_POST['id']),
@@ -14,7 +17,7 @@
                 "Welcome" => $adsModel->index_WelcomesArray($_POST['id'],false),
                 "Benefits" => $adsModel->index_BenefitsArray($_POST['id'],false),
                 "Description" => $adsModel->index_DescriptionsArray($_POST['id'],false),
-                "application" => $adsModel->haveApplication($_SESSION['user_data']['id'],$_POST['id'])
+                "application" => $adsModel->haveApplication($user_id,$id)
             ];
             
             $this->returnView('index', $model);

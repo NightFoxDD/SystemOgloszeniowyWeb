@@ -9,13 +9,14 @@
         protected function profil(){
             $companyModel = new company();
             $id = 1;
-            if(empty($_SESSION['user_data']['company_id'])){
-                $id = $_SESSION['user_data']['company_id'];
-            }else{
+            if(isset($_POST['id'])){
                 $id = $_POST['id'];
             }
+            if(isset($_SESSION['user_data']['company_id'])){
+                $id = $_SESSION['user_data']['company_id'];
+            }
             $model = [
-                "advertisements" => $companyModel->getAdvertisements(),
+                "advertisements" => $companyModel->getAdvertisements($id),
                 "informations" => $companyModel->getInformations($id)
             ];
             $this->returnView('profil', $model);
@@ -29,7 +30,7 @@
                 Messages::setMsg("Nie zapisano danych", "error");
             }
             $model = [
-                "advertisements" => $companyModel->getAdvertisements(),
+                "advertisements" => $companyModel->getAdvertisements($_SESSION['user_data']['company_id']),
                 "informations" => $companyModel->getInformations($_SESSION['user_data']['company_id'])
             ];
             $this->returnView('profil', $model);

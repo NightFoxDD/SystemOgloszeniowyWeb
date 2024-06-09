@@ -6,11 +6,11 @@
     <form method="post" action="<?php echo ROOT_URL ?>users/createAccount">
       <div class="form-group">
         <label>login</label>
-        <input type="text" name="login" class="form-control" />
+        <input type="text" name="login" required min="1" max="20" class="form-control" />
       </div>
       <div class="form-group">
         <label>Hasło</label>
-        <input type="password" name="password" class="form-control" />
+        <input type="password" name="password" required min="1" max="20" class="form-control" />
       </div>
       <div class="form-group mt-3 mb-3">
         <label>Admin</label>

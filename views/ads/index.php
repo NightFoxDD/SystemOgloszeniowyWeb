@@ -97,6 +97,7 @@
     </div>
   </div>
   <?php
+  if (!isset($_SESSION['user_data'])){return;}
     if(!$model['application'] && $_SESSION['user_data']['type'] == 1){
       ?>
         <div class="row">

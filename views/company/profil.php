@@ -19,7 +19,7 @@
                     <div class="row">
                         <div class="col-10">
                             <h1 id="Add_PositionName" class="MyCollapse">
-                                <input type="TEXT" name='input_PositionName' class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0" value="<?php  echo $model['informations']['name'] ?>"> 
+                                <input type="TEXT" required minlength="1" maxlength="20" name='input_PositionName' class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0" value="<?php  echo $model['informations']['name'] ?>"> 
                             </h1>
                             <div class="MyUncollapse" id = "PositionName_View"> 
                                 <h1 name = "PositionName">
@@ -30,7 +30,7 @@
                             </div>
                         </div>
                         <?php
-                            if($_SESSION['is_logged_in'] && $_SESSION['user_data']['type'] == 3 && $_POST['id'] == $_SESSION['user_data']['company_id']){
+                            if(isset($_SESSION['is_logged_in']) && $_SESSION['is_logged_in'] && $_SESSION['user_data']['type'] == 3 && $_POST['id'] == $_SESSION['user_data']['company_id']){
                                 ?>
                                     <input type="hidden" name="id" value="<?php echo $_SESSION['user_data']['company_id'] ?>">
                                     <div class="col align-items-top justify-content-end">
@@ -54,7 +54,7 @@
                         </div>
                         <div class="col-8">
                             <h1 id="Add_adress" class="MyCollapse">
-                                <input type="TEXT" name='input_adress' class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0" value="<?php  echo $model['informations']['adress'] ?>"> 
+                                <input type="TEXT" required minlength="1" maxlength="50" name='input_adress' class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0" value="<?php  echo $model['informations']['adress'] ?>"> 
                             </h1>
                             <div class="MyUncollapse" id = "adress_View"> 
                                 <h1 name = "adress">
@@ -64,7 +64,7 @@
                                 </h1>
                             </div>
                         </div>
-                        <?php if($_SESSION['is_logged_in'] && $_SESSION['user_data']['type'] == 3 && $_POST['id'] == $_SESSION['user_data']['company_id']){?>
+                        <?php if(isset($_SESSION['is_logged_in']) && $_SESSION['is_logged_in'] && $_SESSION['user_data']['type'] == 3 && $_POST['id'] == $_SESSION['user_data']['company_id']){?>
                         <div class="col-2 d-flex align-items-center justify-content-end">
                             <button id="btn_changeadress" type="button" class="btn btn-outline-secondary m-1" onclick="RepeatText('input_adress','adress'),CollapseUncollapseForm('adress_View','Add_adress'),changeImage('adress_image','<?php echo ROOT_IMG ?>/checked.png','<?php echo ROOT_IMG ?>/edit.png')"><img id="adress_image" src="<?php echo ROOT_IMG ?>/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
                         </div>
@@ -73,7 +73,7 @@
                 </div>
             </div>
         </div>
-        <?php if($_SESSION['is_logged_in'] && $_SESSION['user_data']['type'] == 3 && $_POST['id'] == $_SESSION['user_data']['company_id']){ ?>
+        <?php if(isset($_SESSION['is_logged_in']) && $_SESSION['is_logged_in'] && $_SESSION['user_data']['type'] == 3 && $_POST['id'] == $_SESSION['user_data']['company_id']){ ?>
         <div class="row">
             <label class="fs-2 align-items-center">Mapa:</label>
         </div>
@@ -83,10 +83,10 @@
                 <div class="col-12 p-2">
                     
                     <div >
-                        <input type="hidden" id="inputMapPoint2" name="inputMapPoint2" value="<?php  echo $model['informations']['localization_link'] ?>"/>
-                        <input type="text" name = "inputMapPoint">
-                        <button type="button" onclick="addMapPoint()">ADD</button>
-                        <button type="button" onclick="removeMapPoint()">remove</button>
+                        <input type="hidden" id="inputMapPoint2" name="inputMapPoint2" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0" value="<?php  echo $model['informations']['localization_link'] ?>"/>
+                        <input type="text" name = "inputMapPoint" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0">
+                        <button type="button" onclick="addMapPoint()" class="m-1 p-2  btn btn-success border-top border-left border-right bt-0 rounded-2">ADD</button>
+                        <button type="button" onclick="removeMapPoint()" class="m-1 p-2  btn btn-danger border-top border-left border-right bt-0 rounded-2">remove</button>
                     </div>
                     <div id = "mapno_View" class="MyUncollapse" > 
                         
@@ -105,7 +105,7 @@
                 
             </div>
         </div>
-        <?php if($_SESSION['is_logged_in'] && $_SESSION['user_data']['type'] == 3 && $_POST['id'] == $_SESSION['user_data']['company_id']){?>
+        <?php if(isset($_SESSION['is_logged_in']) && $_SESSION['is_logged_in'] && $_SESSION['user_data']['type'] == 3 && $_POST['id'] == $_SESSION['user_data']['company_id']){?>
         <div class="row">
             <label class="fs-2 align-items-center">Opis:</label>
         </div>
@@ -118,15 +118,24 @@
                     </h2>
                 </div>
                 <div id="containerInputDescrip" class="MyCollapse col-11 ">
-                    <textarea name="inputDescrip1" class="border-bottom col-11 border-1 border-black border-top-0 border-start-0 border-end-0"><?php echo $model['informations']['description']?></textarea>
+                    <textarea required name="inputDescrip1" class="border-bottom col-11 border-1 border-black border-top-0 border-start-0 border-end-0"><?php echo $model['informations']['description']?></textarea>
                 </div>
-                <?php if($_SESSION['is_logged_in'] && $_SESSION['user_data']['type'] == 3 && $_POST['id'] == $_SESSION['user_data']['company_id']){?>
+                <?php if(isset($_SESSION['is_logged_in']) && $_SESSION['is_logged_in'] && $_SESSION['user_data']['type'] == 3 && $_POST['id'] == $_SESSION['user_data']['company_id']){?>
                 <button  type="button" class="btn btn-outline-secondary m-1" onclick="RepeatText('inputDescrip1','divDescrip'),CollapseUncollapseForm('containerInputDescrip','containerContentDescrip'),changeImage('changeposition_image_TBI_Descrip','<?php echo ROOT_IMG ?>/checked.png','<?php echo ROOT_IMG ?>/edit.png')"><img id="changeposition_image_TBI_Descrip" src="<?php echo ROOT_IMG ?>/edit.png" class="image-thumbnail" style="height:50px; weight:50px;"></button>
                 <?php }?>
             </div>
         </div>
-        <?php if($_SESSION['is_logged_in'] && $_SESSION['user_data']['type'] == 3 && $_POST['id'] == $_SESSION['user_data']['company_id']){?>
-        <button type="submit" class="bg-transparent col-12 border rounded-3 p-3">zapisz</button>
+        <?php if(isset($_SESSION['is_logged_in']) && $_SESSION['is_logged_in'] && $_SESSION['user_data']['type'] == 3 && $_POST['id'] == $_SESSION['user_data']['company_id']){?>
+        <button type="submit" class="btn btn-success col-12 border rounded-3 p-3 ">Zapisz</button>
         <?php }?>
+       
     </div>
 </form>
+<div class="container m-auto">
+<?php 
+
+   foreach($model['advertisements'] as $content){
+        echo $content;
+    }
+?>
+</div>
