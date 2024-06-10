@@ -207,34 +207,79 @@
     </footer>
     <header class="container-fluid sticky-bottom d-lg-none bg-light">
         <div class="row">
-            <div class="col-4">
-                <a class="d-block w-100 h-100 text-decoration-none text-dark text-center MenuLink" href="#">
-                    Szuka
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                    </svg>
-                </a>
+            <div class="col-3">
+                
+                <?php   
+                    if (isset($_SESSION['is_logged_in'])) 
+                    {
+                        if($_SESSION['user_data']['type'] == 3)
+                        {
+                            ?>
+                           
+                                <a class="nav-link d-flex justify-content-center" aria-current="page" href="<?php echo ROOT_URL; ?>company/Index">Panel Firmy</a>
+                            
+                            <?php
+                        }else if ($_SESSION['user_data']['type'] == 2){
+                            ?>
+                           
+                                <a class="nav-link d-flex justify-content-center" aria-current="page" href="<?php echo ROOT_URL; ?>admin/Index">Admin Panel</a>
+                           
+                            <?php
+                        }
+                    }else{
+                        ?>
+                <div class="justify-content-center">
+                    <a class="nav-link" href="<?php echo ROOT_URL; ?>users/register">Zarejestruj sie</a>
+                </div>
+                        <?php
+                    }
+                ?>
             </div>
-            <div class="col-4">
+            <div class="col-3">
                 <a class="d-block w-100 h-100 text-decoration-none text-dark text-center MenuLink" href="<?php echo ROOT_URL;?>">Strona główna</a>
             </div>
-            <div class="col-4">
-                <?php if (!isset($_SESSION['is_logged_in'])) : ?>
-                    <a class="d-block w-100 h-100 text-decoration-none text-dark text-center MenuLink" href="<?php echo ROOT_URL ?>users/login">
-                        <div class="d-flex justify-content-center">
-                            <h1 class="fs-5 align-self-center me-2">Zaloguj się</h1>
-                            </span>
-                        </div>
-                    </a>
-                <?php else : ?>
-                    <a class="d-block w-100 h-100 text-decoration-none text-dark text-center MenuLink" href="<?php echo ROOT_URL ?>users/profil">
-                        <div class="d-flex justify-content-center">
-                            <h1 class="fs-5 align-self-center me-2"><?php echo $_SESSION["user_data"]["login"];?></h1>
-                            </span>
-                        </div>
-                    </a>
-                <?php endif ?>
+            <div class="col-3"> 
+            <?php
+            if (!isset($_SESSION['is_logged_in'])) {
+            ?>
+                <div class="justify-content-center">
+                    <a class="nav-link" href="<?php echo ROOT_URL; ?>users/login">Zaloguj sie</a>
+                </div>
+            <?php }else if($_SESSION['user_data']['type'] == 1) {
+                ?>
+                <div class="justify-content-center">
+                    <a class="nav-link d-flex" aria-current="page" href="<?php echo ROOT_URL; ?>users/Profil">
+                        <img src="<?php echo ROOT_IMG; ?>Swiftlly_transparent_Logo.png" class="rounded d-block" width="50" alt="...">
+                        <?php  echo $_SESSION["user_data"]["login"]; ?></a>
             </div>
+            <?php }else if ($_SESSION['user_data']['type'] == 2){?>
+                <div class="justify-content-center">
+                    <a class="nav-link d-flex" aria-current="page" href="<?php echo ROOT_URL; ?>">
+                        <img src="<?php echo ROOT_IMG; ?>Swiftlly_transparent_Logo.png" class="rounded d-block" width="50" alt="...">
+                        <?php  echo $_SESSION["user_data"]["login"]; ?></a>
+                </div>
+                <?php }else if($_SESSION['user_data']['type'] == 3){?>
+                    <li class="nav-item">
+                        <form  method="POST" action="<?php echo ROOT_URL; ?>company/profil">
+                            <input type="hidden" name="id" value="<?php  echo $_SESSION["user_data"]["company_id"]; ?>">
+                            <button class="bg-transparent border-0">
+                                <img src="<?php echo ROOT_IMG; ?>Swiftlly_transparent_Logo.png" class="rounded d-block" width="50" alt="..."> <?php  echo $_SESSION["user_data"]["login"]; ?>
+                            </button>
+                        </form>
+                    <li class="nav-item">
+
+                    </li>
+                <?php }?>
+            </div>
+            <?php 
+            if(isset($_SESSION['is_logged_in'])){
+            ?>
+            <div class="col-3"> 
+                <a class="nav-link" href="<?php echo ROOT_URL; ?>users/logout">Wyloguj sie</a>
+            </div>
+                    <?php
+                    }
+                    ?>
         </div>
     </header>
 </body>
