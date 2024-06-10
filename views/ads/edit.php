@@ -31,7 +31,7 @@
             <div class="col p-3 card shadow-sm">
                 <input type="hidden" name="SavedSubCategories" id="savedSubCategories">
                 <input type="hidden" name="SavedCategories" id="savedCategories">
-                <select id="selectCategory" required onchange="showSubCategories()">
+                <select id="selectCategory" onchange="showSubCategories()">
                     <?php 
                         foreach($model['Categories'] as $category){
                             echo "<option value='". $category['id'] ."'>". $category['name'] ."</option>";
@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class="row">
-            <input type="hidden" required id="inputMapPoint2" name="inputMapPoint2" value="<?php echo $model['MapSrc']?>">
+            <input type="hidden" id="inputMapPoint2" name="inputMapPoint2" value="<?php echo $model['MapSrc']?>">
             <div id = "addMapPoint"  style="visibility:hidden;">
                 <input type="text" name = "inputMapPoint" value = "">
                 <button type="button" onclick="addMapPoint()" class="btn btn-success">Dodaj</button>
@@ -67,7 +67,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dodgerblue" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
                 </svg>
-                <textarea required maxlength="1000" name = "inputDutie"></textarea>
+                <textarea  maxlength="1000" name = "inputDutie"></textarea>
             </li>
             <button type="button" onclick="addEditDutes()" class="btn btn-success">Dodaj obowiazek</button>
             <input type="hidden" name="InputDuties">
@@ -93,7 +93,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dodgerblue" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
                 </svg>
-                <textarea required maxlength="1000" name = "Textarea_requirements"></textarea>
+                <textarea  maxlength="1000" name = "Textarea_requirements"></textarea>
                 <button type="button" onclick="addEditRequirements()" class="btn btn-success">dodaj</button>
                 <input type="hidden" name="InputRequirements">
             </li>
@@ -114,7 +114,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gray" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
                 </svg>
-                <textarea required maxlength="1000" name = "Textarea_welcome"></textarea>
+                <textarea  maxlength="1000" name = "Textarea_welcome"></textarea>
                 <button type="button" onclick="addEditWelcome()" class="btn btn-success">dodaj</button>
                 <input type="hidden" name="InputWelcome">
             </li>
@@ -166,7 +166,7 @@
         </div>
         <div class="row">
             <div class="col-12 mt-5 border rounded-3 shadow-sm p-4">
-            <textarea required maxlength="1000" name="TextAreaDescription"></textarea>
+            <textarea  maxlength="1000" name="TextAreaDescription"></textarea>
             <button type="button" onclick="addEditDescriptions()" class="btn btn-success">Add</button>
             <input type="hidden" name="InputDescriptions">
             </div>

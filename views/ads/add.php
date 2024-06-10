@@ -14,7 +14,7 @@
                     <div class="row">
                         <div class="col justify-content-center align-items-center" >
                             <input type="color" id="TMP_Color" value="#0099E6" onchange="ChangeTmpImageColor()">
-                            <select id="Subject_BasicInfromations" required onchange="ChangeTmpImage()" onload="ChangeTmpImage()">
+                            <select id="Subject_BasicInfromations" onchange="ChangeTmpImage()" onload="ChangeTmpImage()">
                                 <option value="0">lokalizacja</option>
                                 <option value="2">Typ umowy</option>
                                 <option value="4">Stanowisko</option>
@@ -34,7 +34,7 @@
                                             <h2 class="fs-4" name="TBIcontent">Default title </h2>
                                         </div>
                                         <div id="containerInput" class="MyCollapse">
-                                            <h2><input type="text" required min="1" max="20" name="TBIinput" value="Default title" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0"/><h2>
+                                            <h2><input type="text"  min="1" max="20" name="TBIinput" value="Default title" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0"/><h2>
                                         </div>
                                     </div>
                                     <div class="col">
@@ -45,7 +45,7 @@
                                             <p class="fs-6 text-gray" name="TBIdescContent">Default description</p>
                                         </div>
                                         <div id="containerDescInput" class="MyCollapse">
-                                            <input type="text" required min="1" max="20" name="TBIdescInput" value="Default description" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0">
+                                            <input type="text"  min="1" max="20" name="TBIdescInput" value="Default description" class="border-bottom border-1 border-black border-top-0 border-start-0 border-end-0">
                                         </div>
                                     </div>
                                     <div class="col">
@@ -86,7 +86,7 @@
         <div class="row">
             <input type="hidden" id="inputMapPoint2" name="inputMapPoint2" value=""/>
             <div id = "addMapPoint">
-                <input type="text" required min="1" max="20" name = "inputMapPoint">
+                <input type="text" min="1" max="20" name = "inputMapPoint">
                 <button type="button" onclick="addMapPoint()" class="btn btn-success">Dodaj</button>
             </div>
             <div id = "deleteMapPoint" style="visibility:hidden;">
@@ -102,7 +102,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dodgerblue" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
                 </svg>
-                <textarea name = "inputDutie" required></textarea>
+                <textarea name = "inputDutie" ></textarea>
             </li>
             <button type="button" onclick="addDutes()" class="btn btn-success">Dodaj obowiazek</button>
             <input type="hidden" name="InputDuties">
@@ -118,7 +118,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dodgerblue" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
                 </svg>
-                <textarea maxlength="1000" required name = "Textarea_requirements"></textarea>
+                <textarea maxlength="1000"  name = "Textarea_requirements"></textarea>
                 <button type="button" onclick="addRequirements()" class="btn btn-success">dodaj</button>
                 <input type="hidden" name="InputRequirements">
             </li>
@@ -130,7 +130,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gray" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
                 </svg>
-                <textarea maxlength="1000" required name = "Textarea_welcome"></textarea>
+                <textarea maxlength="1000"  name = "Textarea_welcome"></textarea>
                 <button type="button" onclick="addWelcome()" class="btn btn-success">dodaj</button>
                 <input type="hidden" name="InputWelcome">
             </li>
@@ -166,7 +166,7 @@
         </div>
         <div class="row">
             <div class="col-12 mt-5 border rounded-3 shadow-sm p-4">
-            <textarea required maxlength="1000" name="TextAreaDescription"></textarea>
+            <textarea  maxlength="1000" name="TextAreaDescription"></textarea>
             <button type="button" onclick="addDescription()" class="btn btn-success">Add</button>
             <input type="hidden" name="InputDescriptions">
             </div>
